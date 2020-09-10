@@ -1,7 +1,7 @@
-import { useCallback, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useCallback, useEffect, useRef } from 'react'
+import { useDispatch } from 'react-redux'
 import get from 'dlv'
-import store from './store'
+import storage from './store'
 
 import {
   SET_REDUX_STATE,
@@ -12,6 +12,7 @@ import {
 } from './constants'
 
 export const useReduxState = (name, initState) => {
+  const store = useRef(storage.store).current
   const dispatch = useDispatch()
   const action = useCallback(
     (payload) => ({ type: SET_REDUX_STATE, payload, name }),
@@ -58,7 +59,6 @@ export const useReduxState = (name, initState) => {
 
   const getState = useCallback(() => {
     const state = store?.getState()?.[STATE_NAME]
-    console.log(store)
     return state && state[name]
   }, [name])
 

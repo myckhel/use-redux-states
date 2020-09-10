@@ -8,27 +8,9 @@ import {
   STATE_NAME
 } from './constants'
 
-export default (baseReducer) => {
-  return (state, action) => {
-    const { [STATE_NAME]: used_state, ...rest } = state || {}
-    console.log({ used_state, rest, state, action })
-    return {
-      ...baseReducer(rest, action),
-      [STATE_NAME]: reducer(used_state, action)
-    }
-    // return reducer(state, action)
-    // return {
-    //   ...combineReducers({ [STATE_NAME]: reducer })(used_state, action),
-    //   ...baseReducer(rest, action)
-    // }
-  }
-}
-
 const INIT_STATE = {}
 
 const merge = (obj, obj2) => Object.assign({}, obj, obj2)
-
-const reducers = combineReducers({ [STATE_NAME]: reducer })
 
 const reducer = (state = INIT_STATE, { type, payload, name }) => {
   switch (type) {
@@ -89,4 +71,8 @@ const reducer = (state = INIT_STATE, { type, payload, name }) => {
     default:
       return state
   }
+}
+
+export default (baseReducer) => {
+  return combineReducers({ ...baseReducer, [STATE_NAME]: reducer })
 }
