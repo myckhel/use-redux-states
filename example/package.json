@@ -1,5 +1,5 @@
 {
-  "name": "use-redux-state-example",
+  "name": "use-redux-state-hook-example",
   "homepage": ".",
   "version": "0.0.0",
   "private": true,
@@ -13,7 +13,7 @@
     "react": "link:../node_modules/react",
     "react-dom": "link:../node_modules/react-dom",
     "react-scripts": "link:../node_modules/react-scripts",
-    "use-redux-state": "link:.."
+    "use-redux-state-hook": "link:.."
   },
   "devDependencies": {
     "@babel/plugin-syntax-object-rest-spread": "^7.8.3"

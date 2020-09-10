@@ -3,8 +3,8 @@ import {useSelector} from "react-redux";
 // import {useReduxState} from "./redux/hooks";
 import _ from 'lodash'
 
-import { ExampleComponent, setStore, useReduxState } from 'use-redux-state'
-import 'use-redux-state/dist/index.css'
+import { ExampleComponent, setStore, useReduxState } from 'use-redux-state-hook'
+import 'use-redux-state-hook/dist/index.css'
 
 const App = () => {
   const [mounted, setMount] = useState(true);

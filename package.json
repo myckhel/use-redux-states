@@ -1,5 +1,5 @@
 {
-  "name": "use-redux-state",
+  "name": "use-redux-state-hook",
   "version": "1.0.0",
   "description": "Create runtime redux state",
   "author": "myckhel",
