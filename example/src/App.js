@@ -23,7 +23,27 @@ const App = () => {
         <h2>State Cleanup</h2>
         {mounted && <Cleanable />}
         <Button onPress={() => setMount((mounted) => !mounted)} title="Toggle Mount" />
+        <h2>Usage</h2>
+        <Usage />
       </div>
+    </div>
+  )
+}
+
+const Usage = () => {
+  const {selector, setState} = useReduxState('component_state', {
+    /* initial states */
+    count: 1,
+    locale: 'en_US'
+  });
+
+  const {locale, count} = useSelector(selector, _.isEqual);
+
+  return (
+    <div>
+      <h6>Current Count: {count}</h6>
+      <input onChange={({target:{value: locale}}) => setState((prevState) => ({...prevState, locale}))} value={locale} />
+      <button onClick={() => setState((prevState) => ({...prevState, count: count + 1}))}>Increment Count</button>
     </div>
   )
 }

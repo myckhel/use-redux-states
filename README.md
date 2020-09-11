@@ -4,6 +4,11 @@
 
 [![NPM](https://img.shields.io/npm/v/use-redux-state-hook.svg)](https://www.npmjs.com/package/use-redux-state-hook) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+## Overview
+`use-redux-state-hook` allows you to create runtime redux states for your components without explicitly creating actions and reducers.
+
+It returns object which includes a setState function that uses same concept as react's class component `setState` function which accepts `callback(previous_state)` or new state value.
+
 ## Install
 
 ```bash
@@ -15,15 +20,35 @@ npm install --save use-redux-state-hook
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'use-redux-state-hook'
-import 'use-redux-state-hook/dist/index.css'
+import {useReduxState} from 'use-redux-state-hook'
 
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
+const Usage = () => {
+  const {selector, setState} = useReduxState('component_state', {
+    /* initial states */
+    count: 1,
+    locale: 'en_US'
+  });
+
+  const {locale, count} = useSelector(selector, _.isEqual);
+
+  return (
+    <div>
+      <h6>Current Count: {count}</h6>
+      <input onChange={({target:{value: locale}}) => setState((prevState) => ({...prevState, locale}))} value={locale} />
+      <button onClick={() => setState((prevState) => ({...prevState, count: count + 1}))}>Increment Count</button>
+    </div>
+  )
 }
 ```
+
+## API
+
+| API | Arguments | Returns |
+-- | ---------- | ------- |
+| useReduxState | `Unique State Name`, `Initial State` | Object `{selector, setState, getState}`
+| setState | `Newstate Value` or `Callback of previou state argument` | New State
+
+To Be Continued...
 
 ## License
 
