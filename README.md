@@ -15,6 +15,19 @@ It returns object which includes a setState function that uses same concept as r
 npm install --save use-redux-state-hook
 ```
 
+## Setup
+```js
+import yourReducer1 from './yourReducer1';
+import yourReducer2 from './yourReducer2';
+import {createStore} from 'redux';
+import { setStore, useStateCombineReducers } from 'use-redux-state-hook'
+
+const appReducer = useStateCombineReducers({yourReducer1, yourReducer2});
+
+const store = createStore(appReducer);
+setStore(store);
+```
+
 ## Usage
 
 ```jsx
