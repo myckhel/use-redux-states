@@ -1,6 +1,6 @@
 {
   "name": "use-redux-state-hook",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Create runtime redux state",
   "author": "myckhel",
   "license": "MIT",
@@ -10,6 +10,9 @@
   "source": "src/index.js",
   "engines": {
     "node": ">=10"
+  },
+  "publishConfig":  {
+    "registry": "https://npm.pkg.github.com/"
   },
   "scripts": {
     "build": "microbundle-crl --no-compress --format modern,cjs",
