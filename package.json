@@ -27,6 +27,7 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
+    "dlv": "^1.1.3",
     "react": "^16.0.0",
     "react-redux": "^7.2.1",
     "redux": "^4.0.5"
@@ -56,10 +57,5 @@
   },
   "files": [
     "dist"
-  ],
-  "dependencies": {
-    "dlv": "^1.1.3",
-    "lodash": "^4.17.20",
-    "reselect": "^4.0.0"
-  }
+  ]
 }
