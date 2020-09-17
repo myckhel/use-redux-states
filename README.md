@@ -12,8 +12,7 @@ It returns object which includes a setState function that uses same concept as r
 ## Install
 
 ```bash
-~~npm install --save use-redux-state-hook~~
-npm install https://github.com/myckhel/use-redux-state-hook
+npm install --save use-redux-state-hook
 ```
 
 ## Setup
