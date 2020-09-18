@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
-import get from 'dlv'
 import storage from './store'
 
 import {
@@ -49,7 +48,7 @@ export const useReduxState = (name, initState) => {
 
   const selector = useCallback(
     (state) => {
-      const store_state = get(state, `${STATE_NAME}.${name}`)
+      const store_state = state?.[STATE_NAME]?.[name]
       return store_state !== undefined ? store_state : initState
     },
     [name]

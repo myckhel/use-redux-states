@@ -1,5 +1,5 @@
 import { setStore } from './store'
 import { useReduxState } from './hooks'
-import useStateCombineReducers from './useStateCombineReducers'
+import mergeReducers from './reducers'
 
-export { setStore, useReduxState, useStateCombineReducers }
+export { setStore, useReduxState, mergeReducers }

@@ -1,6 +1,6 @@
 import state from './state/reducer';
-import { useStateCombineReducers } from 'use-redux-state-hook'
+import { mergeReducers } from 'use-redux-state-hook'
 
-const appReducer = useStateCombineReducers({state});
+const appReducer = mergeReducers({state});
 
 export default appReducer;

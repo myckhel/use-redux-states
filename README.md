@@ -20,9 +20,9 @@ npm install --save use-redux-state-hook
 import yourReducer1 from './yourReducer1';
 import yourReducer2 from './yourReducer2';
 import {createStore} from 'redux';
-import { setStore, useStateCombineReducers } from 'use-redux-state-hook'
+import { setStore, mergeReducers } from 'use-redux-state-hook'
 
-const appReducer = useStateCombineReducers({yourReducer1, yourReducer2});
+const appReducer = mergeReducers({yourReducer1, yourReducer2});
 
 const store = createStore(appReducer);
 setStore(store);
