@@ -59,8 +59,7 @@ const Usage = () => {
 [Code Sandbox Example](https://codesandbox.io/s/usereduxstate-gdl7g?file=/src/App.js)
 
 ### React Native Snack Example
-<div data-snack-id="@myckhel/use-redux-state-hook" data-snack-platform="web" data-snack-preview="true" data-snack-theme="light" style="overflow:hidden;background:#fafafa;border:1px solid rgba(0,0,0,.08);border-radius:4px;height:505px;width:100%"></div>
-<script async src="https://snack.expo.io/embed.js"></script>
+[Snack Example](https://snack.expo.io/@myckhel/use-redux-state-hook)
 
 ## API
 
