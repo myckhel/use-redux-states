@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import {createSelector} from "reselect";
 import _ from 'lodash'
 
-import { useReduxState } from 'use-redux-state-hook'
+import useReduxState from 'use-redux-state-hook'
 
 const App = () => {
   const {selector, setState: setMount} = useReduxState('mounted', true);

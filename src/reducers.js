@@ -19,10 +19,7 @@ const reducer = (state = INIT_STATE, { type, payload, name }) => {
     case UNSUBSCRIBE_REDUX_STATE:
       const redux_state_subscriptions = state?.redux_state_subscriptions
 
-      const subscriber_count =
-        (state?.redux_state_subscriptions &&
-          state.redux_state_subscriptions[name]) ||
-        0
+      const subscriber_count = state?.redux_state_subscriptions?.[name] || 0
 
       if (subscriber_count < 2) {
         if (state && state[name]) {
@@ -44,10 +41,7 @@ const reducer = (state = INIT_STATE, { type, payload, name }) => {
         })
       }
     case SUBSCRIBE_REDUX_STATE:
-      const subscribed_count =
-        (state?.redux_state_subscriptions &&
-          state.redux_state_subscriptions[name]) ||
-        0
+      const subscribed_count = state?.redux_state_subscriptions?.[name] || 0
 
       return merge(state, {
         redux_state_subscriptions: merge(
@@ -65,7 +59,7 @@ const reducer = (state = INIT_STATE, { type, payload, name }) => {
         state?.redux_state_subscriptions &&
         state.redux_state_subscriptions[name]
       ) {
-        delete state.redux_state_subscriptions[name]
+        delete state.redux_state_subscriptions?.[name]
       }
       return { ...state }
     default:
@@ -73,6 +67,5 @@ const reducer = (state = INIT_STATE, { type, payload, name }) => {
   }
 }
 
-export default (baseReducer) => {
-  return combineReducers({ ...baseReducer, [STATE_NAME]: reducer })
-}
+export default (baseReducer) =>
+  combineReducers({ ...baseReducer, [STATE_NAME]: reducer })

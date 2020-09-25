@@ -49,22 +49,26 @@ export const useReduxState = (name, initState) => {
   const selector = useCallback(
     (state) => {
       const store_state = state?.[STATE_NAME]?.[name]
-      return store_state !== undefined ? store_state : initState
+      return store_state !== undefined
+        ? store_state
+        : initState !== undefined
+        ? initState
+        : ''
     },
     [name]
   )
 
   const cleanup = useCallback(() => dispatch(cleanUpAction()), [cleanUpAction])
 
-  const getState = useCallback(() => {
-    const state = store?.getState()?.[STATE_NAME]
-    return state && state[name]
-  }, [name])
+  const getState = useCallback(() => store?.getState()?.[STATE_NAME]?.[name], [
+    name
+  ])
 
-  const getSateSubscription = useCallback(() => {
-    const subs = store?.getState()?.[STATE_NAME]?.redux_state_subscriptions
-    return (subs && subs[name]) || 0
-  }, [name])
+  const getSateSubscription = useCallback(
+    () =>
+      store?.getState()?.[STATE_NAME]?.redux_state_subscriptions?.[name] || 0,
+    [name]
+  )
 
   useEffect(() => {
     const sub_count = getSateSubscription()

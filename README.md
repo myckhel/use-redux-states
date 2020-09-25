@@ -33,7 +33,7 @@ setStore(store);
 ```jsx
 import React, { Component } from 'react'
 
-import {useReduxState} from 'use-redux-state-hook'
+import useReduxState from 'use-redux-state-hook'
 
 const Usage = () => {
   const {selector, setState} = useReduxState('component_state', {
@@ -56,10 +56,11 @@ const Usage = () => {
 
 ## Example
 ### React Web Code Sandbox Example
-[Code Sandbox Example](https://codesandbox.io/s/usereduxstate-gdl7g?file=/src/App.js)
+[Code Sandbox Example](https://codesandbox.io/s/usereduxstate-gdl7g)
 
 ### React Native Snack Example
-[Snack Example](https://snack.expo.io/@myckhel/use-redux-state-hook)
+<div data-snack-id="@myckhel/use-redux-state-hook" data-snack-platform="web" data-snack-preview="true" data-snack-theme="light" style="overflow:hidden;background:#fafafa;border:1px solid rgba(0,0,0,.08);border-radius:4px;height:505px;width:100%"></div>
+<script async src="https://snack.expo.io/embed.js"></script>
 
 ## API
 
@@ -67,6 +68,8 @@ const Usage = () => {
 -- | ---------- | ------- |
 | useReduxState | `Unique State Name`, `Initial State` | Object `{selector, setState, getState}`
 | setState | `Newstate Value` or `Callback of previou state argument` | New State
+| getState | None | Current State
+| selector | `state` | selected State
 
 To Be Continued...
 

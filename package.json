@@ -1,7 +1,8 @@
 {
   "name": "use-redux-state-hook",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Create runtime redux state",
+  "keywords": ["redux-state", "react-redux-state", "react-component-state", "redux", "react-redux", "react", "react-native"],
   "author": "myckhel",
   "license": "MIT",
   "repository": "myckhel/use-redux-state-hook",
@@ -24,9 +25,17 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
-    "react": "^16.8.3",
+    "react": "*",
     "react-redux": "^7.2.1",
-    "redux": "^4.0.5"
+    "redux": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react-dom": {
+      "optional": true
+    },
+    "react-native": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
