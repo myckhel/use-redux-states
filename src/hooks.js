@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import storage from './store'
+import { createSelector } from 'reselect'
+import _ from 'lodash'
 
 import {
   SET_REDUX_STATE,
@@ -9,6 +11,11 @@ import {
   CLEANUP_REDUX_STATE,
   STATE_NAME
 } from './constants'
+
+const sel = (state) => state
+
+export const useMemoSelector = (selector, select = sel, eq = _.isEqual) =>
+  useSelector(createSelector(selector, select), eq)
 
 export const useReduxState = (name, initState) => {
   const store = useRef(storage.store).current
@@ -48,9 +55,9 @@ export const useReduxState = (name, initState) => {
 
   const selector = useCallback(
     (state) => {
-      const store_state = state?.[STATE_NAME]?.[name]
-      return store_state !== undefined
-        ? store_state
+      const storeState = state?.[STATE_NAME]?.[name]
+      return storeState !== undefined
+        ? storeState
         : initState !== undefined
         ? initState
         : ''
@@ -71,9 +78,9 @@ export const useReduxState = (name, initState) => {
   )
 
   useEffect(() => {
-    const sub_count = getSateSubscription()
+    const subCount = getSateSubscription()
 
-    sub_count < 1 && initState !== undefined && setState(initState)
+    subCount < 1 && initState !== undefined && setState(initState)
 
     // subsribe to state
     dispatch(stateSubscriptionAction())

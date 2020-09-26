@@ -1,6 +1,6 @@
 import { setStore } from './store'
-import { useReduxState } from './hooks'
+import { useReduxState, useMemoSelector } from './hooks'
 import mergeReducers from './reducers'
 
 export default useReduxState
-export { setStore, mergeReducers }
+export { useReduxState, setStore, mergeReducers, useMemoSelector }

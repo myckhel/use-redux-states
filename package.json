@@ -1,8 +1,16 @@
 {
   "name": "use-redux-state-hook",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Create runtime redux state",
-  "keywords": ["redux-state", "react-redux-state", "react-component-state", "redux", "react-redux", "react", "react-native"],
+  "keywords": [
+    "redux-state",
+    "react-redux-state",
+    "react-component-state",
+    "redux",
+    "react-redux",
+    "react",
+    "react-native"
+  ],
   "author": "myckhel",
   "license": "MIT",
   "repository": "myckhel/use-redux-state-hook",
@@ -13,8 +21,8 @@
     "node": ">=10"
   },
   "scripts": {
-    "build": "microbundle-crl --no-compress --format modern,cjs",
-    "start": "microbundle-crl watch --no-compress --format modern,cjs",
+    "build": "microbundle-crl --format modern,cjs",
+    "start": "microbundle-crl watch --format modern,cjs",
     "prepare": "run-s build",
     "test": "run-s test:unit test:lint test:build",
     "test:build": "run-s build",
@@ -25,9 +33,11 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
+    "lodash": "^4.17.20",
     "react": "*",
     "react-redux": "^7.2.1",
-    "redux": "^4.0.0"
+    "redux": "^4.0.0",
+    "reselect": "^4.0.0"
   },
   "peerDependenciesMeta": {
     "react-dom": {
@@ -51,6 +61,7 @@
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-standard": "^4.0.1",
     "gh-pages": "^2.2.0",
+    "lodash": "^4.17.20",
     "microbundle-crl": "^0.13.10",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.4",
@@ -58,9 +69,12 @@
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
     "react-scripts": "^3.4.1",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "reselect": "^4.0.0"
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+  }
 }

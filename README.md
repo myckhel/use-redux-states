@@ -33,7 +33,7 @@ setStore(store);
 ```jsx
 import React, { Component } from 'react'
 
-import useReduxState from 'use-redux-state-hook'
+import {useReduxState, useMemoSelector} from 'use-redux-state-hook'
 
 const Usage = () => {
   const {selector, setState} = useReduxState('component_state', {
@@ -42,7 +42,7 @@ const Usage = () => {
     locale: 'en_US'
   });
 
-  const {locale, count} = useSelector(selector, _.isEqual);
+  const {locale, count} = useMemoSelector(selector);
 
   return (
     <div>
@@ -59,14 +59,14 @@ const Usage = () => {
 [Code Sandbox Example](https://codesandbox.io/s/usereduxstate-gdl7g)
 
 ### React Native Snack Example
-<div data-snack-id="@myckhel/use-redux-state-hook" data-snack-platform="web" data-snack-preview="true" data-snack-theme="light" style="overflow:hidden;background:#fafafa;border:1px solid rgba(0,0,0,.08);border-radius:4px;height:505px;width:100%"></div>
-<script async src="https://snack.expo.io/embed.js"></script>
+[Snack Example](https://snack.expo.io/embed.js)
 
 ## API
 
 | API | Arguments | Returns |
 -- | ---------- | ------- |
 | useReduxState | `Unique State Name`, `Initial State` | Object `{selector, setState, getState}`
+| useMemoSelector | `inputSelector`, `resultFunc`, `equalityFunc` | selected State
 | setState | `Newstate Value` or `Callback of previou state argument` | New State
 | getState | None | Current State
 | selector | `state` | selected State

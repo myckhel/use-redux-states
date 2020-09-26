@@ -1,13 +1,9 @@
 import React, {useRef} from "react";
-import {useSelector} from "react-redux";
-import {createSelector} from "reselect";
-import _ from 'lodash'
-
-import useReduxState from 'use-redux-state-hook'
+import useReduxState, {useMemoSelector} from 'use-redux-state-hook'
 
 const App = () => {
   const {selector, setState: setMount} = useReduxState('mounted', true);
-  const mounted = useSelector(selector, _.isEqual);
+  const mounted = useMemoSelector(selector);
 
   return (
     <div className=''>
@@ -37,7 +33,7 @@ const Usage = () => {
     locale: 'en_US'
   });
 
-  const {locale, count} = useSelector(selector, _.isEqual);
+  const {locale, count} = useMemoSelector(selector);
 
   return (
     <div>
@@ -51,7 +47,7 @@ const Usage = () => {
 // i can create a redux state at runtime
 const Component1 = () => {
     const {selector, setState} = useReduxState('component1_state', {count: 1});
-    const count = useSelector(createSelector(selector, (state) => state.count), _.isEqual); // {count: 1}
+    const count = useMemoSelector(selector, (state) => state.count); // {count: 1}
 
     return (<div>
       <h6>count: {count}</h6>
@@ -62,7 +58,7 @@ const Component1 = () => {
 // i can access Component1 state
 const Component2 = () => {
     const {selector} = useReduxState('component1_state');
-    const state = useSelector(selector, _.isEqual); // {count: 2}
+    const state = useMemoSelector(selector); // {count: 2}
 
     return <Text title={"current component 1 state is: " + state?.count} />
 }
@@ -79,7 +75,7 @@ const Dependent = () => {
     const times = useRef(0);
     times.current = times.current + 1
     const {selector} = useReduxState('independent_state');
-    const independent = useSelector((state) => selector(state)?.independent, _.isEqual); // {independent: 2}
+    const independent = useMemoSelector(selector, (state) => state?.independent); // {independent: 2}
 
     return (
       <div>
@@ -93,7 +89,7 @@ const Dependent = () => {
 const Dependent2 = () => {
     const {selector, setState} = useReduxState('independent_state');
     const {setState: setState1} = useReduxState('component1_state');
-    const portion = useSelector((state) => selector(state)?.portion, _.isEqual); // portion: 10
+    const portion = useMemoSelector(selector, (state) => state?.portion); // portion: 10
 
     return (<div>
       <Text title={"i am depending only on a portion of a state which is: " + portion} />
@@ -107,7 +103,7 @@ const Dependent2 = () => {
 // my state will be clean when i unmount
 const Cleanable = () => {
     const {selector, setState} = useReduxState('mountable_state', {current: 1});
-    const state = useSelector((state) => selector(state), _.isEqual);
+    const state = useMemoSelector(selector);
 
     return (<div>
       <Text title={"my state should be cleaned up when i unmount: " + state?.current} />
