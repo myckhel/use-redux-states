@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useLayoutEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import storage from './store'
 import { createSelector } from 'reselect'
@@ -67,9 +67,14 @@ export const useReduxState = (name, initState) => {
 
   const cleanup = useCallback(() => dispatch(cleanUpAction()), [cleanUpAction])
 
-  const getState = useCallback(() => store?.getState()?.[STATE_NAME]?.[name], [
-    name
-  ])
+  const getState = useCallback(() => {
+    const state = store.getState()?.state?.[name];
+    return state !== undefined
+      ? state
+      : initState !== undefined
+      ? initState
+      : '';
+  }, [name, initState, store]);
 
   const getSateSubscription = useCallback(
     () =>
@@ -77,7 +82,7 @@ export const useReduxState = (name, initState) => {
     [name]
   )
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const subCount = getSateSubscription()
 
     subCount < 1 && initState !== undefined && setState(initState)
