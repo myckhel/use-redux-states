@@ -67,14 +67,9 @@ export const useReduxState = (name, initState) => {
 
   const cleanup = useCallback(() => dispatch(cleanUpAction()), [cleanUpAction])
 
-  const getState = useCallback(() => {
-    const state = store.getState()?.state?.[name];
-    return state !== undefined
-      ? state
-      : initState !== undefined
-      ? initState
-      : '';
-  }, [name, initState, store]);
+  const getState = useCallback(() => store?.getState()?.[STATE_NAME]?.[name], [
+    name
+  ])
 
   const getSateSubscription = useCallback(
     () =>
