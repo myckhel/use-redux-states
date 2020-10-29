@@ -15,7 +15,7 @@ const merge = (obj, obj2) => Object.assign({}, obj, obj2)
 const reducer = (state = INIT_STATE, { type, payload, name }) => {
   switch (type) {
     case SET_REDUX_STATE:
-      return merge(state, { [name]: payload })
+      return merge(state, { [name]: typeof payload === 'function' ? payload(state[name]) : payload })
     case UNSUBSCRIBE_REDUX_STATE:
       const redux_state_subscriptions = state?.redux_state_subscriptions
 

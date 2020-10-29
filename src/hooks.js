@@ -47,9 +47,7 @@ export const useReduxState = (name, initState) => {
 
   const setState = useCallback(
     (payload) =>
-      dispatch(
-        action(typeof payload === 'function' ? payload(getState()) : payload)
-      ),
+      dispatch(action(payload)),
     []
   )
 
