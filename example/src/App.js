@@ -11,6 +11,7 @@ const App = () => {
       <div className='body'>
         <h2>Usage Samples</h2>
         <Component1 />
+        <Arr />
         <Component2 />
         <h2>State Dependency</h2>
         <Independent />
@@ -45,9 +46,24 @@ const Usage = () => {
 }
 
 // i can create a redux state at runtime
+const Arr = () => {
+    const {selector, setState} = useReduxState('array_state', (state) => {if(state) {return [2,1]} else {return [1,2]}});
+    const array = useMemoSelector(selector); // {count: 1}
+    console.log('mountarray', {array});
+
+    return (<div>
+      <h6>arrays: {array.map((a) => a+', ')}</h6>
+      <Button onPress={() => setState((array) => [...array, (array.pop() || 0) + 1])} title="Increase Array" />
+      <Button onPress={() => setState((array) => array.slice(0, array.length-1))} title="Decrease Array" />
+    </div>)
+}
+
+// i can create a redux state at runtime
 const Component1 = () => {
+    // const {selector, setState} = useReduxState('component1_state', (state) => {console.log({state}); return {count: 1}});
     const {selector, setState} = useReduxState('component1_state', {count: 1});
     const count = useMemoSelector(selector, (state) => state.count); // {count: 1}
+    console.log('mount', {count});
 
     return (<div>
       <h6>count: {count}</h6>

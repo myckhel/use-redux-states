@@ -14,12 +14,16 @@ import {
 
 const sel = (state) => state
 
+const unique = () => new Date().getTime();
+
 export const useMemoSelector = (selector, select = sel, eq = _.isEqual) =>
   useSelector(createSelector(selector, select), eq)
 
-export const useReduxState = (name, initState) => {
+export const useReduxState = (stateName, initState) => {
   const store = useRef(storage.store).current
+  const name = useRef(stateName || unique()).current;
   const dispatch = useDispatch()
+
   const action = useCallback(
     (payload) => ({ type: SET_REDUX_STATE, payload, name }),
     [name]
@@ -28,6 +32,7 @@ export const useReduxState = (name, initState) => {
     (payload) => ({ type: CLEANUP_REDUX_STATE, payload, name }),
     [name]
   )
+
   const stateSubscriptionAction = useCallback(
     (payload) => ({
       type: SUBSCRIBE_REDUX_STATE,
@@ -45,6 +50,14 @@ export const useReduxState = (name, initState) => {
     [name]
   )
 
+  const getInit = useCallback(() => {
+    if (typeof initState === 'function') {
+      return initState(getState());
+    } else {
+      return initState;
+    }
+  }, [initState, getState]);
+
   const setState = useCallback(
     (payload) =>
       dispatch(action(payload)),
@@ -54,10 +67,11 @@ export const useReduxState = (name, initState) => {
   const selector = useCallback(
     (state) => {
       const storeState = state?.[STATE_NAME]?.[name]
+      const initialState = getInit()
       return storeState !== undefined
         ? storeState
-        : initState !== undefined
-        ? initState
+        : initialState !== undefined
+        ? initialState
         : ''
     },
     [name]
@@ -77,8 +91,9 @@ export const useReduxState = (name, initState) => {
 
   useLayoutEffect(() => {
     const subCount = getSateSubscription()
+    const initialState = getInit()
 
-    subCount < 1 && initState !== undefined && setState(initState)
+    subCount < 1 && initialState !== undefined && setState(initialState)
 
     // subsribe to state
     dispatch(stateSubscriptionAction())
