@@ -43,14 +43,20 @@ const reducer = (state = INIT_STATE, { type, payload, name }) => {
     case SUBSCRIBE_REDUX_STATE:
       const subscribed_count = state?.redux_state_subscriptions?.[name] || 0
 
-      return merge(state, {
+      const newState = {
         redux_state_subscriptions: merge(
           state?.redux_state_subscriptions || {},
           {
             [name]: subscribed_count + 1
           }
         )
-      })
+      };
+
+      if (payload !== undefined) {
+        newState[name] = payload
+      }
+
+      return merge(state, newState)
     case CLEANUP_REDUX_STATE:
       if (state && state[name]) {
         delete state[name]

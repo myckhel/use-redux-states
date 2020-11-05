@@ -96,12 +96,12 @@ export const useReduxState = (stateName, initState) => {
     subCount < 1 && initialState !== undefined && setState(initialState)
 
     // subsribe to state
-    dispatch(stateSubscriptionAction())
+    dispatch(stateSubscriptionAction(initialState))
 
     return () => {
       dispatch(stateUnSubscriptionAction())
     }
   }, [])
 
-  return { selector, setState, getState, action, cleanup }
+  return { selector, setState, getState, action, cleanup, useMemoSelector }
 }
