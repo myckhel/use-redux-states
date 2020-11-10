@@ -1,6 +1,6 @@
 {
   "name": "use-redux-state-hook",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Create runtime redux state",
   "keywords": [
     "redux-state",
@@ -21,8 +21,8 @@
     "node": ">=10"
   },
   "scripts": {
-    "build": "microbundle-crl --no-compress --format modern,cjs",
-    "start": "microbundle-crl watch --no-compress --format modern,cjs",
+    "build": "microbundle-crl --format modern,cjs",
+    "start": "microbundle-crl watch --format modern,cjs",
     "prepare": "run-s build",
     "test": "run-s test:unit test:lint test:build",
     "test:build": "run-s build",

@@ -14,14 +14,14 @@ import {
 
 const sel = (state) => state
 
-const unique = () => new Date().getTime();
+const unique = () => new Date().getTime()
 
 export const useMemoSelector = (selector, select = sel, eq = _.isEqual) =>
   useSelector(createSelector(selector, select), eq)
 
 export const useReduxState = (stateName, initState) => {
   const store = useRef(storage.store).current
-  const name = useRef(stateName || unique()).current;
+  const name = useRef(stateName || unique()).current
   const dispatch = useDispatch()
 
   const action = useCallback(
@@ -50,19 +50,22 @@ export const useReduxState = (stateName, initState) => {
     [name]
   )
 
+  const getState = useCallback(() => store?.getState()?.[STATE_NAME]?.[name], [
+    name
+  ])
+
   const getInit = useCallback(() => {
     if (typeof initState === 'function') {
-      return initState(getState());
+      return initState(getState())
     } else {
-      return initState;
+      return initState
     }
-  }, [initState, getState]);
+  }, [])
 
-  const setState = useCallback(
-    (payload) =>
-      dispatch(action(payload)),
-    []
-  )
+  const setState = useCallback((payload) => dispatch(action(payload)), [
+    dispatch,
+    action
+  ])
 
   const selector = useCallback(
     (state) => {
@@ -78,10 +81,6 @@ export const useReduxState = (stateName, initState) => {
   )
 
   const cleanup = useCallback(() => dispatch(cleanUpAction()), [cleanUpAction])
-
-  const getState = useCallback(() => store?.getState()?.[STATE_NAME]?.[name], [
-    name
-  ])
 
   const getSateSubscription = useCallback(
     () =>

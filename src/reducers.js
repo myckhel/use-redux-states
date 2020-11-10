@@ -12,22 +12,28 @@ const INIT_STATE = {}
 
 const merge = (obj, obj2) => Object.assign({}, obj, obj2)
 
-const reducer = (state = INIT_STATE, { type, payload, name }) => {
-  switch (type) {
+const reducer = (state = INIT_STATE, action) => {
+  switch (action.type) {
     case SET_REDUX_STATE:
-      return merge(state, { [name]: typeof payload === 'function' ? payload(state[name]) : payload })
+      return merge(state, {
+        [action.name]:
+          typeof action.payload === 'function'
+            ? action.payload(state[action.name])
+            : action.payload
+      })
     case UNSUBSCRIBE_REDUX_STATE:
       const redux_state_subscriptions = state?.redux_state_subscriptions
 
-      const subscriber_count = state?.redux_state_subscriptions?.[name] || 0
+      const subscriber_count =
+        state?.redux_state_subscriptions?.[action.name] || 0
 
       if (subscriber_count < 2) {
-        if (state && state[name]) {
-          delete state[name]
+        if (state?.[action.name]) {
+          delete state[action.name]
         }
 
-        if (redux_state_subscriptions && redux_state_subscriptions[name]) {
-          delete redux_state_subscriptions[name]
+        if (redux_state_subscriptions?.[action.name]) {
+          delete redux_state_subscriptions[action.name]
         }
         return { ...state }
       } else {
@@ -35,37 +41,35 @@ const reducer = (state = INIT_STATE, { type, payload, name }) => {
           redux_state_subscriptions: merge(
             state?.redux_state_subscriptions || {},
             {
-              [name]: subscriber_count - 1
+              [action.name]: subscriber_count - 1
             }
           )
         })
       }
     case SUBSCRIBE_REDUX_STATE:
-      const subscribed_count = state?.redux_state_subscriptions?.[name] || 0
+      const subscribed_count =
+        state?.redux_state_subscriptions?.[action.name] || 0
 
       const newState = {
         redux_state_subscriptions: merge(
           state?.redux_state_subscriptions || {},
           {
-            [name]: subscribed_count + 1
+            [action.name]: subscribed_count + 1
           }
         )
-      };
+      }
 
-      if (payload !== undefined) {
-        newState[name] = payload
+      if (action.payload !== undefined) {
+        newState[action.name] = action.payload
       }
 
       return merge(state, newState)
     case CLEANUP_REDUX_STATE:
-      if (state && state[name]) {
-        delete state[name]
+      if (state?.[action.name]) {
+        delete state[action.name]
       }
-      if (
-        state?.redux_state_subscriptions &&
-        state.redux_state_subscriptions[name]
-      ) {
-        delete state.redux_state_subscriptions?.[name]
+      if (state?.redux_state_subscriptions?.[action.name]) {
+        delete state.redux_state_subscriptions?.[action.name]
       }
       return { ...state }
     default:
