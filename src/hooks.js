@@ -100,7 +100,7 @@ export const useReduxState = (stateName, initState) => {
     return () => {
       dispatch(stateUnSubscriptionAction())
     }
-  }, [])
+  }, [name])
 
   return { selector, setState, getState, action, cleanup, useMemoSelector }
 }
