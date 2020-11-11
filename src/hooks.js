@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useRef } from 'react'
+import { useCallback, useLayoutEffect, useRef, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import storage from './store'
 import { createSelector } from 'reselect'
@@ -21,7 +21,7 @@ export const useMemoSelector = (selector, select = sel, eq = _.isEqual) =>
 
 export const useReduxState = (stateName, initState) => {
   const store = useRef(storage.store).current
-  const name = useRef(stateName || unique()).current
+  const name = useMemo(() => stateName || unique(), [stateName])
   const dispatch = useDispatch()
 
   const action = useCallback(
