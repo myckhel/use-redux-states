@@ -8,6 +8,8 @@ import {
   STATE_NAME
 } from './constants'
 
+import storage from './store'
+
 const INIT_STATE = {}
 
 const merge = (obj, obj2) => Object.assign({}, obj, obj2)
@@ -28,12 +30,14 @@ const reducer = (state = INIT_STATE, action) => {
         state?.redux_state_subscriptions?.[action.name] || 0
 
       if (subscriber_count < 2) {
-        if (state?.[action.name]) {
-          delete state[action.name]
-        }
+        if (storage?.config?.cleanup) {
+          if (state?.[action.name]) {
+            delete state[action.name]
+          }
 
-        if (redux_state_subscriptions?.[action.name]) {
-          delete redux_state_subscriptions[action.name]
+          if (redux_state_subscriptions?.[action.name]) {
+            delete redux_state_subscriptions[action.name]
+          }
         }
         return { ...state }
       } else {

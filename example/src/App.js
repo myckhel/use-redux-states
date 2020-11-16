@@ -118,7 +118,7 @@ const Dependent2 = () => {
 
 // my state will be clean when i unmount
 const Cleanable = () => {
-    const {selector, setState} = useReduxState('mountable_state', {current: 1});
+    const {selector, setState} = useReduxState('mountable_state', (s) => s || {current: 1});
     const state = useMemoSelector(selector);
 
     return (<div>
