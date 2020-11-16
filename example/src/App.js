@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, {useRef, useEffect} from "react";
 import useReduxState, {useMemoSelector} from 'use-redux-state-hook'
 
 const App = () => {
@@ -118,8 +118,12 @@ const Dependent2 = () => {
 
 // my state will be clean when i unmount
 const Cleanable = () => {
-    const {selector, setState} = useReduxState('mountable_state', (s) => s || {current: 1});
+    const {selector, setState, getState} = useReduxState('mountable_state', (s) => s || {current: 1});
     const state = useMemoSelector(selector);
+    useEffect(() => {
+      const state = getState((s) => s)
+      console.log({state});
+    }, [])
 
     return (<div>
       <Text title={"my state should be cleaned up when i unmount: " + state?.current} />

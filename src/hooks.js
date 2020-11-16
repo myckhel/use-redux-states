@@ -50,7 +50,7 @@ export const useReduxState = (stateName, initState) => {
     [name]
   )
 
-  const getState = useCallback(() => store?.getState()?.[STATE_NAME]?.[name], [
+  const getState = useCallback((callback=sel) => callback(store?.getState()?.[STATE_NAME]?.[name]), [
     name
   ])
 
