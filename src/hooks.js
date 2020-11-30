@@ -70,12 +70,9 @@ export const useReduxState = (stateName, initState) => {
   const selector = useCallback(
     (state) => {
       const storeState = state?.[STATE_NAME]?.[name]
-      const initialState = getInit()
       return storeState !== undefined
         ? storeState
-        : initialState !== undefined
-        ? initialState
-        : ''
+        : getInit()
     },
     [name]
   )
@@ -84,7 +81,7 @@ export const useReduxState = (stateName, initState) => {
 
   const getSateSubscription = useCallback(
     () =>
-      store?.getState()?.[STATE_NAME]?.redux_state_subscriptions?.[name] || 0,
+      store?.getState()[STATE_NAME].redux_state_subscriptions[name] || 0,
     [name]
   )
 

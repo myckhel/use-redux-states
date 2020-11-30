@@ -1,6 +1,6 @@
 {
   "name": "use-redux-state-hook",
-  "version": "0.1.2",
+  "version": "0.2.0-alpha",
   "description": "Create runtime redux state",
   "keywords": [
     "redux-state",
@@ -33,11 +33,10 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
-    "lodash": "^4.17.20",
+    "@reduxjs/toolkit": "^1.4.0",
     "react": "*",
-    "react-redux": "^7.2.1",
-    "redux": "^4.0.0",
-    "reselect": "^4.0.0"
+    "react-redux": "^7.2.2",
+    "redux": "^4.0.5"
   },
   "peerDependenciesMeta": {
     "react-dom": {
@@ -76,5 +75,7 @@
     "dist"
   ],
   "dependencies": {
+    "lodash": "^4.17.20",
+    "reselect": "^4.0.0"
   }
 }

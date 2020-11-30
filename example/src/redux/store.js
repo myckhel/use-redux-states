@@ -1,7 +1,17 @@
-import {createStore} from 'redux';
-import reducers from './reducers';
-import { setStore } from 'use-redux-state-hook'
+import {configureStore} from '@reduxjs/toolkit';
+import reducer from './reducers';
+import { setStore, SET_REDUX_STATE } from 'use-redux-state-hook'
 
-const store = createStore(reducers);
+const store = configureStore({
+  reducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [
+          SET_REDUX_STATE,
+        ],
+      },
+    }),
+});
 setStore(store, {cleanup: true});
 export default store;
