@@ -2,7 +2,11 @@ import React, {useRef, useEffect} from "react";
 import useReduxState, {useMemoSelector} from 'use-redux-state-hook'
 
 const App = () => {
-  const {selector, setState: setMount} = useReduxState('mounted', true);
+  const {selector, setState: setMount} = useReduxState({
+    name: 'mounted',
+    state: true,
+  });
+
   const mounted = useMemoSelector(selector);
 
   return (
@@ -19,7 +23,8 @@ const App = () => {
         <Dependent2 />
         <h2>State Cleanup</h2>
         {mounted && <Cleanable />}
-        <Button onPress={() => setMount((mounted) => !mounted)} title="Toggle Mount" />
+        {mounted && <UnCleanable />}
+        <Button onPress={() => setMount((mounted) => !mounted)} title={mounted ? "UnMount" : "Mount"} />
         <h2>Usage</h2>
         <Usage />
       </div>
@@ -118,18 +123,40 @@ const Dependent2 = () => {
 
 // my state will be clean when i unmount
 const Cleanable = () => {
-    const {selector, setState, getState} = useReduxState('mountable_state', (s) => s || {current: 1});
+    const {selector, setState, getState} = useReduxState({
+      name: 'mountable_state',
+      state: (s) => s || {current: 1},
+    });
+
     const state = useMemoSelector(selector);
     useEffect(() => {
       const state = getState((s) => s)
       console.log({state});
-    }, [])
+    }, [getState])
 
     return (<div>
       <Text title={"my state should be cleaned up when i unmount: " + state?.current} />
       <Row>
         <Button onPress={() => setState(({current}) => ({current: current + 3}))} title="Increase Mountable State" />
         <Button onPress={() => setState(({current}) => ({current: current - 3}))} title="Decrease Mountable State" />
+      </Row>
+    </div>)
+}
+// my state will be clean when i unmount
+const UnCleanable = () => {
+    const {selector, setState} = useReduxState({
+      name: 'uncleanable_state',
+      state: (s) => s || {current: 1},
+      cleanup: false
+    });
+
+    const state = useMemoSelector(selector);
+
+    return (<div>
+      <Text title={"my state should not be cleaned up when i unmount: " + state?.current} />
+      <Row>
+        <Button onPress={() => setState(({current}) => ({current: current + 3}))} title="Increase Uncleanable State" />
+        <Button onPress={() => setState(({current}) => ({current: current - 3}))} title="Decrease Uncleanable State" />
       </Row>
     </div>)
 }

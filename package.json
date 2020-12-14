@@ -1,6 +1,6 @@
 {
   "name": "use-redux-state-hook",
-  "version": "0.2.0-alpha",
+  "version": "0.2.1-alpha",
   "description": "Create runtime redux state",
   "keywords": [
     "redux-state",
@@ -30,7 +30,8 @@
     "test:unit": "cross-env CI=1 react-scripts test --env=jsdom",
     "test:watch": "react-scripts test --env=jsdom",
     "predeploy": "cd example && yarn install && yarn run build",
-    "deploy": "gh-pages -d example/build"
+    "deploy": "gh-pages -d example/build",
+    "lint": "eslint ."
   },
   "peerDependencies": {
     "@reduxjs/toolkit": "^1.4.0",
