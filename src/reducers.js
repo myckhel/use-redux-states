@@ -8,6 +8,8 @@ const INIT_STATE = {
   redux_state_subscriptions: {}
 }
 
+const clanupeEnabled = (cleanup, storage) => cleanup || (cleanup === undefined && storage?.config?.cleanup)
+
 const { actions, reducer } = createSlice({
   name: STATE_NAME,
   initialState: INIT_STATE,
@@ -27,9 +29,9 @@ const { actions, reducer } = createSlice({
     },
 
     subscribe: (state, { payload, name }) => {
-      const subscribed_count = state.redux_state_subscriptions[name] || 0
+      const subscriber_count = state.redux_state_subscriptions[name] || 0
 
-      state.redux_state_subscriptions[name] = subscribed_count + 1
+      state.redux_state_subscriptions[name] = subscriber_count + 1
 
       if (payload !== undefined) {
         state[name] = payload
@@ -41,16 +43,16 @@ const { actions, reducer } = createSlice({
 
       const subscriber_count = state.redux_state_subscriptions[name] || 0
 
-      if (subscriber_count < 2) {
-        if (cleanup || (cleanup === undefined && storage?.config?.cleanup)) {
-          if (state[name]) {
-            delete state[name]
-          }
-
-          if (redux_state_subscriptions[name]) {
-            delete redux_state_subscriptions[name]
-          }
+      if (subscriber_count < 2 && clanupeEnabled(cleanup, storage)) {
+        if (state[name]) {
+          delete state[name]
         }
+
+        if (redux_state_subscriptions[name]) {
+          delete redux_state_subscriptions[name]
+        }
+      } else {
+        state.redux_state_subscriptions[name] = subscriber_count - 1
       }
     }
   }

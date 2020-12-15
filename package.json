@@ -1,6 +1,6 @@
 {
   "name": "use-redux-state-hook",
-  "version": "0.2.1-alpha",
+  "version": "0.2.2-alpha",
   "description": "Create runtime redux state",
   "keywords": [
     "redux-state",
