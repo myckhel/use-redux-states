@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[13],{70:function(o){o.exports=JSON.parse('{"allTagsPath":"/use-redux-state-hook/blog/tags","slug":"facebook","name":"facebook","count":1,"permalink":"/use-redux-state-hook/blog/tags/facebook"}')}}]);
