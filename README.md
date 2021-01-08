@@ -54,6 +54,8 @@ const Usage = () => {
   )
 }
 ```
+## Extensive Doc at
+[User Redux State Doc](https://myckhel.github.io/use-redux-state-hook/)
 
 ## Example
 ### React Web Code Sandbox Example
