@@ -1,5 +1,12 @@
 import { setStore } from './store'
-import { useReduxState, useMemoSelector, getState, setState, action, selector } from './hooks'
+import {
+  useReduxState,
+  useMemoSelector,
+  getState,
+  setState,
+  action,
+  selector
+} from './hooks'
 import mergeReducers from './reducers'
 import {
   STATE_NAME,

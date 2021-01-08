@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from "react";
+import React, {useRef, useEffect, useState} from "react";
 import useReduxState, {useMemoSelector} from 'use-redux-state-hook'
 
 const App = () => {
@@ -27,6 +27,9 @@ const App = () => {
         <Button onPress={() => setMount((mounted) => !mounted)} title={mounted ? "UnMount" : "Mount"} />
         <h2>Usage</h2>
         <Usage />
+        <h2>Redux State Mount Control</h2>
+        <p>input will have initial value when mounted</p>
+        <MountControl />
       </div>
     </div>
   )
@@ -46,6 +49,25 @@ const Usage = () => {
       <h6>Current Count: {count}</h6>
       <input onChange={({target:{value: locale}}) => setState((prevState) => ({...prevState, locale}))} value={locale} />
       <button onClick={() => setState((prevState) => ({...prevState, count: count + 1}))}>Increment Count</button>
+    </div>
+  )
+}
+
+const MountControl = () => {
+  const [unmount, setMount] = useState(true)
+  const {selector, setState} = useReduxState({
+    name: 'mount-control',
+    state: {value: 'unmounted value'},
+    unmount,
+  });
+
+  const {value} = useMemoSelector(selector);
+
+  return (
+    <div>
+      <h6>unMounted: {unmount?.toString()}</h6>
+      <input onChange={({target:{value}}) => setState((prevState) => ({...prevState, value}))} value={value} />
+      <button onClick={() => setMount(!unmount)}>Toggle Mount</button>
     </div>
   )
 }

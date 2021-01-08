@@ -30,10 +30,7 @@ export const useReduxState = (config, initState) => {
     [config]
   )
 
-  const _action = useCallback(
-    (payload) => action(name, payload),
-    [name]
-  )
+  const _action = useCallback((payload) => action(name, payload), [name])
   const cleanUpAction = useCallback(
     (payload) => ({ type: CLEANUP_REDUX_STATE, payload, name }),
     [name]
@@ -71,10 +68,10 @@ export const useReduxState = (config, initState) => {
     }
   }, [initState])
 
-  const _setState = useCallback((payload) => setState(dispatch, _action, payload), [
-    dispatch,
-    _action
-  ])
+  const _setState = useCallback(
+    (payload) => setState(dispatch, _action, payload),
+    [dispatch, _action]
+  )
 
   const _selector = useCallback(
     (state) => {
@@ -92,27 +89,41 @@ export const useReduxState = (config, initState) => {
   )
 
   useLayoutEffect(() => {
-    const subCount = getSateSubscription()
-    const initialState = getInit()
+    if (!config?.unmount) {
+      const subCount = getSateSubscription()
+      const initialState = getInit()
 
-    subCount < 1 && initialState !== undefined && _setState(initialState)
+      subCount < 1 && initialState !== undefined && _setState(initialState)
 
-    // subsribe to state
-    dispatch(stateSubscriptionAction(initialState))
+      // subsribe to state
+      dispatch(stateSubscriptionAction(initialState))
 
-    return () => {
-      dispatch(stateUnSubscriptionAction())
+      return () => {
+        dispatch(stateUnSubscriptionAction())
+      }
     }
-  }, [name])
+  }, [name, config?.unmount])
 
-  return { selector: _selector, setState: _setState, getState: _getState, action: _action, cleanup, useMemoSelector }
+  return {
+    selector: _selector,
+    setState: _setState,
+    getState: _getState,
+    action: _action,
+    cleanup,
+    useMemoSelector
+  }
 }
 
-export const getState = (store, name, callable = sel) => callable(store?.getState()?.[STATE_NAME]?.[name])
+export const getState = (store, name, callable = sel) =>
+  callable(store?.getState()?.[STATE_NAME]?.[name])
 
 export const setState = (dispatch, action, payload) => dispatch(action(payload))
 
-export const action = (name, payload) => ({ type: SET_REDUX_STATE, payload, name })
+export const action = (name, payload) => ({
+  type: SET_REDUX_STATE,
+  payload,
+  name
+})
 
 export const selector = (state, name, getInit = () => undefined) => {
   return state?.[STATE_NAME]?.[name]

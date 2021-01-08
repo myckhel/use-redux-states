@@ -8,7 +8,8 @@ const INIT_STATE = {
   redux_state_subscriptions: {}
 }
 
-const clanupeEnabled = (cleanup, storage) => cleanup || (cleanup === undefined && storage?.config?.cleanup)
+const clanupeEnabled = (cleanup, storage) =>
+  cleanup || (cleanup === undefined && storage?.config?.cleanup)
 
 const { actions, reducer } = createSlice({
   name: STATE_NAME,
