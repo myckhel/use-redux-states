@@ -71,7 +71,7 @@ export const useReduxState = (config, initState) => {
     }
   }, [initState])
 
-  const _setState = useCallback((payload) => _setState(dispatch, _action, payload), [
+  const _setState = useCallback((payload) => setState(dispatch, _action, payload), [
     dispatch,
     _action
   ])
@@ -87,7 +87,7 @@ export const useReduxState = (config, initState) => {
   const cleanup = useCallback(() => dispatch(cleanUpAction()), [cleanUpAction])
 
   const getSateSubscription = useCallback(
-    () => store?._getState()[STATE_NAME].redux_state_subscriptions[name] || 0,
+    () => store?.getState()[STATE_NAME].redux_state_subscriptions[name] || 0,
     [name]
   )
 
