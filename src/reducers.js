@@ -22,18 +22,14 @@ const { actions, reducer } = createSlice({
         name,
         typeof payload === 'function' ? payload(get(state, name)) : payload
       )
-      // state[name] =
-      //   typeof payload === 'function' ? payload(state[name]) : payload
     },
 
     cleanup: (state, { payload, name }) => {
       if (get(state, name)) {
         deleteWith(state, name)
-        // delete state[name]
       }
       if (get(state.redux_state_subscriptions, name)) {
         deleteWith(state.redux_state_subscriptions, name)
-        // delete get(state.redux_state_subscriptions, name)
       }
     },
 
@@ -41,7 +37,6 @@ const { actions, reducer } = createSlice({
       const subscriber_count = get(state.redux_state_subscriptions, name, 0)
 
       setWith(state.redux_state_subscriptions, name, subscriber_count + 1)
-      // state.redux_state_subscriptions[name] = subscriber_count + 1
 
       if (payload !== undefined) {
         setWith(state, name, payload)
@@ -56,16 +51,13 @@ const { actions, reducer } = createSlice({
       if (subscriber_count < 2 && clanupeEnabled(cleanup, storage)) {
         if (get(state, name)) {
           deleteWith(state, name)
-          // delete state[name]
         }
 
         if (get(redux_state_subscriptions, name)) {
           deleteWith(redux_state_subscriptions, name)
-          // delete redux_state_subscriptions[name]
         }
       } else {
         setWith(state.redux_state_subscriptions, name, subscriber_count - 1)
-        // state.redux_state_subscriptions[name] = subscriber_count - 1
       }
     }
   }

@@ -37,21 +37,22 @@ export const useReduxState = (config, initState) => {
   )
 
   const stateSubscriptionAction = useCallback(
-    (payload) => ({
+    (payload, extend = {}) => ({
       type: SUBSCRIBE_REDUX_STATE,
       payload,
-      name
+      name,
+      ...extend
     }),
-    [name]
+    [name, config?.cleanup]
   )
   const stateUnSubscriptionAction = useCallback(
-    (payload) => ({
+    (payload, extend = {}) => ({
       type: UNSUBSCRIBE_REDUX_STATE,
       payload,
       name,
-      cleanup: config?.cleanup
+      ...extend
     }),
-    [name]
+    [name, config?.cleanup]
   )
 
   const _getState = useCallback(
@@ -85,23 +86,29 @@ export const useReduxState = (config, initState) => {
 
   const getSateSubscription = useCallback(
     () => get(store?.getState()[STATE_NAME].redux_state_subscriptions, name, 0),
-    // () => store?.getState()[STATE_NAME].redux_state_subscriptions[name] || 0,
     [name]
   )
 
   useLayoutEffect(() => {
-    // if (!config?.unmount && !(config?.cleanup || (config?.cleanup === undefined && storage?.config?.cleanup)) {
     if (!config?.unmount) {
       const subCount = getSateSubscription()
       const initialState = getInit()
 
-      subCount < 1 && initialState !== undefined && _setState(initialState)
+      if (
+        config?.cleanup ||
+        (config?.cleanup === undefined && storage?.config?.cleanup)
+      ) {
+        // subsribe to state
+        dispatch(
+          stateSubscriptionAction(initialState, { cleanup: config?.cleanup })
+        )
 
-      // subsribe to state
-      dispatch(stateSubscriptionAction(initialState))
-
-      return () => {
-        dispatch(stateUnSubscriptionAction())
+        return () =>
+          dispatch(
+            stateUnSubscriptionAction(undefined, { cleanup: config?.cleanup })
+          )
+      } else if (subCount < 1 && initialState !== undefined) {
+        _setState(initialState)
       }
     }
   }, [name, config?.unmount])
@@ -118,7 +125,6 @@ export const useReduxState = (config, initState) => {
 
 export const getState = (store, name, callable = sel) =>
   callable(get(store?.getState()?.[STATE_NAME], name))
-// callable(store?.getState()?.[STATE_NAME]?.[name])
 
 export const setState = (dispatch, action, payload) => dispatch(action(payload))
 
@@ -128,7 +134,5 @@ export const action = (name, payload) => ({
   name
 })
 
-export const selector = (state, name, getInit = () => undefined) => {
-  return get(state?.[STATE_NAME], name)
-  // return state?.[STATE_NAME]?.[name]
-}
+export const selector = (state, name, getInit = () => undefined) =>
+  get(state?.[STATE_NAME], name)
