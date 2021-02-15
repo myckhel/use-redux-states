@@ -2,7 +2,7 @@ import { useCallback, useLayoutEffect, useRef, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import storage from './store'
 import { createSelector } from 'reselect'
-import _ from 'lodash'
+import { isEqual, get } from 'lodash'
 
 import {
   SET_REDUX_STATE,
@@ -18,7 +18,7 @@ const unique = () => new Date().getTime()
 
 const isString = (val) => typeof val === 'string'
 
-export const useMemoSelector = (selector, select = sel, eq = _.isEqual) =>
+export const useMemoSelector = (selector, select = sel, eq = isEqual) =>
   useSelector(createSelector(selector, select), eq)
 
 export const useReduxState = (config, initState) => {
@@ -84,11 +84,13 @@ export const useReduxState = (config, initState) => {
   const cleanup = useCallback(() => dispatch(cleanUpAction()), [cleanUpAction])
 
   const getSateSubscription = useCallback(
-    () => store?.getState()[STATE_NAME].redux_state_subscriptions[name] || 0,
+    () => get(store?.getState()[STATE_NAME].redux_state_subscriptions, name, 0),
+    // () => store?.getState()[STATE_NAME].redux_state_subscriptions[name] || 0,
     [name]
   )
 
   useLayoutEffect(() => {
+    // if (!config?.unmount && !(config?.cleanup || (config?.cleanup === undefined && storage?.config?.cleanup)) {
     if (!config?.unmount) {
       const subCount = getSateSubscription()
       const initialState = getInit()
@@ -115,7 +117,8 @@ export const useReduxState = (config, initState) => {
 }
 
 export const getState = (store, name, callable = sel) =>
-  callable(store?.getState()?.[STATE_NAME]?.[name])
+  callable(get(store?.getState()?.[STATE_NAME], name))
+// callable(store?.getState()?.[STATE_NAME]?.[name])
 
 export const setState = (dispatch, action, payload) => dispatch(action(payload))
 
@@ -126,5 +129,6 @@ export const action = (name, payload) => ({
 })
 
 export const selector = (state, name, getInit = () => undefined) => {
-  return state?.[STATE_NAME]?.[name]
+  return get(state?.[STATE_NAME], name)
+  // return state?.[STATE_NAME]?.[name]
 }

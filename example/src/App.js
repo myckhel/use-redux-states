@@ -30,6 +30,7 @@ const App = () => {
         <h2>Redux State Mount Control</h2>
         <p>input will have initial value when mounted</p>
         <MountControl />
+        <NestedState />
       </div>
     </div>
   )
@@ -56,7 +57,7 @@ const Usage = () => {
 const MountControl = () => {
   const [unmount, setMount] = useState(true)
   const {selector, setState} = useReduxState({
-    name: 'mount-control',
+    name: 'mount.control',
     state: {value: 'unmounted value'},
     unmount,
   });
@@ -68,6 +69,21 @@ const MountControl = () => {
       <h6>unMounted: {unmount?.toString()}</h6>
       <input onChange={({target:{value}}) => setState((prevState) => ({...prevState, value}))} value={value} />
       <button onClick={() => setMount(!unmount)}>Toggle Mount</button>
+    </div>
+  )
+}
+const NestedState = () => {
+  const {selector, setState} = useReduxState({
+    name: 'nested.state',
+    state: 1,
+  });
+
+  const state = useMemoSelector(selector);
+
+  return (
+    <div>
+      <h6>Nested State Value: {state}</h6>
+      <button onClick={() => setState((state) => ++state)}>Increase Nested State</button>
     </div>
   )
 }
@@ -146,7 +162,7 @@ const Dependent2 = () => {
 // my state will be clean when i unmount
 const Cleanable = () => {
     const {selector, setState, getState} = useReduxState({
-      name: 'mountable_state',
+      name: 'cleanable.state',
       state: (s) => s || {current: 1},
     });
 
@@ -167,7 +183,7 @@ const Cleanable = () => {
 // my state will be clean when i unmount
 const UnCleanable = () => {
     const {selector, setState} = useReduxState({
-      name: 'uncleanable_state',
+      name: 'uncleanable.state',
       state: (s) => s || {current: 1},
       cleanup: false
     });
