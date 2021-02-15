@@ -1,5 +1,5 @@
 import { createSlice, combineReducers } from '@reduxjs/toolkit'
-import { setWith, get } from 'lodash'
+import { get } from 'lodash'
 
 import { STATE_NAME } from './constants'
 
@@ -75,6 +75,19 @@ const deleteWith = (object, path, index = 0) => {
   }
 
   return deleteWith(object[paths[index]], paths, ++index)
+}
+
+export const setWith = (object, path, value, index = 0) => {
+  const paths = Array.isArray(path) ? path : path.split('.')
+
+  if (index + 1 >= paths.length) {
+    object[paths[index]] = value
+    return object
+  } else if (object[paths[index]] === undefined) {
+    object[paths[index]] = {}
+  }
+
+  return setWith(object[paths[index]], paths, value, ++index)
 }
 
 export const { setState, cleanup, subscribe, unsubscribe } = actions
