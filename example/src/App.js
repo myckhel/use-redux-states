@@ -153,8 +153,8 @@ const Dependent2 = () => {
     return (<div>
       <Text title={"i am depending only on a portion of a state which is: " + portion} />
       <Row>
-        <Button onPress={() => setState((state) => ({...state, portion: state.portion + 10}))} title="Set Portion" />
-        <Button onPress={() => setState1((state) => ({...state, count: state.count + 2}))} title="Set Component 1 state by 2" />
+        <Button onPress={() => setState(10, (state, payload) => ({...state, portion: state.portion + payload}))} title="Set Portion" />
+        <Button onPress={() => setState1(2, (state, payload) => ({...state, count: state.count + payload}))} title="Set Component 1 state by 2" />
       </Row>
     </div>)
 }
@@ -163,7 +163,8 @@ const Dependent2 = () => {
 const Cleanable = () => {
     const {selector, setState, getState} = useReduxState({
       name: 'cleanable.state',
-      state: (s) => s || {current: 1},
+      state: {current: 1}, //payload
+      reducer: (s, payload) => s || payload,
     });
 
     const state = useMemoSelector(selector);
@@ -175,8 +176,8 @@ const Cleanable = () => {
     return (<div>
       <Text title={"my state should be cleaned up when i unmount: " + state?.current} />
       <Row>
-        <Button onPress={() => setState(({current}) => ({current: current + 3}))} title="Increase Mountable State" />
-        <Button onPress={() => setState(({current}) => ({current: current - 3}))} title="Decrease Mountable State" />
+        <Button onPress={() => setState(3, ({current}, payload) => ({current: current + payload}))} title="Increase Mountable State" />
+        <Button onPress={() => setState(3, ({current}, payload) => ({current: current - payload}))} title="Decrease Mountable State" />
       </Row>
     </div>)
 }
