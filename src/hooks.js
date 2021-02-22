@@ -116,8 +116,8 @@ export const useReduxState = (config, initState) => {
               cleanup: config?.cleanup
             })
           )
-      } else if (subCount < 1 && initialState !== undefined) {
-        // subsribe to state once
+      } else if (subCount < 1 || initialState !== undefined) {
+        // subsribe to state once || with initial state
         dispatch(
           stateSubscriptionAction(initialState, {
             cleanup: false,
