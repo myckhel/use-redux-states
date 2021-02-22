@@ -46,7 +46,11 @@ const { actions, reducer } = createSlice({
       ) {
         setWith(state.redux_state_subscriptions, name, subscriber_count + 1)
         if (payload !== undefined || reducer) {
-          setWith(state, name, reducer ? reducer(get(name), payload) : payload)
+          setWith(
+            state,
+            name,
+            reducer ? reducer(get(state, name), payload) : payload
+          )
         }
       }
     },
