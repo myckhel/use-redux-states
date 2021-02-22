@@ -2,7 +2,8 @@ import { useCallback, useLayoutEffect, useRef, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import storage from './store'
 import { createSelector } from 'reselect'
-import { isEqual, get } from 'lodash'
+import { get } from 'lodash'
+import isEqual from 'react-fast-compare'
 
 import {
   SET_REDUX_STATE,
@@ -22,6 +23,8 @@ export const useMemoSelector = (selector, select = sel, eq = isEqual) =>
   useSelector(createSelector(selector, select), eq)
 
 export const useReduxState = (config, initState) => {
+  // TODO reducer
+// export const useReduxState = ({name, reducer}, initState) => {
   const dispatch = useDispatch()
   const store = useRef(storage.store).current
 
@@ -71,6 +74,8 @@ export const useReduxState = (config, initState) => {
 
   const _setState = useCallback(
     (payload) => setState(dispatch, _action, payload),
+    // TODO reducer
+    // (payload, reducer: (s) => s) => setState(dispatch, _action, payload),
     [dispatch, _action]
   )
 
