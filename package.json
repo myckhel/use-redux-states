@@ -1,6 +1,6 @@
 {
   "name": "use-redux-state-hook",
-  "version": "0.2.7-alpha",
+  "version": "1.0.0-alpha.3",
   "description": "Create runtime redux state",
   "keywords": [
     "redux-state",
@@ -75,6 +75,7 @@
   ],
   "dependencies": {
     "lodash": "^4.17.20",
+    "react-fast-compare": "^3.2.0",
     "reselect": "^4.0.0"
   }
 }

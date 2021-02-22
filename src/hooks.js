@@ -2,7 +2,8 @@ import { useCallback, useLayoutEffect, useRef, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import storage from './store'
 import { createSelector } from 'reselect'
-import { isEqual, get } from 'lodash'
+import { get } from 'lodash'
+import isEqual from 'react-fast-compare'
 
 import {
   SET_REDUX_STATE,
@@ -30,7 +31,10 @@ export const useReduxState = (config, initState) => {
     [config]
   )
 
-  const _action = useCallback((payload) => action(name, payload), [name])
+  const _action = useCallback(
+    (payload, reducer) => action(name, payload, reducer),
+    [name]
+  )
   const cleanUpAction = useCallback(
     (payload) => ({ type: CLEANUP_REDUX_STATE, payload, name }),
     [name]
@@ -67,10 +71,10 @@ export const useReduxState = (config, initState) => {
     } else {
       return state
     }
-  }, [initState])
+  }, [config?.state, initState])
 
   const _setState = useCallback(
-    (payload) => setState(dispatch, _action, payload),
+    (payload, reducer) => setState(dispatch, _action, payload, reducer),
     [dispatch, _action]
   )
 
@@ -100,16 +104,26 @@ export const useReduxState = (config, initState) => {
       ) {
         // subsribe to state
         dispatch(
-          stateSubscriptionAction(initialState, { cleanup: config?.cleanup })
+          stateSubscriptionAction(initialState, {
+            cleanup: config?.cleanup,
+            reducer: config?.reducer
+          })
         )
 
         return () =>
           dispatch(
-            stateUnSubscriptionAction(undefined, { cleanup: config?.cleanup })
+            stateUnSubscriptionAction(undefined, {
+              cleanup: config?.cleanup
+            })
           )
-      } else if (subCount < 1 && initialState !== undefined) {
-        // subsribe to state once
-        dispatch(stateSubscriptionAction(initialState, { cleanup: false }))
+      } else if (subCount < 1 || initialState !== undefined) {
+        // subsribe to state once || with initial state
+        dispatch(
+          stateSubscriptionAction(initialState, {
+            cleanup: false,
+            reducer: config?.reducer
+          })
+        )
       }
     }
   }, [name, config?.unmount])
@@ -127,12 +141,14 @@ export const useReduxState = (config, initState) => {
 export const getState = (store, name, callable = sel) =>
   callable(get(store?.getState()?.[STATE_NAME], name))
 
-export const setState = (dispatch, action, payload) => dispatch(action(payload))
+export const setState = (dispatch, action, payload, reducer) =>
+  dispatch(action(payload, reducer))
 
-export const action = (name, payload) => ({
+export const action = (name, payload, reducer) => ({
   type: SET_REDUX_STATE,
   payload,
-  name
+  name,
+  reducer
 })
 
 export const selector = (state, name, getInit = () => undefined) =>

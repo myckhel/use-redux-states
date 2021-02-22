@@ -16,11 +16,15 @@ const { actions, reducer } = createSlice({
   name: STATE_NAME,
   initialState: INIT_STATE,
   reducers: {
-    setState: (state, { name, payload }) => {
+    setState: (state, { name, payload, reducer }) => {
       setWith(
         state,
         name,
-        typeof payload === 'function' ? payload(get(state, name)) : payload
+        reducer
+          ? reducer(get(state, name), payload)
+          : typeof payload === 'function'
+          ? payload(get(state, name))
+          : payload
       )
     },
 
@@ -33,7 +37,7 @@ const { actions, reducer } = createSlice({
       }
     },
 
-    subscribe: (state, { payload, name, cleanup }) => {
+    subscribe: (state, { payload, name, cleanup, reducer }) => {
       const subscriber_count = get(state.redux_state_subscriptions, name, 0)
 
       if (
@@ -41,8 +45,12 @@ const { actions, reducer } = createSlice({
         !(cleanup || (cleanup === undefined && storage?.config?.cleanup))
       ) {
         setWith(state.redux_state_subscriptions, name, subscriber_count + 1)
-        if (payload !== undefined) {
-          setWith(state, name, payload)
+        if (payload !== undefined || reducer) {
+          setWith(
+            state,
+            name,
+            reducer ? reducer(get(state, name), payload) : payload
+          )
         }
       }
     },
