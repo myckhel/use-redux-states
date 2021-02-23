@@ -16,12 +16,16 @@ module.exports = {
       },
       items: [
         {
+          type: 'docsVersionDropdown',
+          position: 'left',
+          dropdownActiveClassDisabled: true
+        },
+        {
           to: 'docs/',
           activeBasePath: 'docs',
           label: 'Docs',
           position: 'left'
         },
-        { to: 'blog', label: 'Blog', position: 'left' },
         {
           href: 'https://github.com/myckhel/use-redux-state-hook',
           label: 'GitHub',
@@ -43,6 +47,7 @@ module.exports = {
           // Please change this to your repo.
           editUrl:
             'https://github.com/myckhel/use-redux-state-hook/edit/master/redux-state/'
+          // include: ['{apis}/*.{md}'] // no other way to exclude node_modules
         },
         blog: {
           showReadingTime: true,
@@ -56,4 +61,22 @@ module.exports = {
       }
     ]
   ]
+  // plugins: [
+  //   [
+  //     '@docusaurus/plugin-content-docs',
+  //     {
+  //       versions: {
+  //         '0.1.2': {
+  //           label: 'Initial',
+  //           path: 'version-0.1.2'
+  //         },
+  //         '1.0.0-alpha.x': {
+  //           label: 'Android SDK v1.0.0',
+  //           path: 'version-1.0.0-alpha.x'
+  //         }
+  //       }
+  //     }
+  //   ]
+  // ]
+  // themes: ['@docusaurus/theme-live-codeblock']
 }
