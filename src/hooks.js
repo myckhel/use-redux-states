@@ -1,6 +1,6 @@
-import { useCallback, useLayoutEffect, useRef, useMemo } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import storage from './store'
+import { useCallback, useLayoutEffect, useMemo } from 'react'
+import { useDispatch, useSelector, useStore } from 'react-redux'
+import libConfig from './config'
 import { createSelector } from 'reselect'
 import { get } from 'lodash'
 import isEqual from 'react-fast-compare'
@@ -24,7 +24,7 @@ export const useMemoSelector = (selector, select = sel, eq = isEqual) =>
 
 export const useReduxState = (config, initState) => {
   const dispatch = useDispatch()
-  const store = useRef(storage.store).current
+  const store = useStore()
 
   const name = useMemo(
     () => (isString(config) ? config : config?.name || unique()),
@@ -100,7 +100,7 @@ export const useReduxState = (config, initState) => {
 
       if (
         config?.cleanup ||
-        (config?.cleanup === undefined && storage?.config?.cleanup)
+        (config?.cleanup === undefined && libConfig?.cleanup)
       ) {
         // subsribe to state
         dispatch(

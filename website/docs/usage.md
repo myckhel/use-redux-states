@@ -12,7 +12,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import yourReducer1 from './yourReducer1'
 import yourReducer2 from './yourReducer2'
 import {
-  setStore,
+  setConfig,
   mergeReducers,
   SET_REDUX_STATE,
   SUBSCRIBE_REDUX_STATE
@@ -29,7 +29,7 @@ const store = configureStore({
       }
     })
 })
-setStore(store)
+setConfig({cleanup: false})
 ```
 
 ## Basic Usage

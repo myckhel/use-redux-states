@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import reducer from './reducers'
 import {
-  setStore,
+  setConfig,
   SET_REDUX_STATE,
   SUBSCRIBE_REDUX_STATE
 } from 'use-redux-state-hook'
@@ -15,5 +15,5 @@ const store = configureStore({
       }
     })
 })
-setStore(store, { cleanup: true })
+setConfig({ cleanup: true })
 export default store

@@ -3,14 +3,14 @@ import { get } from 'lodash'
 
 import { STATE_NAME } from './constants'
 
-import storage from './store'
+import libConfig from './config'
 
 const INIT_STATE = {
   redux_state_subscriptions: {}
 }
 
-const clanupeEnabled = (cleanup, storage) =>
-  cleanup || (cleanup === undefined && storage?.config?.cleanup)
+const clanupeEnabled = (cleanup, libConfig) =>
+  cleanup || (cleanup === undefined && libConfig?.cleanup)
 
 const { actions, reducer } = createSlice({
   name: STATE_NAME,
@@ -42,7 +42,7 @@ const { actions, reducer } = createSlice({
 
       if (
         subscriber_count < 1 ||
-        !(cleanup || (cleanup === undefined && storage?.config?.cleanup))
+        !(cleanup || (cleanup === undefined && libConfig?.cleanup))
       ) {
         setWith(state.redux_state_subscriptions, name, subscriber_count + 1)
         if (payload !== undefined || reducer) {
@@ -60,7 +60,7 @@ const { actions, reducer } = createSlice({
 
       const subscriber_count = get(state.redux_state_subscriptions, name, 0)
 
-      if (subscriber_count < 2 && clanupeEnabled(cleanup, storage)) {
+      if (subscriber_count < 2 && clanupeEnabled(cleanup, libConfig)) {
         if (get(state, name)) {
           deleteWith(state, name)
         }

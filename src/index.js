@@ -1,4 +1,4 @@
-import { setStore } from './store'
+import { setConfig } from './config'
 import {
   useReduxState,
   useMemoSelector,
@@ -19,7 +19,7 @@ import {
 export default useReduxState
 export {
   useReduxState,
-  setStore,
+  setConfig,
   mergeReducers,
   useMemoSelector,
   getState,
