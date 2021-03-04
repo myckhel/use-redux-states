@@ -1,5 +1,5 @@
 import { useCallback, useLayoutEffect, useMemo } from 'react'
-import { useDispatch, useSelector, useStore } from 'react-redux'
+import { useSelector, useStore } from 'react-redux'
 import libConfig from './config'
 import { createSelector } from 'reselect'
 import { get } from 'lodash'
@@ -23,8 +23,8 @@ export const useMemoSelector = (selector, select = sel, eq = isEqual) =>
   useSelector(createSelector(selector, select), eq)
 
 export const useReduxState = (config, initState) => {
-  const dispatch = useDispatch()
   const store = useStore()
+  const dispatch = store.dispatch
 
   const name = useMemo(
     () => (isString(config) ? config : config?.name || unique()),

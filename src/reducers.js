@@ -76,7 +76,7 @@ const { actions, reducer } = createSlice({
 })
 
 const deleteWith = (object, path, index = 0) => {
-  const paths = Array.isArray(path) ? path : path.split('.')
+  const paths = path.map ? path : path.split('.')
 
   if (index + 1 >= paths.length) {
     return delete object[paths[index]]
@@ -86,7 +86,7 @@ const deleteWith = (object, path, index = 0) => {
 }
 
 export const setWith = (object, path, value, index = 0) => {
-  const paths = Array.isArray(path) ? path : path.split('.')
+  const paths = path.map ? path : path.split('.')
 
   if (index + 1 >= paths.length) {
     object[paths[index]] = value
