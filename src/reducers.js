@@ -17,6 +17,7 @@ const { actions, reducer } = createSlice({
   initialState: INIT_STATE,
   reducers: {
     setState: (state, { name, payload, reducer }) => {
+      const setter = libConfig.setter || _setter
       setWith(
         state,
         name,
@@ -24,7 +25,7 @@ const { actions, reducer } = createSlice({
           ? reducer(get(state, name), payload)
           : typeof payload === 'function'
           ? payload(get(state, name))
-          : payload
+          : setter(get(state, name), payload)
       )
     },
 
@@ -38,6 +39,7 @@ const { actions, reducer } = createSlice({
     },
 
     subscribe: (state, { payload, name, cleanup, reducer }) => {
+      const setter = libConfig.setter || _setter
       const subscriber_count = get(state.redux_state_subscriptions, name, 0)
 
       if (
@@ -49,7 +51,9 @@ const { actions, reducer } = createSlice({
           setWith(
             state,
             name,
-            reducer ? reducer(get(state, name), payload) : payload
+            reducer
+              ? reducer(get(state, name), payload)
+              : setter(get(state, name), payload)
           )
         }
       }
@@ -96,6 +100,17 @@ export const setWith = (object, path, value, index = 0) => {
   }
 
   return setWith(object[paths[index]], paths, value, ++index)
+}
+
+const _setter = (stateValue, payload) => {
+  switch (typeof stateValue) {
+    case 'object':
+      return { ...stateValue, ...payload }
+    case 'array':
+      return [...stateValue, ...payload]
+    default:
+      return payload
+  }
 }
 
 export const { setState, cleanup, subscribe, unsubscribe } = actions

@@ -15,5 +15,18 @@ const store = configureStore({
       }
     })
 })
-setConfig({ cleanup: true })
+setConfig({
+  cleanup: true,
+  setter: (state, payload) => {
+    console.log('using custom setter for type '+(typeof state));
+    switch (typeof state) {
+      case 'object':
+        return { ...state, ...payload }
+      case 'array':
+        return [...state, ...payload]
+      default:
+        return payload
+    }
+  }
+})
 export default store

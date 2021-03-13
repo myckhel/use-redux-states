@@ -30,6 +30,8 @@ const App = () => {
         />
         <h2>Usage</h2>
         <Usage />
+        <h2>Default Setter</h2>
+        <Setter />
         <h2>Redux State Mount Control</h2>
         <p>input will have initial value when mounted</p>
         <MountControl />
@@ -64,6 +66,23 @@ const Usage = () => {
       >
         Increment Count
       </button>
+    </div>
+  )
+}
+const Setter = () => {
+  const { selector, setState } = useReduxState('setter.type.int', 1)
+
+  const number = useMemoSelector(selector)
+
+  return (
+    <div>
+      <input
+        type='number'
+        onChange={({ target: { value } }) =>
+          setState(value)
+        }
+        value={number}
+      />
     </div>
   )
 }
