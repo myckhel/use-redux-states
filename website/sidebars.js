@@ -36,6 +36,7 @@ module.exports = {
         'apis/get-state',
         'apis/set-state',
         'apis/set-config',
+        'apis/use-set-state',
         'apis/action',
         'apis/cleanup'
       ]

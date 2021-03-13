@@ -19,8 +19,16 @@ const unique = () => new Date().getTime()
 
 const isString = (val) => typeof val === 'string'
 
-export const useMemoSelector = (selector, select = sel, eq = isEqual) =>
-  useSelector(createSelector(selector, select), eq)
+export const useMemoSelector = (selectorOrName, select = sel, eq = isEqual) =>
+  useSelector(
+    createSelector(
+      typeof selectorOrName === 'string'
+        ? (state) => selector(state, selectorOrName)
+        : selectorOrName,
+      select
+    ),
+    eq
+  )
 
 export const useReduxState = (config, initState) => {
   const store = useStore()

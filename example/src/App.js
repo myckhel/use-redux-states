@@ -138,7 +138,6 @@ const Arr = () => {
     }
   })
   const array = useMemoSelector(selector) // {count: 1}
-  console.log('mountarray', { array })
 
   return (
     <div>
@@ -160,7 +159,6 @@ const Component1 = () => {
   // const {selector, setState} = useReduxState('component1_state', (state) => {console.log({state}); return {count: 1}});
   const { selector, setState } = useReduxState('component1_state', { count: 1 })
   const count = useMemoSelector(selector, (state) => state.count) // {count: 1}
-  console.log('mount', { count })
 
   return (
     <div>
@@ -175,8 +173,7 @@ const Component1 = () => {
 
 // i can access Component1 state
 const Component2 = () => {
-  const { selector } = useReduxState('component1_state')
-  const state = useMemoSelector(selector) // {count: 2}
+  const state = useMemoSelector('component1_state') // {count: 2}
 
   return <Text title={'current component 1 state is: ' + state?.count} />
 }
