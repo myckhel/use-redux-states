@@ -5,7 +5,8 @@ import {
   getState,
   setState,
   action,
-  selector
+  selector,
+  useSetState
 } from './hooks'
 import mergeReducers from './reducers'
 import {
@@ -26,6 +27,7 @@ export {
   setState,
   action,
   selector,
+  useSetState,
   STATE_NAME,
   SET_REDUX_STATE,
   UNSUBSCRIBE_REDUX_STATE,

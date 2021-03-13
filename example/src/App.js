@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react'
-import useReduxState, { useMemoSelector } from 'use-redux-state-hook'
+import useReduxState, { useMemoSelector, useSetState } from 'use-redux-state-hook'
 
 const App = () => {
   const { selector, setState: setMount } = useReduxState({
@@ -55,7 +55,7 @@ const Usage = () => {
       <h6>Current Count: {count}</h6>
       <input
         onChange={({ target: { value: locale } }) =>
-          setState((prevState) => ({ ...prevState, locale }))
+          setState({locale})
         }
         value={locale}
       />
@@ -216,7 +216,7 @@ const Dependent2 = () => {
     reducer: (currentState, payload) =>
       currentState ? { ...currentState, ...payload } : { payload }
   })
-  const { setState: setState1 } = useReduxState('component1_state')
+  const setState1 = useSetState('component1_state')
   const portion = useMemoSelector(selector, (state) => state?.portion) // portion: 10
 
   return (
