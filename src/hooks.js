@@ -154,7 +154,7 @@ export const useSetState = (name) => {
   )
 
   return useCallback(
-    (payload, reducer) => setState(dispatch, _action, payload, reducer),
+    (payload, setter) => setState(dispatch, _action, payload, setter),
     [dispatch, _action]
   )
 }

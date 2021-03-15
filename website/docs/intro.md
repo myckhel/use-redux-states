@@ -6,7 +6,7 @@ slug: /
 ---
 
 ## Overview
-`use-redux-state-hook` allows you to create runtime redux states for your components without explicitly creating actions and reducers.
+`use-redux-state-hook` allows you to create redux states at runtime for your react components without creating static actions and reducers.
 It was also designed to solve react's unnecessary re-render issue by using `useMemoSelector` api.
 
-It returns object which includes a setState function that uses same concept as react's class component `setState` function which accepts `callback(previous_state)` or new state value.
+`use-redux-state-hook` was also created to improve your app's performance.

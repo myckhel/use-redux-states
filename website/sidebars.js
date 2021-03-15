@@ -30,13 +30,20 @@ module.exports = {
       type: 'category',
       label: 'Api Ref',
       items: [
-        'apis/use-redux-state',
-        'apis/use-memo-selector',
+        {
+          collapsed: false,
+          type: 'category',
+          label: 'Hooks',
+          items: [
+            'apis/hooks/use-redux-state',
+            'apis/hooks/use-memo-selector',
+            'apis/hooks/use-set-state'
+          ]
+        },
         'apis/selector',
         'apis/get-state',
         'apis/set-state',
         'apis/set-config',
-        'apis/use-set-state',
         'apis/action',
         'apis/cleanup'
       ]
