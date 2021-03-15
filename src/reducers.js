@@ -103,10 +103,10 @@ export const setWith = (object, path, value, index = 0) => {
 }
 
 const _setter = (stateValue, payload) => {
-  switch (typeof stateValue) {
-    case 'object':
+  switch (stateValue.constructor) {
+    case Object:
       return { ...stateValue, ...payload }
-    case 'array':
+    case Array:
       return [...stateValue, ...payload]
     default:
       return payload

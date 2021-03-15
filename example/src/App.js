@@ -130,13 +130,7 @@ const NestedState = () => {
 
 // i can create a redux state at runtime
 const Arr = () => {
-  const { selector, setState } = useReduxState('array_state', (state) => {
-    if (state) {
-      return [2, 1]
-    } else {
-      return [1, 2]
-    }
-  })
+  const { selector, setState } = useReduxState('array_state', [1, 2])
   const array = useMemoSelector(selector) // {count: 1}
 
   return (
