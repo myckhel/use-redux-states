@@ -1,5 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react'
-import useReduxState, { useMemoSelector, useSetState } from 'use-redux-state-hook'
+import useReduxState, {
+  useMemoSelector,
+  useSetState,
+  useGetState
+} from 'use-redux-state-hook'
 
 const App = () => {
   const { selector, setState: setMount } = useReduxState({
@@ -54,9 +58,7 @@ const Usage = () => {
     <div>
       <h6>Current Count: {count}</h6>
       <input
-        onChange={({ target: { value: locale } }) =>
-          setState({locale})
-        }
+        onChange={({ target: { value: locale } }) => setState({ locale })}
         value={locale}
       />
       <button
@@ -78,9 +80,7 @@ const Setter = () => {
     <div>
       <input
         type='number'
-        onChange={({ target: { value } }) =>
-          setState(value)
-        }
+        onChange={({ target: { value } }) => setState(value)}
         value={number}
       />
     </div>
@@ -243,15 +243,16 @@ const Dependent2 = () => {
 
 // my state will be clean when i unmount
 const Cleanable = () => {
-  const { selector, setState, getState } = useReduxState({
+  const { selector, setState } = useReduxState({
     name: 'cleanable.state',
     state: { current: 1 }, //payload
     reducer: (s, payload) => s || payload
   })
 
+  const getState = useGetState('cleanable.state')
   const state = useMemoSelector(selector)
   useEffect(() => {
-    const state = getState((s) => s)
+    const state = getState((state) => state)
     console.log({ state })
   }, [getState])
 

@@ -103,7 +103,7 @@ export const setWith = (object, path, value, index = 0) => {
 }
 
 const _setter = (stateValue, payload) => {
-  switch (stateValue.constructor) {
+  switch (stateValue?.constructor) {
     case Object:
       return { ...stateValue, ...payload }
     case Array:

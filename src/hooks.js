@@ -159,6 +159,14 @@ export const useSetState = (name) => {
   )
 }
 
+export const useGetState = (name) => {
+  const store = useStore()
+  return useCallback((callable) => getState(store, name, callable), [
+    name,
+    store
+  ])
+}
+
 export const getState = (store, name, callable = sel) =>
   callable(get(store?.getState()?.[STATE_NAME], name))
 
