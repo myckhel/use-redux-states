@@ -1,11 +1,13 @@
-import { setStore } from './store'
+import { setConfig } from './config'
 import {
   useReduxState,
   useMemoSelector,
   getState,
   setState,
   action,
-  selector
+  selector,
+  useSetState,
+  useGetState
 } from './hooks'
 import mergeReducers from './reducers'
 import {
@@ -19,13 +21,15 @@ import {
 export default useReduxState
 export {
   useReduxState,
-  setStore,
+  setConfig,
   mergeReducers,
   useMemoSelector,
   getState,
   setState,
   action,
   selector,
+  useSetState,
+  useGetState,
   STATE_NAME,
   SET_REDUX_STATE,
   UNSUBSCRIBE_REDUX_STATE,

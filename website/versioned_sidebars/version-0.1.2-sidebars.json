@@ -1,0 +1,40 @@
+{
+  "version-0.1.2/someSidebar": [
+    {
+      "collapsed": true,
+      "type": "category",
+      "label": "Redux State",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-0.1.2/intro"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.1.2/install"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.1.2/usage"
+        }
+      ]
+    },
+    {
+      "collapsed": true,
+      "type": "category",
+      "label": "Guides",
+      "items": []
+    },
+    {
+      "collapsed": true,
+      "type": "category",
+      "label": "Api Ref",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-0.1.2/use-redux-state"
+        }
+      ]
+    }
+  ]
+}
