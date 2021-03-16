@@ -32,17 +32,17 @@ useReduxState({name: 'state.name', state: 'Mike'});
 // creates nested state in the store {state: {name: 'Mike'}}
 ```
 
-### state
+### state?
 initial state
 ```js
 useReduxState({name: 'state.name', state: 'Mike'});
 // creates nested state in the store {state: {name: 'Mike'}}
 ```
 
-### reducer()
-funtion that takes storeState, initState and returns new state.
-this funtion runs once during the initialization of the state
-use the function when you dont want to replace the existing state in redux store
+### reducer()?
+function that takes the current `state` for the given name, `payload` and returns computed new state.
+this function runs once during the initialization of the state
+use the function when you want to manually handle how the state should be created/updated.
 
 ```js
 useReduxState({name: 'state.name', state: {is: 'Mike'}});
@@ -51,12 +51,12 @@ useReduxState({name: 'state.name', state: {is: 'Mike'}});
 useReduxState({
   name: 'state.name',
   state: {and: 'Redux'},
-  reducer: (storeState, state) => ({...storeState, ...state})
+  reducer: (currentState, payload) => ({...currentState, ...payload})
 });
 ```
 in the above example
-reducer has prevented from overwritting the store state
-intead of:
+reducer had prevented from over-writing the store state when there is an existing value for the state.
+instead of:
 ```js
 {state: {name: {and: 'Redux'}}}
 ```
@@ -65,7 +65,7 @@ we got:
 {state: {name: {is: 'Mike', and: 'Redux'}}}
 ```
 
-### unmount.
+### unmount?.
 **type:** boolean
 **default:** false
 
@@ -77,11 +77,12 @@ useReduxState({unmount: false, name: 'state.name', state: 'Mike'});
 // {state: {name: 'Mike'}}
 ```
 
-### cleanup.
+### cleanup?.
 **type:** boolean
 <!-- **default:** false -->
 
-determines whether redux state should cleanup the state when component unmounted from view
+determines whether redux state should cleanup the state when component unmounted from view.
+
 ```js
 const {getState} = useReduxState({cleanup: true, name: 'state.name', state: 'Mike'});
 
