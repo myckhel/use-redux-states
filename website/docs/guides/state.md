@@ -1,4 +1,0 @@
----
-id: state
-title: state
----

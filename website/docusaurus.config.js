@@ -4,10 +4,15 @@ module.exports = {
   url: 'https://myckhel.github.io',
   baseUrl: '/use-redux-state-hook/',
   onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'myckhel', // Usually your GitHub org/user name.
   projectName: 'use-redux-state-hook', // Usually your repo name.
   themeConfig: {
+    prism: {
+      defaultLanguage: 'jsx',
+      theme: require('prism-react-renderer/themes/dracula'),
+    },
     navbar: {
       title: 'Redux State Hook',
       logo: {

@@ -88,7 +88,7 @@ export const useReduxState = (config, initState) => {
 
   const _selector = useCallback(
     (state) => {
-      const storeState = selector(state, name, getInit)
+      const storeState = selector(state, name)
       return storeState !== undefined ? storeState : getInit()
     },
     [name]
@@ -180,5 +180,4 @@ export const action = (name, payload, reducer) => ({
   reducer
 })
 
-export const selector = (state, name, getInit = () => undefined) =>
-  get(state?.[STATE_NAME], name)
+export const selector = (state, name) => get(state?.[STATE_NAME], name)

@@ -23,7 +23,7 @@ module.exports = {
       collapsed: true,
       type: 'category',
       label: 'Guides',
-      items: ['guides/state']
+      items: ['guides/using-redux-state']
     },
     {
       collapsed: true,
@@ -37,7 +37,8 @@ module.exports = {
           items: [
             'apis/hooks/use-redux-state',
             'apis/hooks/use-memo-selector',
-            'apis/hooks/use-set-state'
+            'apis/hooks/use-set-state',
+            'apis/hooks/use-get-state'
           ]
         },
         'apis/selector',

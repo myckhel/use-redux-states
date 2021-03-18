@@ -5,7 +5,7 @@ sidebar_label: Usage
 slug: /usage
 ---
 
-## Setup
+## `Setup`
 
 ```js
 import { configureStore } from '@reduxjs/toolkit'
@@ -32,7 +32,7 @@ const store = configureStore({
 setConfig({cleanup: false})
 ```
 
-## Basic Usage
+## `Basic Usage`
 
 ```jsx
 import React, { Component } from 'react'
@@ -52,9 +52,7 @@ const Usage = () => {
     <div>
       <h6>Current Count: {count}</h6>
       <input
-        onChange={({ target: { value: locale } }) =>
-          setState((prevState) => ({ ...prevState, locale }))
-        }
+        onChange={({ target: { value: locale } }) => setState({locale})}
         value={locale}
       />
       <button
