@@ -102,12 +102,16 @@ export const setWith = (object, path, value, index = 0) => {
   return setWith(object[paths[index]], paths, value, ++index)
 }
 
-const _setter = (stateValue, payload) => {
-  switch (stateValue?.constructor) {
+const _setter = (existingState, payload) => {
+  switch (existingState?.constructor) {
     case Object:
-      return { ...stateValue, ...payload }
+      return payload?.constructor === Object
+        ? { ...existingState, ...payload }
+        : payload
     case Array:
-      return [...stateValue, ...payload]
+      return payload?.constructor === Array
+        ? [...existingState, ...payload]
+        : payload
     default:
       return payload
   }

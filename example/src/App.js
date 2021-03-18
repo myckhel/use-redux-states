@@ -135,15 +135,24 @@ const Arr = () => {
 
   return (
     <div>
-      <h6>arrays: {array.map((a) => a + ', ')}</h6>
+      <h6>arrays: {array?.map((a) => a + ', ')}</h6>
       <Button
-        onPress={() => setState((array) => [...array, (array.pop() || 0) + 1])}
+        onPress={() =>
+          setState((array) =>
+            array ? [...array, (array.pop() || 0) + 1] : [1, 2, 3]
+          )
+        }
         title='Increase Array'
       />
       <Button
-        onPress={() => setState((array) => array.slice(0, array.length - 1))}
+        onPress={() =>
+          setState((array) =>
+            array ? array.slice(0, array.length - 1) : [1, 2, 3]
+          )
+        }
         title='Decrease Array'
       />
+      <Button onPress={() => setState()} title='Reset Array' />
     </div>
   )
 }

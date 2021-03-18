@@ -17,13 +17,17 @@ const store = configureStore({
 })
 setConfig({
   cleanup: true,
-  setter: (state, payload) => {
-    console.log('using custom setter for type '+(typeof state));
-    switch (typeof state) {
-      case 'object':
-        return { ...state, ...payload }
-      case 'array':
-        return [...state, ...payload]
+  setter: (existingState, payload) => {
+    console.log('using custom setter for type ' + typeof state)
+    switch (existingState?.constructor) {
+      case Object:
+        return payload?.constructor === Object
+          ? { ...existingState, ...payload }
+          : payload
+      case Array:
+        return payload?.constructor === Array
+          ? [...existingState, ...payload]
+          : payload
       default:
         return payload
     }
