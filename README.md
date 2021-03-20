@@ -1,5 +1,7 @@
 # use-redux-state-hook
 
+> :warning: **This package has been renamed to `react-redux-state`**: Please install [react-redux-state](https://github.com/myckhel/react-redux-state) instead!
+
 > Create runtime redux state
 
 [![NPM](https://img.shields.io/npm/v/use-redux-state-hook.svg)](https://www.npmjs.com/package/use-redux-state-hook) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
