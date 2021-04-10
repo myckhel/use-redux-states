@@ -1,38 +1,13 @@
-import { setConfig } from './config'
-import {
-  useReduxState,
-  useMemoSelector,
-  getState,
-  setState,
-  action,
-  selector,
-  useSetState,
-  useGetState
-} from './hooks'
 import mergeReducers from './reducers'
-import {
+import { useReduxState } from './hooks'
+export {
   STATE_NAME,
   SET_REDUX_STATE,
   UNSUBSCRIBE_REDUX_STATE,
   SUBSCRIBE_REDUX_STATE,
   CLEANUP_REDUX_STATE
 } from './constants'
-
-export default useReduxState
-export {
-  useReduxState,
-  setConfig,
-  mergeReducers,
-  useMemoSelector,
-  getState,
-  setState,
-  action,
-  selector,
-  useSetState,
-  useGetState,
-  STATE_NAME,
-  SET_REDUX_STATE,
-  UNSUBSCRIBE_REDUX_STATE,
-  SUBSCRIBE_REDUX_STATE,
-  CLEANUP_REDUX_STATE
-}
+export { useMemoSelector, useSetState, useGetState } from './hooks'
+export { getState, setState, action, selector } from './helpers'
+export { setConfig } from './config'
+export { mergeReducers, useReduxState, useReduxState as default }

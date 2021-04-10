@@ -4,25 +4,27 @@ import libConfig from './config'
 import { createSelector } from 'reselect'
 import { get } from 'lodash'
 import isEqual from 'react-fast-compare'
+import {
+  isString,
+  unique,
+  sel,
+  getState,
+  setState,
+  action,
+  selector
+} from './helpers'
 
 import {
-  SET_REDUX_STATE,
   UNSUBSCRIBE_REDUX_STATE,
   SUBSCRIBE_REDUX_STATE,
   CLEANUP_REDUX_STATE,
   STATE_NAME
 } from './constants'
 
-const sel = (state) => state
-
-const unique = () => new Date().getTime()
-
-const isString = (val) => typeof val === 'string'
-
 export const useMemoSelector = (selectorOrName, select = sel, eq = isEqual) =>
   useSelector(
     createSelector(
-      typeof selectorOrName === 'string'
+      isString(selectorOrName)
         ? (state) => selector(state, selectorOrName)
         : selectorOrName,
       select
@@ -166,18 +168,3 @@ export const useGetState = (name) => {
     store
   ])
 }
-
-export const getState = (store, name, callable = sel) =>
-  callable(get(store?.getState()?.[STATE_NAME], name))
-
-export const setState = (dispatch, action, payload, reducer) =>
-  dispatch(action(payload, reducer))
-
-export const action = (name, payload, reducer) => ({
-  type: SET_REDUX_STATE,
-  payload,
-  name,
-  reducer
-})
-
-export const selector = (state, name) => get(state?.[STATE_NAME], name)
