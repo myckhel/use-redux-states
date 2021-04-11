@@ -17,7 +17,7 @@ import TabItem from '@theme/TabItem';
   <TabItem value="yarn">
 
   ```bash
-  yarn add use-redux-state-hook@beta
+  yarn add use-redux-state-hook
   ```
 
   </TabItem>
@@ -25,7 +25,7 @@ import TabItem from '@theme/TabItem';
   <TabItem value="npm">
 
   ```bash
-  npm install --save use-redux-state-hook@beta
+  npm install --save use-redux-state-hook
   ```
 
   </TabItem>
@@ -40,7 +40,7 @@ import TabItem from '@theme/TabItem';
   <TabItem value="yarn">
 
   ```bash
-  yarn add use-redux-state-hook@beta redux react-redux @reduxjs/toolkit
+  yarn add use-redux-state-hook redux react-redux
   ```
 
   </TabItem>
@@ -48,7 +48,7 @@ import TabItem from '@theme/TabItem';
   <TabItem value="npm">
 
   ```bash
-  npm install --save use-redux-state-hook@beta redux react-redux @reduxjs/toolkit
+  npm install --save use-redux-state-hook redux react-redux
   ```
 
   </TabItem>

@@ -11,12 +11,12 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^1.4.0",
+    "@reduxjs/toolkit": "^1.5.1",
     "react": "link:../node_modules/react",
     "react-dom": "^16.13.1",
+    "react-redux": "^7.2.2",
     "react-scripts": "link:../node_modules/react-scripts",
     "redux": "^4.0.5",
-    "react-redux": "^7.2.2",
     "use-redux-state-hook": "link:.."
   },
   "devDependencies": {
