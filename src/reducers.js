@@ -2,22 +2,17 @@ import { createSlice, combineReducers } from '@reduxjs/toolkit'
 import { get } from 'lodash'
 
 import { STATE_NAME } from './constants'
-
-import libConfig from './config'
+import { setWith, getSetter, deleteWith } from './helpers'
 
 const INIT_STATE = {
   redux_state_subscriptions: {}
 }
-
-const clanupeEnabled = (cleanup, libConfig) =>
-  cleanup || (cleanup === undefined && libConfig?.cleanup)
 
 const { actions, reducer } = createSlice({
   name: STATE_NAME,
   initialState: INIT_STATE,
   reducers: {
     setState: (state, { name, payload, reducer }) => {
-      const setter = libConfig.setter || _setter
       setWith(
         state,
         name,
@@ -25,27 +20,21 @@ const { actions, reducer } = createSlice({
           ? reducer(get(state, name), payload)
           : typeof payload === 'function'
           ? payload(get(state, name))
-          : setter(get(state, name), payload)
+          : getSetter()(get(state, name), payload)
       )
     },
 
     cleanup: (state, { payload, name }) => {
-      if (get(state, name)) {
-        deleteWith(state, name)
-      }
-      if (get(state.redux_state_subscriptions, name)) {
+      get(state, name) && deleteWith(state, name)
+
+      get(state.redux_state_subscriptions, name) &&
         deleteWith(state.redux_state_subscriptions, name)
-      }
     },
 
     subscribe: (state, { payload, name, cleanup, reducer }) => {
-      const setter = libConfig.setter || _setter
       const subscriber_count = get(state.redux_state_subscriptions, name, 0)
 
-      if (
-        subscriber_count < 1 ||
-        !(cleanup || (cleanup === undefined && libConfig?.cleanup))
-      ) {
+      if (subscriber_count < 1 || cleanup) {
         setWith(state.redux_state_subscriptions, name, subscriber_count + 1)
         if (payload !== undefined || reducer) {
           setWith(
@@ -53,7 +42,7 @@ const { actions, reducer } = createSlice({
             name,
             reducer
               ? reducer(get(state, name), payload)
-              : setter(get(state, name), payload)
+              : getSetter()(get(state, name), payload)
           )
         }
       }
@@ -64,7 +53,7 @@ const { actions, reducer } = createSlice({
 
       const subscriber_count = get(state.redux_state_subscriptions, name, 0)
 
-      if (subscriber_count < 2 && clanupeEnabled(cleanup, libConfig)) {
+      if (subscriber_count < 2 && cleanup) {
         if (get(state, name)) {
           deleteWith(state, name)
         }
@@ -78,44 +67,6 @@ const { actions, reducer } = createSlice({
     }
   }
 })
-
-const deleteWith = (object, path, index = 0) => {
-  const paths = path.map ? path : path.split('.')
-
-  if (index + 1 >= paths.length) {
-    return delete object[paths[index]]
-  }
-
-  return deleteWith(object[paths[index]], paths, ++index)
-}
-
-export const setWith = (object, path, value, index = 0) => {
-  const paths = path.map ? path : path.split('.')
-
-  if (index + 1 >= paths.length) {
-    object[paths[index]] = value
-    return object
-  } else if (object[paths[index]] === undefined) {
-    object[paths[index]] = {}
-  }
-
-  return setWith(object[paths[index]], paths, value, ++index)
-}
-
-const _setter = (existingState, payload) => {
-  switch (existingState?.constructor) {
-    case Object:
-      return payload?.constructor === Object
-        ? { ...existingState, ...payload }
-        : payload
-    case Array:
-      return payload?.constructor === Array
-        ? [...existingState, ...payload]
-        : payload
-    default:
-      return payload
-  }
-}
 
 export const { setState, cleanup, subscribe, unsubscribe } = actions
 
