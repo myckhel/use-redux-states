@@ -73,6 +73,9 @@ const Usage = () => {
 ### React Native Snack Example
 [Snack Example](https://snack.expo.io/@myckhel/use-redux-state-hook)
 
+### React Native Snack GiftedChat Example
+[Snack GiftedChat Example](https://snack.expo.io/@myckhel/react-native-gifted-chat-reply)
+
 ## API
 
 | API | Arguments | Returns |
