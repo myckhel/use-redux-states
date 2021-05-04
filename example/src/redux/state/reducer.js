@@ -1,8 +1,10 @@
-const INIT_STATE = {sated: 'yes'};
+const INIT_STATE = { sated: 'yes' }
 
-export default (state = INIT_STATE, {type, payload, name}) => {
+const reducer = (state = INIT_STATE, { type, payload, name }) => {
   switch (type) {
     default:
-      return state;
+      return state
   }
-};
+}
+
+export default reducer
