@@ -39,7 +39,7 @@ function that compare prevState against newState to determine if selected state 
 ## Example
 
 ```jsx
-import useReduxState, { useMemoSelector } from 'use-redux-state-hook'
+import useReduxState, { useMemoSelector } from 'use-redux-states'
 const Component = () => {
   const { selector } = useReduxState({
     state: {

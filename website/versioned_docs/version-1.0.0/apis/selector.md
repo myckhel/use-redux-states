@@ -14,7 +14,7 @@ selector(storeRootState, stateName)
 
 ```jsx
 import {useEffect} from 'react'
-import useReduxState, {selector} from 'use-redux-state-hook'
+import useReduxState, {selector} from 'use-redux-states'
 
 const Component = () => {
   useReduxState({

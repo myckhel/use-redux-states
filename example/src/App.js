@@ -3,7 +3,7 @@ import useReduxState, {
   useMemoSelector,
   useSetState,
   useGetState
-} from 'use-redux-state-hook'
+} from 'use-redux-states'
 
 const App = () => {
   const { selector, setState: setMount } = useReduxState({
@@ -15,7 +15,7 @@ const App = () => {
 
   return (
     <div className=''>
-      <ExampleComponent text='Use Redux State Hook 😄' />
+      <ExampleComponent text='Use Redux States 😄' />
       <div className='body'>
         <h2>Usage Samples</h2>
         <Component1 />

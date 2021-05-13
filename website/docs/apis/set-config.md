@@ -3,7 +3,7 @@ id: set-config
 title: setConfig()
 ---
 
-function to configure the `use-redux-state-hook`.
+function to configure the `use-redux-states`.
 
 ## `config objects`
 
@@ -14,12 +14,12 @@ boolean value to determine if the state should be deleted when all component tha
 
 ### **setter()?**
 
-function to replace the initial `use-redux-state-hook` setter function.
+function to replace the initial `use-redux-states` setter function.
 
 ## `Example`
 
 ```js
-import { setConfig } from 'use-redux-state-hook'
+import { setConfig } from 'use-redux-states'
 setConfig({
   cleanup: false,
   setter: (stateValue, payload) => {

@@ -4,7 +4,7 @@ import {
   setConfig,
   SET_REDUX_STATE,
   SUBSCRIBE_REDUX_STATE
-} from 'use-redux-state-hook'
+} from 'use-redux-states'
 
 const store = configureStore({
   reducer,

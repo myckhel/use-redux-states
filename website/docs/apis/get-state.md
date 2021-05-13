@@ -27,7 +27,7 @@ getState(store, 'todos.completed', (state) => state.todos) // any value
 
 ```jsx
 import { useEffect } from 'react'
-import useReduxState, { getState } from 'use-redux-state-hook'
+import useReduxState, { getState } from 'use-redux-states'
 const Component = () => {
   useReduxState({
     state: {

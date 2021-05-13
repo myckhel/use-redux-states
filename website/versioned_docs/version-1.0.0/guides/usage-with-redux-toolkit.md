@@ -16,7 +16,7 @@ import {
   mergeReducers,
   SET_REDUX_STATE,
   SUBSCRIBE_REDUX_STATE
-} from 'use-redux-state-hook'
+} from 'use-redux-states'
 
 const appReducer = mergeReducers({ yourReducer1, yourReducer2 })
 

@@ -27,7 +27,7 @@ setState(payload, setter?: (state, payload) => newState)
 
 ```jsx
 import { useEffect } from 'react'
-import useReduxState, { useSetState } from 'use-redux-state-hook'
+import useReduxState, { useSetState } from 'use-redux-states'
 
 const Component = () => {
   useReduxState({

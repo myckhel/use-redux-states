@@ -129,7 +129,7 @@ useEffect(() => {
 ```jsx
 import React, { useEffect } from 'react'
 import { View, StyleSheet, Button, Alert } from 'react-native'
-import useReduxState from 'use-redux-state-hook'
+import useReduxState from 'use-redux-states'
 
 const App = () => {
   const {

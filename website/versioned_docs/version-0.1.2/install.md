@@ -8,5 +8,5 @@ slug: /install
 ## Install
 
 ```bash
-npm install --save use-redux-state-hook
+npm install --save use-redux-states
 ```

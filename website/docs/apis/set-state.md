@@ -31,7 +31,7 @@ setState(store.dispatch, action, payload, setter?: (state, payload) => newState)
 
 ```jsx
 import { useEffect } from 'react'
-import useReduxState, { setState } from 'use-redux-state-hook'
+import useReduxState, { setState } from 'use-redux-states'
 const Component = () => {
   const { action } = useReduxState({
     state: {
