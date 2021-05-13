@@ -11,7 +11,7 @@ slug: /usage
 import { createStore } from 'redux'
 import yourReducer1 from './yourReducer1'
 import yourReducer2 from './yourReducer2'
-import { setConfig, mergeReducers } from 'use-redux-state-hook'
+import { setConfig, mergeReducers } from 'use-redux-states'
 
 const appReducer = mergeReducers({ yourReducer1, yourReducer2 })
 
@@ -24,7 +24,7 @@ setConfig({cleanup: false})
 ```jsx
 import React, { Component } from 'react'
 
-import { useReduxState, useMemoSelector } from 'use-redux-state-hook'
+import { useReduxState, useMemoSelector } from 'use-redux-states'
 
 const Usage = () => {
   const { selector, setState } = useReduxState('component_state', {

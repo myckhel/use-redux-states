@@ -11550,7 +11550,7 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
-"use-redux-state-hook@link:..":
+"use-redux-states@link:..":
   version "0.0.0"
   uid ""
 

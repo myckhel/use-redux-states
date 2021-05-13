@@ -2,12 +2,12 @@ module.exports = {
   title: 'Redux State Hook',
   tagline: 'Runtime redux state',
   url: 'https://myckhel.github.io',
-  baseUrl: '/use-redux-state-hook/',
+  baseUrl: '/use-redux-states/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'myckhel', // Usually your GitHub org/user name.
-  projectName: 'use-redux-state-hook', // Usually your repo name.
+  projectName: 'use-redux-states', // Usually your repo name.
   themeConfig: {
     prism: {
       defaultLanguage: 'jsx',
@@ -32,7 +32,7 @@ module.exports = {
           position: 'left'
         },
         {
-          href: 'https://github.com/myckhel/use-redux-state-hook',
+          href: 'https://github.com/myckhel/use-redux-states',
           label: 'GitHub',
           position: 'right'
         }
@@ -51,14 +51,14 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:
-            'https://github.com/myckhel/use-redux-state-hook/edit/master/redux-state/'
+            'https://github.com/myckhel/use-redux-states/edit/master/redux-state/'
           // include: ['{apis}/*.{md}'] // no other way to exclude node_modules
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            'https://github.com/myckhel/use-redux-state-hook/edit/master/redux-state/blog/'
+            'https://github.com/myckhel/use-redux-states/edit/master/redux-state/blog/'
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css')

@@ -5,7 +5,7 @@ title: using redux state
 
 ```js
 import React from 'react'
-import useReduxState from 'use-redux-state-hook'
+import useReduxState from 'use-redux-states'
 
 const App = () => {
   useReduxState({
@@ -22,7 +22,7 @@ When array is passed as the payload setter assumes you will append the payload w
 Given the example below the initial todos state has `[1,2]` value, setter will push to the existing array state if the payload is array otherwise will replace the state.
 ```js
 import React from 'react'
-import useReduxState from 'use-redux-state-hook'
+import useReduxState from 'use-redux-states'
 
 const App = () => {
   // existing todos state = [1,2]
@@ -37,7 +37,7 @@ Same logic applies to json object but [primitive](https://developer.mozilla.org/
 You can handle the setter behaviour by passing a reducer function.
 ```js
 import React from 'react'
-import useReduxState from 'use-redux-state-hook'
+import useReduxState from 'use-redux-states'
 
 const App = () => {
   // existing todos state = [1,2]

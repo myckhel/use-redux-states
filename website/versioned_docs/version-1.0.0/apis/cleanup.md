@@ -6,7 +6,7 @@ title: cleanup()
 function that dispatches an action to delete the state from redux store.
 useful when you dont want to persist the state when component unmounted.
 
-*function is provided by `use-redux-state-hook`*
+*function is provided by `use-redux-states`*
 
 ```js
 cleanup()
@@ -16,7 +16,7 @@ cleanup()
 
 ```jsx
 import { useEffect } from 'react'
-import useReduxState from 'use-redux-state-hook'
+import useReduxState from 'use-redux-states'
 const Component = () => {
 
   const {cleanup} = useReduxState({

@@ -23,7 +23,7 @@ getState(stateName)
 
 ```jsx
 import { useEffect } from 'react'
-import useReduxState, { useGetState } from 'use-redux-state-hook'
+import useReduxState, { useGetState } from 'use-redux-states'
 const Component = () => {
   useReduxState({
     state: {

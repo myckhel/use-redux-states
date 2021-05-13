@@ -22,7 +22,7 @@ action(stateName, payload, setter)
 
 ```jsx
 import { useEffect } from 'react'
-import useReduxState, { action } from 'use-redux-state-hook'
+import useReduxState, { action } from 'use-redux-states'
 const Component = () => {
   useReduxState({
     state: {

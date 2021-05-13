@@ -1,6 +1,6 @@
 {
-  "name": "use-redux-state-hook",
-  "version": "1.0.0",
+  "name": "use-redux-states",
+  "version": "1.0.1",
   "description": "Create runtime redux state",
   "keywords": [
     "redux-state",
@@ -13,8 +13,8 @@
   ],
   "author": "myckhel",
   "license": "MIT",
-  "repository": "myckhel/use-redux-state-hook",
-  "homepage": "https://myckhel.github.io/use-redux-state-hook",
+  "repository": "myckhel/use-redux-states",
+  "homepage": "https://myckhel.github.io/use-redux-states",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.js",

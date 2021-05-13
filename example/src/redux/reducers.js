@@ -1,5 +1,5 @@
 import state from './state/reducer';
-import { mergeReducers } from 'use-redux-state-hook'
+import { mergeReducers } from 'use-redux-states'
 
 const appReducer = mergeReducers({state});
 
