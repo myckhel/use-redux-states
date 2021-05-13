@@ -29,7 +29,7 @@ export const isString = (val) => typeof val === 'string'
  * @return {any}      redux state
  */
 export const getState = (store, name, callable = sel) =>
-  callable(get(store?.getState()?.[STATE_NAME], name))
+  callable(selector(store?.getState(), name))
 
 /**
  * set state for the given state
