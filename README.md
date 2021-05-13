@@ -20,27 +20,14 @@ npm install --save use-redux-state-hook
 
 ## Setup
 ```js
-import { configureStore } from '@reduxjs/toolkit'
+import { createStore } from 'redux'
 import yourReducer1 from './yourReducer1'
 import yourReducer2 from './yourReducer2'
-import {
-  setConfig,
-  mergeReducers,
-  SET_REDUX_STATE,
-  SUBSCRIBE_REDUX_STATE
-} from 'use-redux-state-hook'
+import { setConfig, mergeReducers } from 'use-redux-state-hook'
 
 const appReducer = mergeReducers({ yourReducer1, yourReducer2 })
 
-const store = configureStore({
-  appReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [SET_REDUX_STATE, SUBSCRIBE_REDUX_STATE]
-      }
-    })
-})
+const store = createStore(appReducer)
 setConfig({cleanup: false})
 ```
 
@@ -88,17 +75,8 @@ const Usage = () => {
 ### React Native Snack Example
 [Snack Example](https://snack.expo.io/@myckhel/use-redux-state-hook)
 
-## API
-
-| API | Arguments | Returns |
--- | ---------- | ------- |
-| useReduxState | `Unique State Name`, `Initial State` | Object `{selector, setState, getState}`
-| useMemoSelector | `inputSelector`, `resultFunc`, `equalityFunc` | selected State
-| setState | `Newstate Value` or `Callback of previou state argument` | New State
-| getState | None | Current State
-| selector | `state` | selected State
-
-To Be Continued...
+### React Native Snack GiftedChat Example
+[Snack GiftedChat Example](https://snack.expo.io/@myckhel/react-native-gifted-chat-reply)
 
 ## License
 

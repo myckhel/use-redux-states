@@ -11,7 +11,7 @@ module.exports = {
   themeConfig: {
     prism: {
       defaultLanguage: 'jsx',
-      theme: require('prism-react-renderer/themes/dracula'),
+      theme: require('prism-react-renderer/themes/dracula')
     },
     navbar: {
       title: 'Redux State Hook',

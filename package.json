@@ -1,6 +1,6 @@
 {
   "name": "use-redux-state-hook",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0",
   "description": "Create runtime redux state",
   "keywords": [
     "redux-state",
@@ -28,17 +28,16 @@
     "test": "run-s test:unit test:lint test:build",
     "test:build": "run-s build",
     "test:lint": "eslint .",
-    "test:unit": "cross-env CI=1 react-scripts test --env=jsdom",
-    "test:watch": "react-scripts test --env=jsdom",
+    "test:unit": "cross-env CI=1 react-scripts test  --env=node",
+    "test:watch": "react-scripts test  --env=node",
     "predeploy": "cd example && yarn install && yarn run build",
     "deploy": "gh-pages -d example/build",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "peerDependencies": {
-    "@reduxjs/toolkit": "^1.4.0",
     "react": "*",
-    "react-redux": "^7.2.2",
-    "redux": "^4.0.5"
+    "react-redux": "^7.2.4"
   },
   "peerDependenciesMeta": {
     "react-dom": {
@@ -49,32 +48,32 @@
     }
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.3",
+    "babel-eslint": "^10.1.0",
     "cross-env": "^7.0.2",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.7.0",
-    "eslint-config-standard": "^14.1.0",
-    "eslint-config-standard-react": "^9.2.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-node": "^11.0.0",
-    "eslint-plugin-prettier": "^3.1.1",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-react": "^7.17.0",
-    "eslint-plugin-standard": "^4.0.1",
+    "eslint": "^7.25.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-config-standard-react": "^11.0.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-standard": "^5.0.0",
     "gh-pages": "^2.2.0",
     "lodash": "^4.17.20",
     "microbundle-crl": "^0.13.10",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.4",
-    "react": "^16.13.1",
-    "react-scripts": "^3.4.1",
-    "redux": "^4.0.5",
+    "react": "^17.0.2",
+    "react-scripts": "^4.0.3",
     "reselect": "^4.0.0"
   },
   "files": [
     "dist"
   ],
   "dependencies": {
+    "@reduxjs/toolkit": "^1.5.1",
     "lodash": "^4.17.20",
     "react-fast-compare": "^3.2.0",
     "reselect": "^4.0.0"

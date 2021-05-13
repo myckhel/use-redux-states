@@ -23,7 +23,7 @@ module.exports = {
       collapsed: true,
       type: 'category',
       label: 'Guides',
-      items: ['guides/using-redux-state']
+      items: ['guides/using-redux-state', 'guides/usage-with-redux-toolkit']
     },
     {
       collapsed: true,
