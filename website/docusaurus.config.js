@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'Redux State Hook',
+  title: 'Use Redux State',
   tagline: 'Runtime redux state',
   url: 'https://myckhel.github.io',
   baseUrl: '/use-redux-states/',
@@ -14,7 +14,7 @@ module.exports = {
       theme: require('prism-react-renderer/themes/dracula')
     },
     navbar: {
-      title: 'Redux State Hook',
+      title: 'Use Redux State',
       logo: {
         alt: 'useReduxState',
         src: 'img/logo.png'
