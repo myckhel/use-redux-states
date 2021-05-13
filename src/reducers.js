@@ -34,17 +34,18 @@ const { actions, reducer } = createSlice({
     subscribe: (state, { payload, name, cleanup, reducer }) => {
       const subscriber_count = get(state.redux_state_subscriptions, name, 0)
 
+      if (payload !== undefined || reducer) {
+        setWith(
+          state,
+          name,
+          reducer
+            ? reducer(get(state, name), payload)
+            : getSetter()(get(state, name), payload)
+        )
+      }
+
       if (subscriber_count < 1 || cleanup) {
         setWith(state.redux_state_subscriptions, name, subscriber_count + 1)
-        if (payload !== undefined || reducer) {
-          setWith(
-            state,
-            name,
-            reducer
-              ? reducer(get(state, name), payload)
-              : getSetter()(get(state, name), payload)
-          )
-        }
       }
     },
 
