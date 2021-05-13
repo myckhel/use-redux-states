@@ -1,6 +1,6 @@
 # use-redux-state-hook
 
-> :warning: **This package has been renamed to `react-redux-state`**: Please install [react-redux-state](https://github.com/myckhel/react-redux-state) instead!
+> :warning: **This package has been renamed to `use-redux-states`**: Please install [use-redux-states](https://github.com/myckhel/use-redux-states) instead!
 
 > Create runtime redux state
 
