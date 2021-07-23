@@ -39,8 +39,16 @@ const _reducer = (state = { state: { count: 1 } }, { type, payload }) => {
 }
 
 const store = configureStore({
-  reducer: mergeReducers(_reducer)
+  reducer: mergeReducers(_reducer),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [SET_REDUX_STATE, SUBSCRIBE_REDUX_STATE]
+      }
+    })
 })
+
+export { store }
 /***********/
 
 describe('Config Units', () => {
