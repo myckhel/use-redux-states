@@ -66,7 +66,7 @@ const Usage = () => {
 ## Extensive Doc at
 [User Redux State Doc](https://myckhel.github.io/use-redux-states/)
 
-## Example
+## Examples
 ### React Web Code Sandbox Example
 [Code Sandbox Example](https://codesandbox.io/s/usereduxstate-gdl7g)
 
