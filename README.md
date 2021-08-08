@@ -1,6 +1,6 @@
 # use-redux-states
 
-> Create runtime redux state
+> Create redux state at runtime.
 
 [![NPM](https://img.shields.io/npm/v/use-redux-states.svg)](https://www.npmjs.com/package/use-redux-states) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) ![test workflow](https://github.com/myckhel/use-redux-states/actions/workflows/eslint.yml/badge.svg)
 
