@@ -73,9 +73,9 @@ const Usage = () => {
   )
 }
 const Setter = () => {
-  const { selector, setState } = useReduxState('setter.type.int', 1)
+  const { setState, useStateSelector } = useReduxState('setter.type.int', 1)
 
-  const number = useMemoSelector(selector)
+  const number = useStateSelector()
 
   return (
     <div>
