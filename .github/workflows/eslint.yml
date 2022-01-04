@@ -22,7 +22,7 @@ jobs:
 
       - name: yarn install
         working-directory: ./
-        run: yarn --ignore-scripts
+        run: YARN_ENABLE_SCRIPTS=0 yarn
 
       - name: Test
         run: yarn test
