@@ -38,7 +38,8 @@ module.exports = {
             'apis/hooks/use-redux-state',
             'apis/hooks/use-memo-selector',
             'apis/hooks/use-set-state',
-            'apis/hooks/use-get-state'
+            'apis/hooks/use-get-state',
+            'apis/hooks/use-state-selector'
           ]
         },
         'apis/selector',
