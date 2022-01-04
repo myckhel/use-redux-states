@@ -123,6 +123,22 @@ describe('Hooks Tests', () => {
     })
   })
 
+  describe('useStateSelector', () => {
+    const { result: humanRedux } = renderReduxHook(() =>
+      useReduxState(HUMAN_STATE)
+    )
+
+    it('should subscribe to the current state path', () => {
+      const { result: selectedWomen2Age } = renderReduxHook(() =>
+        humanRedux.current.useStateSelector(
+          (humanState) => humanState.women[2].age
+        )
+      )
+
+      expect(selectedWomen2Age.current).toBe(14)
+    })
+  })
+
   describe('useReduxState', () => {
     const { result: humanRedux } = renderReduxHook(() =>
       useReduxState(HUMAN_STATE)
