@@ -167,13 +167,25 @@ export const useReduxState = (config, initState) => {
     }
   }, [name, config?.unmount])
 
+  /**
+   * select state from the current redux store path efficiently and memoized.
+   * @param  {function} select state result selector
+   * @param  {function} eq equality
+   * @return {any}      selected redux state
+   */
+  const useStateSelector = useCallback(
+    (select, eq) => useMemoSelector(_selector, select, eq),
+    [_selector]
+  )
+
   return {
     selector: _selector,
     setState: _setState,
     getState: _getState,
     action: _action,
     cleanup,
-    useMemoSelector
+    useMemoSelector,
+    useStateSelector
   }
 }
 
