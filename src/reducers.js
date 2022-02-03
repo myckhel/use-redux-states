@@ -71,5 +71,7 @@ const { actions, reducer } = createSlice({
 
 export const { setState, cleanup, subscribe, unsubscribe } = actions
 
-export default (baseReducer) =>
-  combineReducers({ ...baseReducer, [STATE_NAME]: reducer })
+export default (baseReducer) => {
+  baseReducer[STATE_NAME] = reducer
+  return combineReducers(baseReducer)
+}

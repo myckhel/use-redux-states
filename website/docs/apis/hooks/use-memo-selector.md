@@ -9,7 +9,7 @@ it also uses [react-fast-compare](https://github.com/FormidableLabs/react-fast-c
 
 ## Arguments
 
-### `selector()||stateName''`
+### `selector()||statePath''`
 
 #### `selector()`
 
