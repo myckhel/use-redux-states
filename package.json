@@ -81,5 +81,6 @@
     "lodash": "^4.17.20",
     "react-fast-compare": "^3.2.0",
     "reselect": "^4.0.0"
-  }
+  },
+  "packageManager": "yarn@3.1.1"
 }
