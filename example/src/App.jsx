@@ -1,10 +1,13 @@
 import React, { useRef, useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import {
   useReduxState,
   useMemoSelector,
   useSetState,
   useGetState
 } from 'use-redux-states'
+import { useRootMemoSelector } from '../../src/hooks'
+import { increaseCount } from './redux/state'
 
 const App = () => {
   const { selector, setState: setMount } = useReduxState({
@@ -41,6 +44,8 @@ const App = () => {
         <p>input will have initial value when mounted</p>
         <MountControl />
         <NestedState />
+        <h2>Selecting State from the root redux store</h2>
+        <RootState />
       </div>
     </div>
   )
@@ -321,6 +326,22 @@ const UnCleanable = () => {
           title='Decrease Uncleanable State'
         />
       </Row>
+    </div>
+  )
+}
+
+const RootState = () => {
+  const dispatch = useDispatch()
+  const state = useRootMemoSelector('state')
+  const userName = useRootMemoSelector('state.userName')
+
+  return (
+    <div>
+      <h6>Root State Value: {JSON.stringify(state)}</h6>
+      <h6>Root `state.userName` Value: {userName}</h6>
+      <button onClick={() => dispatch(increaseCount())}>
+        Increase Root State Count
+      </button>
     </div>
   )
 }
