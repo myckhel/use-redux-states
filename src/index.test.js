@@ -18,7 +18,6 @@ import config, { setConfig } from './config'
 import {
   setWith,
   sel,
-  isString,
   unique,
   getState,
   setState,
@@ -30,7 +29,9 @@ import {
 /***********/
 import { configureStore } from '@reduxjs/toolkit'
 
-const _reducer = (state = { state: { count: 1 } }, { type, payload }) => {
+const ROOT_STATE = { count: 1, userName: 'mike' }
+
+const stateReducer = (state = ROOT_STATE, { type, payload }) => {
   if (type === 'countState') {
     return { ...state, count: payload }
   } else {
@@ -39,7 +40,7 @@ const _reducer = (state = { state: { count: 1 } }, { type, payload }) => {
 }
 
 const store = configureStore({
-  reducer: mergeReducers(_reducer),
+  reducer: mergeReducers({ state: stateReducer }),
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
@@ -48,7 +49,7 @@ const store = configureStore({
     })
 })
 
-export { store }
+export { store, ROOT_STATE }
 /***********/
 
 describe('Config Units', () => {
@@ -61,7 +62,7 @@ describe('Config Units', () => {
 
 describe('Reducers Units', () => {
   test('should merge reducers and reduce state', () => {
-    const state = mergeReducers(_reducer)(
+    const state = mergeReducers(stateReducer)(
       {
         _use_redux_state: {
           redux_state_subscriptions: {}
@@ -122,14 +123,6 @@ describe('helpers', () => {
     const expects = unique()
     const toBe = new Date().getTime()
     expect((expects - (expects % 100)) / 100).toBe((toBe - (toBe % 100)) / 100)
-  })
-
-  describe('isString', () => {
-    it('should determine if string is a string', () =>
-      expect(isString('1')).toBe(true))
-
-    it('should determine if object is a string', () =>
-      expect(isString({})).toBe(false))
   })
 
   it('should create setState action', () =>

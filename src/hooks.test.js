@@ -8,9 +8,10 @@ import {
   useGetState,
   useMemoSelector,
   useReduxState,
+  useRootMemoSelector,
   useSetState
 } from './hooks'
-import { store } from './index.test'
+import { ROOT_STATE, store } from './index.test'
 
 const wrapper = ({ children }) => <Provider store={store}>{children}</Provider>
 
@@ -123,6 +124,23 @@ describe('Hooks Tests', () => {
     })
   })
 
+  describe('useRootMemoSelector', () => {
+    const { result: userName } = renderReduxHook(() =>
+      useRootMemoSelector('state.userName')
+    )
+
+    it('should select state from root store', () =>
+      expect(userName.current).toEqual(ROOT_STATE.userName))
+
+    it('should select state from root store with callback', () => {
+      const { result: count } = renderReduxHook(() =>
+        useRootMemoSelector('state', (state) => state.count)
+      )
+
+      expect(count.current).toBe(ROOT_STATE.count)
+    })
+  })
+
   describe('useStateSelector', () => {
     const { result: humanRedux } = renderReduxHook(() =>
       useReduxState(HUMAN_STATE)
@@ -162,7 +180,8 @@ describe('Hooks Tests', () => {
           getState: expect.any(Function),
           action: expect.any(Function),
           cleanup: expect.any(Function),
-          useMemoSelector: expect.any(Function)
+          useMemoSelector: expect.any(Function),
+          useStateSelector: expect.any(Function)
         })
       ))
 
