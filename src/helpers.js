@@ -16,12 +16,6 @@ export const sel = (state) => state
 export const unique = () => new Date().getTime()
 
 /**
- * determines if a given value is string
- * @return {boolean}      true or false
- */
-export const isString = (val) => typeof val === 'string'
-
-/**
  * get state for the given state
  * @param  {object} store redux store
  * @param  {string} name redux state name

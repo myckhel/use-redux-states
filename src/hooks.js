@@ -2,17 +2,9 @@ import { useCallback, useLayoutEffect, useMemo } from 'react'
 import { useSelector, useStore, useDispatch } from 'react-redux'
 import libConfig from './config'
 import { createSelector } from 'reselect'
-import { get } from 'lodash'
+import { get, isString } from 'lodash'
 import isEqual from 'react-fast-compare'
-import {
-  isString,
-  unique,
-  sel,
-  getState,
-  setState,
-  action,
-  selector
-} from './helpers'
+import { unique, sel, getState, setState, action, selector } from './helpers'
 
 import {
   UNSUBSCRIBE_REDUX_STATE,
@@ -23,17 +15,39 @@ import {
 
 /**
  * select state from redux efficiently and memoized.
- * @param  {function|string} selectorOrName selector function or state name
+ * @param  {function|string} selectorOrPath selector function or state name
  * @param  {function} select state result selector
  * @param  {function} eq equality
  * @return {any}      selected redux state
  */
-export const useMemoSelector = (selectorOrName, select = sel, eq = isEqual) =>
+export const useMemoSelector = (selectorOrPath, select = sel, eq = isEqual) =>
   useSelector(
     createSelector(
-      isString(selectorOrName)
-        ? (state) => selector(state, selectorOrName)
-        : selectorOrName,
+      isString(selectorOrPath)
+        ? (state) => selector(state, selectorOrPath)
+        : selectorOrPath,
+      select
+    ),
+    eq
+  )
+
+/**
+ * select state from redux root store efficiently and memoized.
+ * @param  {function|string} selectorOrPath selector function or state name
+ * @param  {function} select state result selector
+ * @param  {function} eq equality
+ * @return {any}      selected redux state
+ */
+export const useRootMemoSelector = (
+  selectorOrPath,
+  select = sel,
+  eq = isEqual
+) =>
+  useSelector(
+    createSelector(
+      isString(selectorOrPath)
+        ? (state) => get(state, selectorOrPath)
+        : selectorOrPath,
       select
     ),
     eq
