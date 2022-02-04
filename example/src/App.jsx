@@ -4,9 +4,9 @@ import {
   useReduxState,
   useMemoSelector,
   useSetState,
-  useGetState
+  useGetState,
+  useRootMemoSelector
 } from 'use-redux-states'
-import { useRootMemoSelector } from '../../src/hooks'
 import { increaseCount } from './redux/state'
 
 const App = () => {
