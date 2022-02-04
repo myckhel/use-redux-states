@@ -1,6 +1,6 @@
 ---
-id: use-memo-selector
-title: useMemoSelector()
+id: use-state-selector
+title: useStateSelector()
 ---
 
 This hook allows to select redux state efficiently and in a memoized way.
@@ -8,21 +8,6 @@ it uses [createSelector](https://github.com/reduxjs/reselect#createselectorinput
 it also uses [react-fast-compare](https://github.com/FormidableLabs/react-fast-compare) to prevent unnecessary updates.
 
 ## Arguments
-
-### `selector()||stateName''`
-
-#### `selector()`
-
-function that selects from the state.
-receives 1 argument
-
-```
-(storeState) => selectedState
-```
-
-#### `stateName`
-
-name of the nestable state to be selected
 
 ### `result()`
 
@@ -39,21 +24,19 @@ function that compare prevState against newState to determine if selected state 
 ## Example
 
 ```jsx
-import useReduxState, { useMemoSelector } from 'use-redux-states'
+import useReduxState from 'use-redux-states'
 const Component = () => {
-  const { selector } = useReduxState({
+  const { useStateSelector } = useReduxState({
     state: {
-      state1: 'a',
-      state2: 'b'
+      name: 'john',
+      age: 22
     },
-    name: 'component_state'
+    name: 'users.john'
   })
-  const state1 = useMemoSelector(
-    selector,
-    (component_state) => component_state?.state1
+  const age = useStateSelector(
+    (users) => users?.john?.age
   )
-  const state2 = useMemoSelector('component_state.state2')
 
-  console.log({ state1, state2 }) // {state1: 'a', state2: 'b'}
+  console.log({ age }) // {age: 22}
 }
 ```

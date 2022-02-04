@@ -27,6 +27,7 @@ useReduxState(config?: {
 - [action](../action.md)
 - [cleanup](../cleanup.md)
 - [useMemoSelector](use-memo-selector)
+- [useStateSelector](use-state-selector)
 
 ## `config`
 

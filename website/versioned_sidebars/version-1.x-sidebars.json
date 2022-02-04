@@ -1,5 +1,5 @@
 {
-  "version-1.0.0/someSidebar": [
+  "version-1.x/someSidebar": [
     {
       "collapsed": true,
       "type": "category",
@@ -7,15 +7,15 @@
       "items": [
         {
           "type": "doc",
-          "id": "version-1.0.0/intro"
+          "id": "version-1.x/intro"
         },
         {
           "type": "doc",
-          "id": "version-1.0.0/install"
+          "id": "version-1.x/install"
         },
         {
           "type": "doc",
-          "id": "version-1.0.0/usage"
+          "id": "version-1.x/usage"
         }
       ]
     },
@@ -26,11 +26,11 @@
       "items": [
         {
           "type": "doc",
-          "id": "version-1.0.0/guides/using-redux-state"
+          "id": "version-1.x/guides/using-redux-state"
         },
         {
           "type": "doc",
-          "id": "version-1.0.0/guides/usage-with-redux-toolkit"
+          "id": "version-1.x/guides/usage-with-redux-toolkit"
         }
       ]
     },
@@ -46,45 +46,53 @@
           "items": [
             {
               "type": "doc",
-              "id": "version-1.0.0/apis/hooks/use-redux-state"
+              "id": "version-1.x/apis/hooks/use-redux-state"
             },
             {
               "type": "doc",
-              "id": "version-1.0.0/apis/hooks/use-memo-selector"
+              "id": "version-1.x/apis/hooks/use-memo-selector"
             },
             {
               "type": "doc",
-              "id": "version-1.0.0/apis/hooks/use-set-state"
+              "id": "version-1.x/apis/hooks/use-root-memo-selector"
             },
             {
               "type": "doc",
-              "id": "version-1.0.0/apis/hooks/use-get-state"
+              "id": "version-1.x/apis/hooks/use-set-state"
+            },
+            {
+              "type": "doc",
+              "id": "version-1.x/apis/hooks/use-get-state"
+            },
+            {
+              "type": "doc",
+              "id": "version-1.x/apis/hooks/use-state-selector"
             }
           ]
         },
         {
           "type": "doc",
-          "id": "version-1.0.0/apis/selector"
+          "id": "version-1.x/apis/selector"
         },
         {
           "type": "doc",
-          "id": "version-1.0.0/apis/get-state"
+          "id": "version-1.x/apis/get-state"
         },
         {
           "type": "doc",
-          "id": "version-1.0.0/apis/set-state"
+          "id": "version-1.x/apis/set-state"
         },
         {
           "type": "doc",
-          "id": "version-1.0.0/apis/set-config"
+          "id": "version-1.x/apis/set-config"
         },
         {
           "type": "doc",
-          "id": "version-1.0.0/apis/action"
+          "id": "version-1.x/apis/action"
         },
         {
           "type": "doc",
-          "id": "version-1.0.0/apis/cleanup"
+          "id": "version-1.x/apis/cleanup"
         }
       ]
     }
