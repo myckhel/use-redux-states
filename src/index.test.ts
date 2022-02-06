@@ -11,10 +11,6 @@ import {
   CLEANUP_REDUX_STATE
 } from './constants'
 import config, { setConfig } from './config'
-// {
-//   cleanup,
-//   unsubscribe
-// }
 import {
   setWith,
   sel,
@@ -26,12 +22,14 @@ import {
   _setter
 } from './helpers'
 
-/***********/
-import { configureStore } from '@reduxjs/toolkit'
+import { ActionFromReducer, configureStore } from '@reduxjs/toolkit'
 
 const ROOT_STATE = { count: 1, userName: 'mike' }
 
-const stateReducer = (state = ROOT_STATE, { type, payload }) => {
+const stateReducer = (
+  state = ROOT_STATE,
+  { type, payload }: ActionFromReducer<{}>
+) => {
   if (type === 'countState') {
     return { ...state, count: payload }
   } else {
@@ -50,7 +48,6 @@ const store = configureStore({
 })
 
 export { store, ROOT_STATE }
-/***********/
 
 describe('Config Units', () => {
   it('should set the lib configuration', () => {
@@ -83,30 +80,34 @@ describe('Reducers Units', () => {
 })
 
 describe('actions', () => {
-  const createActionFor = (name) => ({
+  const createActionFor = (name: string) => ({
     type: name,
     payload: undefined
   })
 
   it('should create subscribe action', () =>
-    expect(subscribeAction()).toEqual(createActionFor(SUBSCRIBE_REDUX_STATE)))
+    expect(subscribeAction(undefined)).toEqual(
+      createActionFor(SUBSCRIBE_REDUX_STATE)
+    ))
 
   it('should create setState action', () =>
-    expect(setStateAction()).toEqual(createActionFor(SET_REDUX_STATE)))
+    expect(setStateAction(undefined)).toEqual(createActionFor(SET_REDUX_STATE)))
 
   it('should create unsubscribe action', () =>
-    expect(unsubscribeAction()).toEqual(
+    expect(unsubscribeAction(undefined)).toEqual(
       createActionFor(UNSUBSCRIBE_REDUX_STATE)
     ))
 
   it('should create cleanup action', () =>
-    expect(cleanupAction()).toEqual(createActionFor(CLEANUP_REDUX_STATE)))
+    expect(cleanupAction(undefined)).toEqual(
+      createActionFor(CLEANUP_REDUX_STATE)
+    ))
 })
 
 describe('helpers', () => {
   const stateName = 'user.name'
   const payload = 'michael'
-  const action = (payload) => setStateActionCreator(stateName, payload)
+  const action = (payload: string) => setStateActionCreator(stateName, payload)
   const userState = { user: { name: 'michael' } }
   setState(store.dispatch, action, payload)
 

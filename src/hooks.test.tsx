@@ -1,5 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { renderHook, act } from '@testing-library/react-hooks'
+import { PayloadAction, Store } from '@reduxjs/toolkit'
+import { renderHook, act, WrapperComponent } from '@testing-library/react-hooks'
 // eslint-disable-next-line
 import { Provider } from 'react-redux'
 import { SET_REDUX_STATE, STATE_NAME } from './constants'
@@ -13,9 +14,19 @@ import {
 } from './hooks'
 import { ROOT_STATE, store } from './index.test'
 
-const wrapper = ({ children }) => <Provider store={store}>{children}</Provider>
+const wrapper: WrapperComponent<any> = ({ children }) => (
+  <Provider store={store}> {children} </Provider>
+)
 
-const renderReduxHook = (hook) => renderHook(hook, { wrapper })
+const renderReduxHook = (hook: () => any) => renderHook(hook, { wrapper })
+
+interface Man {
+  age: number
+  id: number
+}
+interface Woman extends Man {}
+type MapOfMan<T> = { [key: number]: T }
+type Human = { men: MapOfMan<Man>; women: MapOfMan<Woman> }
 
 const man1 = { age: 20, id: 1 }
 const man2 = { age: 23, id: 2 }
@@ -56,7 +67,9 @@ describe('Hooks Tests', () => {
     it('should get state', () => expect(getHumanState.current()).toEqual(human))
 
     it('should get state with callback', () =>
-      expect(getHumanState.current((human) => human.women)).toEqual(women))
+      expect(getHumanState.current((human: Human) => human.women)).toEqual(
+        women
+      ))
   })
 
   describe('useSetState', () => {
@@ -97,7 +110,7 @@ describe('Hooks Tests', () => {
       )
 
       act(() => {
-        setWomanState.current(50, (woman, payload) => {
+        setWomanState.current(50, (woman: Woman, payload: PayloadAction) => {
           woman[1].age = payload
           return woman
         })
@@ -149,7 +162,7 @@ describe('Hooks Tests', () => {
     it('should subscribe to the current state path', () => {
       const { result: selectedWomen2Age } = renderReduxHook(() =>
         humanRedux.current.useStateSelector(
-          (humanState) => humanState.women[2].age
+          (humanState: Human) => humanState.women[2].age
         )
       )
 
@@ -165,7 +178,8 @@ describe('Hooks Tests', () => {
     it('should subscribe to state on mount', () => {
       const { result: selectedSubscription } = renderReduxHook(() =>
         humanRedux.current.useMemoSelector(
-          (storeState) => storeState[STATE_NAME].redux_state_subscriptions.human
+          (storeState: Store) =>
+            storeState[STATE_NAME].redux_state_subscriptions.human
         )
       )
 
@@ -189,12 +203,12 @@ describe('Hooks Tests', () => {
       const { result: selectedWoman1Age } = renderReduxHook(() =>
         humanRedux.current.useMemoSelector(
           humanRedux.current.selector,
-          (human) => human.women[1].age
+          (human: Human) => human.women[1].age
         )
       )
 
       act(() => {
-        humanRedux.current.setState(15, (human, payload) => {
+        humanRedux.current.setState(15, (human: Human, payload: number) => {
           human.women[1].age = payload
           return human
         })
@@ -204,9 +218,9 @@ describe('Hooks Tests', () => {
     })
 
     it('should get state', () =>
-      expect(humanRedux.current.getState((human) => human.men[2].age)).toBe(
-        man2.age
-      ))
+      expect(
+        humanRedux.current.getState((human: Human) => human.men[2].age)
+      ).toBe(man2.age))
 
     it('should create setState action', () =>
       expect(humanRedux.current.action(1)).toEqual({
