@@ -1,8 +1,14 @@
-import { createSlice, combineReducers } from '@reduxjs/toolkit'
+import {
+  createSlice,
+  combineReducers,
+  Reducer,
+  CombinedState
+} from '@reduxjs/toolkit'
 import { get } from 'lodash'
 
 import { STATE_NAME } from './constants'
 import { setWith, getSetter, deleteWith } from './helpers'
+import { ReduxStateAction } from './types'
 
 const INIT_STATE = {
   redux_state_subscriptions: {}
@@ -12,7 +18,8 @@ const { actions, reducer } = createSlice({
   name: STATE_NAME,
   initialState: INIT_STATE,
   reducers: {
-    setState: (state, { name, payload, reducer }) => {
+    // @ts-expect-error
+    setState: (state, { name, payload, reducer }: ReduxStateAction) => {
       setWith(
         state,
         name,
@@ -24,14 +31,18 @@ const { actions, reducer } = createSlice({
       )
     },
 
-    cleanup: (state, { payload, name }) => {
+    // @ts-expect-error
+    cleanup: (state, { name }: ReduxStateAction): void => {
       get(state, name) && deleteWith(state, name)
 
       get(state.redux_state_subscriptions, name) &&
         deleteWith(state.redux_state_subscriptions, name)
     },
-
-    subscribe: (state, { payload, name, cleanup, reducer }) => {
+    // @ts-expect-error
+    subscribe: (
+      state,
+      { payload, name, cleanup, reducer }: ReduxStateAction
+    ) => {
       const subscriber_count = get(state.redux_state_subscriptions, name, 0)
 
       if (payload !== undefined || reducer) {
@@ -49,7 +60,8 @@ const { actions, reducer } = createSlice({
       }
     },
 
-    unsubscribe: (state, { payload, name, cleanup }) => {
+    // @ts-expect-error
+    unsubscribe: (state, { name, cleanup }: ReduxStateAction) => {
       const redux_state_subscriptions = state.redux_state_subscriptions
 
       const subscriber_count = get(state.redux_state_subscriptions, name, 0)
@@ -71,7 +83,9 @@ const { actions, reducer } = createSlice({
 
 export const { setState, cleanup, subscribe, unsubscribe } = actions
 
-export default (baseReducer) => {
+const mergeReducers: CombinedState<any> = (baseReducer: Reducer) => {
   baseReducer[STATE_NAME] = reducer
   return combineReducers(baseReducer)
 }
+
+export default mergeReducers

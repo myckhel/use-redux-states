@@ -1,13 +1,19 @@
-import { get } from 'lodash'
+import { get, isArray } from 'lodash'
 import { SET_REDUX_STATE, STATE_NAME } from './constants'
 import libConfig from './config'
+import { Dispatch, ReducersMapObject, Store } from '@reduxjs/toolkit'
+import {
+  ReduxStateActionCreator,
+  ReduxStatePath,
+  ReduxStateReducer
+} from './types'
 
 /**
  * returns a given state
  * @param  {any} state selected redux state
  * @return {any}      selected redux state
  */
-export const sel = (state) => state
+export const sel = (state: any) => state
 
 /**
  * generates unique state name
@@ -22,7 +28,7 @@ export const unique = () => new Date().getTime()
  * @param  {function} callable function that accepts selected state
  * @return {any}      redux state
  */
-export const getState = (store, name, callable = sel) =>
+export const getState = (store: Store, name: string, callable = sel) =>
   callable(selector(store?.getState(), name))
 
 /**
@@ -32,8 +38,12 @@ export const getState = (store, name, callable = sel) =>
  * @param  {any} payload value to set in the redux state
  * @param  {function} reducer function that recieve the current state and which should return new state
  */
-export const setState = (dispatch, action, payload, reducer) =>
-  dispatch(action(payload, reducer))
+export const setState = <T>(
+  dispatch: Dispatch,
+  action: ReduxStateActionCreator,
+  payload: T,
+  reducer?: ReduxStateReducer
+) => dispatch(action(payload, reducer))
 
 /**
  * creates redux set state action
@@ -41,7 +51,11 @@ export const setState = (dispatch, action, payload, reducer) =>
  * @param  {any} payload any value or function that returns any value
  * @param  {function} reducer function that recieve the current state and which should return new state
  */
-export const action = (name, payload, reducer) => ({
+export const action = <T>(
+  name: string,
+  payload: T,
+  reducer?: ReducersMapObject
+) => ({
   type: SET_REDUX_STATE,
   payload,
   name,
@@ -50,11 +64,12 @@ export const action = (name, payload, reducer) => ({
 
 /**
  * selects state for the given state name
- * @param  {object} state redux state
+ * @param  {any} state redux state
  * @param  {string} name redux state name
  * @return {any}      selected redux state
  */
-export const selector = (state, name) => get(state?.[STATE_NAME], name)
+export const selector = (state: any, name: string) =>
+  get(state?.[STATE_NAME], name)
 
 /**
  * gets user defined setter function or package's setter function
@@ -68,9 +83,13 @@ export const getSetter = () => libConfig.setter || _setter
  * @param  {string} path path to nested property to delete
  * @param  {number} index index to start delete from based on size of path
  */
-export const deleteWith = (object, path, index = 0) => {
+export const deleteWith = (
+  object: Object,
+  path: string | Array<string>,
+  index = 0
+): boolean => {
   // if path is not array then split path with .
-  const paths = path.map ? path : path.split('.')
+  const paths = isArray(path) ? path : path.split('.')
 
   // if at the object's property and delete
   if (index + 1 >= paths.length) {
@@ -85,17 +104,23 @@ export const deleteWith = (object, path, index = 0) => {
  * set object property at the given nested path
  * @param  {object} object object to set its property
  * @param  {string} path path to nested property to set
+ * @param  {any} value value to set at the object path
  * @param  {number} index index to start setting property from based on size of path
  * @return  {object}    set object
  */
-export const setWith = (object, path, value, index = 0) => {
+export const setWith = <T>(
+  object: Object,
+  path: ReduxStatePath,
+  value: T,
+  index = 0
+): T => {
   // if path is not array then split path with .
-  const paths = path.map ? path : path.split('.')
+  const paths = isArray(path) ? path : path.split('.')
 
   // if at the object's property and set
   if (index + 1 >= paths.length) {
     object[paths[index]] = value
-    return object
+    return value
     // current object property path is undefined
   } else if (object[paths[index]] === undefined) {
     // set undefined path as empty object
@@ -108,11 +133,11 @@ export const setWith = (object, path, value, index = 0) => {
 
 /**
  * intellegent redux state setter
- * @param  {object} existingState existng state
+ * @param  {any} existingState existng state
  * @param  {any} payload value to set
  * @return  {any}    new state
  */
-export const _setter = (existingState, payload) => {
+export const _setter = (existingState: any, payload: any): any => {
   switch (existingState?.constructor) {
     case Object:
       return payload?.constructor === Object

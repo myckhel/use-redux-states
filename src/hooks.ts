@@ -2,7 +2,7 @@ import { useCallback, useLayoutEffect, useMemo } from 'react'
 import { useSelector, useStore, useDispatch } from 'react-redux'
 import libConfig from './config'
 import { createSelector } from 'reselect'
-import { get, isString } from 'lodash'
+import { get, isObject, isString } from 'lodash'
 import isEqual from 'react-fast-compare'
 import { unique, sel, getState, setState, action, selector } from './helpers'
 
@@ -13,6 +13,8 @@ import {
   STATE_NAME
 } from './constants'
 
+import { ReduxStateProps, ReduxStateReducer, StateSelectorPath } from './types'
+
 /**
  * select state from redux efficiently and memoized.
  * @param  {function|string} selectorOrPath selector function or state name
@@ -20,7 +22,11 @@ import {
  * @param  {function} eq equality
  * @return {any}      selected redux state
  */
-export const useMemoSelector = (selectorOrPath, select = sel, eq = isEqual) =>
+export const useMemoSelector = (
+  selectorOrPath: StateSelectorPath,
+  select = sel,
+  eq = isEqual
+) =>
   useSelector(
     createSelector(
       isString(selectorOrPath)
@@ -39,7 +45,7 @@ export const useMemoSelector = (selectorOrPath, select = sel, eq = isEqual) =>
  * @return {any}      selected redux state
  */
 export const useRootMemoSelector = (
-  selectorOrPath,
+  selectorOrPath: StateSelectorPath,
   select = sel,
   eq = isEqual
 ) =>
@@ -59,13 +65,16 @@ export const useRootMemoSelector = (
  * @param  {any} initState initial state
  * @return {object}      object containing various helpers
  */
-export const useReduxState = (config, initState) => {
+export const useReduxState = (
+  config: ReduxStateProps | string,
+  initState?: any
+) => {
   const store = useStore()
   const dispatch = useDispatch()
 
   // memoized state name
   const name = useMemo(
-    () => (isString(config) ? config : config?.name || unique()),
+    () => (isString(config) ? config : config?.name || `${unique()}`),
     [config]
   )
 
@@ -77,7 +86,7 @@ export const useReduxState = (config, initState) => {
 
   // memoized redux action to dispatch cleanup action
   const cleanUpAction = useCallback(
-    (payload) => ({ type: CLEANUP_REDUX_STATE, payload, name }),
+    (payload?) => ({ type: CLEANUP_REDUX_STATE, payload, name }),
     [name]
   )
 
@@ -117,11 +126,12 @@ export const useReduxState = (config, initState) => {
     } else {
       return state
     }
-  }, [config?.state, initState])
+  }, [isObject(config) && config?.state, initState])
 
   // memoized callback to set state for the current state
   const _setState = useCallback(
-    (payload, reducer) => setState(dispatch, _action, payload, reducer),
+    <T>(payload: T, reducer: ReduxStateReducer) =>
+      setState(dispatch, _action, payload, reducer),
     [dispatch, _action]
   )
 
@@ -145,12 +155,14 @@ export const useReduxState = (config, initState) => {
 
   // initialize the state on layout
   useLayoutEffect(() => {
-    if (!config?.unmount) {
+    const _config: ReduxStateProps = isObject(config) ? config : {}
+
+    if (!_config?.unmount) {
       const initialState = getInit()
       const shouldCleanup =
         config === undefined ||
-        config?.cleanup ||
-        (config?.cleanup === undefined && libConfig?.cleanup)
+        _config?.cleanup ||
+        (_config?.cleanup === undefined && libConfig?.cleanup)
 
       // if cleanup is enabled
       if (shouldCleanup) {
@@ -158,7 +170,7 @@ export const useReduxState = (config, initState) => {
         dispatch(
           stateSubscriptionAction(initialState, {
             cleanup: true,
-            reducer: config?.reducer
+            reducer: _config?.reducer
           })
         )
 
@@ -174,12 +186,13 @@ export const useReduxState = (config, initState) => {
         dispatch(
           stateSubscriptionAction(initialState, {
             cleanup: false,
-            reducer: config?.reducer
+            reducer: _config?.reducer
           })
         )
       }
     }
-  }, [name, config?.unmount])
+    return () => {}
+  }, [name, isObject(config) && config?.unmount])
 
   /**
    * select state from the current redux store path efficiently and memoized.
@@ -208,7 +221,7 @@ export const useReduxState = (config, initState) => {
  * @param  {string} name redux state name
  * @return {function}      setState function to set state for the given state
  */
-export const useSetState = (name) => {
+export const useSetState = (name: string) => {
   const dispatch = useDispatch()
   const _action = useCallback(
     (payload, reducer) => action(name, payload, reducer),
@@ -227,7 +240,7 @@ export const useSetState = (name) => {
  * @param  {string} name redux state name
  * @return {function}      getState function to get state for the given state
  */
-export const useGetState = (name) => {
+export const useGetState = (name: string) => {
   const store = useStore()
   // memoized getState callback
   return useCallback((callable) => getState(store, name, callable), [

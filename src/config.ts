@@ -1,5 +1,7 @@
+import { ReduxStateConfig } from './types'
+
 // global variable that holds the package's config
-const config = {}
+const config: ReduxStateConfig = {}
 
 /**
  * set the package configurations
