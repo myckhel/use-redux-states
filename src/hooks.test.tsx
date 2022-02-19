@@ -226,7 +226,7 @@ describe('Hooks Tests', () => {
       expect(humanRedux.current.action(1)).toEqual({
         type: SET_REDUX_STATE,
         payload: 1,
-        name: HUMAN_STATE
+        path: HUMAN_STATE
       }))
 
     it('should cleanup state', () => {

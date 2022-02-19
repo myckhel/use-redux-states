@@ -9,6 +9,7 @@ export interface ReduxStateConfig {
 
 export interface ReduxStateProps {
   name?: string
+  path?: string
   state?: any
   unmount?: boolean
   cleanup?: boolean
@@ -25,7 +26,7 @@ export type ReduxStateActionCreator = (
 export type ReduxStatePath = string | Array<string>
 
 export interface ReduxStateAction {
-  name: string
+  path: string
   payload: any
   reducer?: ReduxStateReducer
   type?: string

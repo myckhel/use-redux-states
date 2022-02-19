@@ -19,63 +19,63 @@ const { actions, reducer } = createSlice({
   initialState: INIT_STATE,
   reducers: {
     // @ts-expect-error
-    setState: (state, { name, payload, reducer }: ReduxStateAction) => {
+    setState: (state, { path, payload, reducer }: ReduxStateAction) => {
       setWith(
         state,
-        name,
+        path,
         reducer
-          ? reducer(get(state, name), payload)
+          ? reducer(get(state, path), payload)
           : typeof payload === 'function'
-          ? payload(get(state, name))
-          : getSetter()(get(state, name), payload)
+          ? payload(get(state, path))
+          : getSetter()(get(state, path), payload)
       )
     },
 
     // @ts-expect-error
-    cleanup: (state, { name }: ReduxStateAction): void => {
-      get(state, name) && deleteWith(state, name)
+    cleanup: (state, { path }: ReduxStateAction): void => {
+      get(state, path) && deleteWith(state, path)
 
-      get(state.redux_state_subscriptions, name) &&
-        deleteWith(state.redux_state_subscriptions, name)
+      get(state.redux_state_subscriptions, path) &&
+        deleteWith(state.redux_state_subscriptions, path)
     },
     // @ts-expect-error
     subscribe: (
       state,
-      { payload, name, cleanup, reducer }: ReduxStateAction
+      { payload, path, cleanup, reducer }: ReduxStateAction
     ) => {
-      const subscriber_count = get(state.redux_state_subscriptions, name, 0)
+      const subscriber_count = get(state.redux_state_subscriptions, path, 0)
 
       if (payload !== undefined || reducer) {
         setWith(
           state,
-          name,
+          path,
           reducer
-            ? reducer(get(state, name), payload)
-            : getSetter()(get(state, name), payload)
+            ? reducer(get(state, path), payload)
+            : getSetter()(get(state, path), payload)
         )
       }
 
       if (subscriber_count < 1 || cleanup) {
-        setWith(state.redux_state_subscriptions, name, subscriber_count + 1)
+        setWith(state.redux_state_subscriptions, path, subscriber_count + 1)
       }
     },
 
     // @ts-expect-error
-    unsubscribe: (state, { name, cleanup }: ReduxStateAction) => {
+    unsubscribe: (state, { path, cleanup }: ReduxStateAction) => {
       const redux_state_subscriptions = state.redux_state_subscriptions
 
-      const subscriber_count = get(state.redux_state_subscriptions, name, 0)
+      const subscriber_count = get(state.redux_state_subscriptions, path, 0)
 
       if (subscriber_count < 2 && cleanup) {
-        if (get(state, name)) {
-          deleteWith(state, name)
+        if (get(state, path)) {
+          deleteWith(state, path)
         }
 
-        if (get(redux_state_subscriptions, name)) {
-          deleteWith(redux_state_subscriptions, name)
+        if (get(redux_state_subscriptions, path)) {
+          deleteWith(redux_state_subscriptions, path)
         }
       } else {
-        setWith(state.redux_state_subscriptions, name, subscriber_count - 1)
+        setWith(state.redux_state_subscriptions, path, subscriber_count - 1)
       }
     }
   }

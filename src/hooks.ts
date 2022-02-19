@@ -17,7 +17,7 @@ import { ReduxStateProps, ReduxStateReducer, StateSelectorPath } from './types'
 
 /**
  * select state from redux efficiently and memoized.
- * @param  {function|string} selectorOrPath selector function or state name
+ * @param  {function|string} selectorOrPath selector function or state path
  * @param  {function} select state result selector
  * @param  {function} eq equality
  * @return {any}      selected redux state
@@ -39,7 +39,7 @@ export const useMemoSelector = (
 
 /**
  * select state from redux root store efficiently and memoized.
- * @param  {function|string} selectorOrPath selector function or state name
+ * @param  {function|string} selectorOrPath selector function or state path
  * @param  {function} select state result selector
  * @param  {function} eq equality
  * @return {any}      selected redux state
@@ -61,7 +61,7 @@ export const useRootMemoSelector = (
 
 /**
  * creates redux state at runtime
- * @param  {string|object} config state name or configuration object
+ * @param  {string|object} config state path or configuration object
  * @param  {any} initState initial state
  * @return {object}      object containing various helpers
  */
@@ -72,22 +72,23 @@ export const useReduxState = (
   const store = useStore()
   const dispatch = useDispatch()
 
-  // memoized state name
-  const name = useMemo(
-    () => (isString(config) ? config : config?.name || `${unique()}`),
+  // memoized state path
+  const path = useMemo(
+    () =>
+      isString(config) ? config : config?.path || config?.name || `${unique()}`,
     [config]
   )
 
   // memoized redux action callback to dispatch action for the current state
   const _action = useCallback(
-    (payload, reducer) => action(name, payload, reducer),
-    [name]
+    (payload, reducer) => action(path, payload, reducer),
+    [path]
   )
 
   // memoized redux action to dispatch cleanup action
   const cleanUpAction = useCallback(
-    (payload?) => ({ type: CLEANUP_REDUX_STATE, payload, name }),
-    [name]
+    (payload?) => ({ type: CLEANUP_REDUX_STATE, payload, path }),
+    [path]
   )
 
   // memoized redux action to dispatch subscription action for the current state
@@ -95,10 +96,10 @@ export const useReduxState = (
     (payload, extend = {}) => ({
       type: SUBSCRIBE_REDUX_STATE,
       payload,
-      name,
+      path,
       ...extend
     }),
-    [name]
+    [path]
   )
 
   // memoized redux action to dispatch un-subscribe action for the current state
@@ -106,16 +107,16 @@ export const useReduxState = (
     (payload, extend = {}) => ({
       type: UNSUBSCRIBE_REDUX_STATE,
       payload,
-      name,
+      path,
       ...extend
     }),
-    [name]
+    [path]
   )
 
   // memoized callback to get state for the current state
   const _getState = useCallback(
-    (callable = sel) => getState(store, name, callable),
-    [name]
+    (callable = sel) => getState(store, path, callable),
+    [path]
   )
 
   // memoized callback to get initial state for this hook
@@ -138,10 +139,10 @@ export const useReduxState = (
   // memoized callback to select state for the current state
   const _selector = useCallback(
     (state) => {
-      const storeState = selector(state, name)
+      const storeState = selector(state, path)
       return storeState !== undefined ? storeState : getInit()
     },
-    [name]
+    [path]
   )
 
   // memoized callback to dispatch cleanup action for the current state
@@ -149,8 +150,8 @@ export const useReduxState = (
 
   // memoized callback to get subscriptions count for the current state
   const getStateSubscription = useCallback(
-    () => get(store?.getState()[STATE_NAME].redux_state_subscriptions, name, 0),
-    [name]
+    () => get(store?.getState()[STATE_NAME].redux_state_subscriptions, path, 0),
+    [path]
   )
 
   // initialize the state on layout
@@ -192,7 +193,7 @@ export const useReduxState = (
       }
     }
     return () => {}
-  }, [name, isObject(config) && config?.unmount])
+  }, [path, isObject(config) && config?.unmount])
 
   /**
    * select state from the current redux store path efficiently and memoized.
@@ -218,14 +219,14 @@ export const useReduxState = (
 
 /**
  * Hook to get the setState function for the given state
- * @param  {string} name redux state name
+ * @param  {string} path redux state path
  * @return {function}      setState function to set state for the given state
  */
-export const useSetState = (name: string) => {
+export const useSetState = (path: string) => {
   const dispatch = useDispatch()
   const _action = useCallback(
-    (payload, reducer) => action(name, payload, reducer),
-    [name]
+    (payload, reducer) => action(path, payload, reducer),
+    [path]
   )
 
   // memoized setState callback
@@ -237,14 +238,14 @@ export const useSetState = (name: string) => {
 
 /**
  * Hook to get the getState function for the given state
- * @param  {string} name redux state name
+ * @param  {string} path redux state path
  * @return {function}      getState function to get state for the given state
  */
-export const useGetState = (name: string) => {
+export const useGetState = (path: string) => {
   const store = useStore()
   // memoized getState callback
-  return useCallback((callable) => getState(store, name, callable), [
-    name,
+  return useCallback((callable) => getState(store, path, callable), [
+    path,
     store
   ])
 }

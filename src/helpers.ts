@@ -16,20 +16,20 @@ import {
 export const sel = (state: any) => state
 
 /**
- * generates unique state name
- * @return {number}      generated unique state name
+ * generates unique state path
+ * @return {number}      generated unique state path
  */
 export const unique = () => new Date().getTime()
 
 /**
  * get state for the given state
  * @param  {object} store redux store
- * @param  {string} name redux state name
- * @param  {function} callable function that accepts selected state
+ * @param  {string} path redux state path
+ * @param  {function} callback function that accepts selected state
  * @return {any}      redux state
  */
-export const getState = (store: Store, name: string, callable = sel) =>
-  callable(selector(store?.getState(), name))
+export const getState = (store: Store, path: string, callback = sel) =>
+  callback(selector(store?.getState(), path))
 
 /**
  * set state for the given state
@@ -47,29 +47,29 @@ export const setState = <T>(
 
 /**
  * creates redux set state action
- * @param  {string} name redux state name
+ * @param  {string} path redux state path
  * @param  {any} payload any value or function that returns any value
  * @param  {function} reducer function that recieve the current state and which should return new state
  */
 export const action = <T>(
-  name: string,
+  path: string,
   payload: T,
   reducer?: ReducersMapObject
 ) => ({
   type: SET_REDUX_STATE,
   payload,
-  name,
+  path,
   reducer
 })
 
 /**
- * selects state for the given state name
+ * selects state for the given state path
  * @param  {any} state redux state
- * @param  {string} name redux state name
+ * @param  {string} path redux state path
  * @return {any}      selected redux state
  */
-export const selector = (state: any, name: string) =>
-  get(state?.[STATE_NAME], name)
+export const selector = (state: any, path: string) =>
+  get(state?.[STATE_NAME], path)
 
 /**
  * gets user defined setter function or package's setter function

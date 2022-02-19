@@ -65,7 +65,7 @@ describe('Reducers Units', () => {
           redux_state_subscriptions: {}
         }
       },
-      { type: '_use_redux_state/subscribe', payload: 1, name: 'nested.state' }
+      { type: '_use_redux_state/subscribe', payload: 1, path: 'nested.state' }
     )
 
     expect(state).toEqual({
@@ -130,7 +130,7 @@ describe('helpers', () => {
     expect(setStateActionCreator(stateName, payload)).toEqual({
       type: SET_REDUX_STATE,
       payload,
-      name: stateName
+      path: stateName
     }))
 
   it('should select state from store', () =>
