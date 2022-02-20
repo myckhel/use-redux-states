@@ -23,7 +23,7 @@ useReduxState(config?: {
 
 - [selector](../selector.md)
 - [setState](../set-state.md)
-- [getState](../get-state.md)
+- [getState](./use-redux-state#getstate)
 - [action](../action.md)
 - [cleanup](../cleanup.md)
 - [useMemoSelector](use-memo-selector)
@@ -169,4 +169,51 @@ const App = () => {
   )
 }
 export default App
+```
+
+## Apis
+### getState
+function to get the state for a given state path.
+
+## `Arguments`
+
+### **selectorPath**
+
+selector function or path of the nest-able state to be selected
+
+```js
+getState(selectorPath)
+```
+
+## `Returns`
+
+### **stateValue**
+
+```js
+getState('todos.completed') // any value
+```
+or
+
+```js
+getState((state) => state.todos) // any value
+```
+
+## `Example`
+
+```jsx
+import { useEffect } from 'react'
+import {useReduxState} from 'use-redux-states'
+const Component = () => {
+  const {getState} = useReduxState({
+    state: {
+      state1: [],
+    },
+    path: 'todos.completed'
+  })
+
+  useEffect(() => {
+    console.log(getState('todos.completed'), getState((state) => state.todos))
+    // {state1: []},{state1: []}
+  }, [])
+}
 ```

@@ -118,9 +118,18 @@ export const useReduxState = <State = any>(
     [path]
   )
 
-  // memoized callback to get state for the current state
+  /**
+   * memoized callback to get state for the current state
+   * @param  {function|string} selectorPath selector function or state path
+   * @return {any}      selected redux state
+   */
   const _getState = useCallback(
-    (callable = sel) => getState(store, path, callable),
+    (selectorPath: StateSelectorPath = sel) =>
+      getState(
+        store,
+        typeof selectorPath === 'string' ? `${path}.${selectorPath}` : path,
+        typeof selectorPath === 'function' ? selectorPath : sel
+      ),
     [path]
   )
 
