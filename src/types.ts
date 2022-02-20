@@ -1,5 +1,7 @@
 import { Action } from '@reduxjs/toolkit'
 
+export type ReduxStatePath = string
+
 export type StateSelectorPath = ReduxStatePath | ((state: any) => any)
 
 export interface ReduxStateConfig {
@@ -32,5 +34,3 @@ export interface ReduxStateAction {
   type?: string
   cleanup?: boolean
 }
-
-export type ReduxStatePath = string
