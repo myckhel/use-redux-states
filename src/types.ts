@@ -1,16 +1,16 @@
 import { Action } from '@reduxjs/toolkit'
 
-export type StateSelectorPath = string | ((state: any) => any)
+export type StateSelectorPath = ReduxStatePath | ((state: any) => any)
 
 export interface ReduxStateConfig {
   cleanup?: boolean
   setter?: (state: any, payload: any) => any
 }
 
-export interface ReduxStateProps {
-  name?: string
-  path?: string
-  state?: any
+export interface ReduxStateProps<State = any> {
+  name?: ReduxStatePath
+  path?: ReduxStatePath
+  state?: State
   unmount?: boolean
   cleanup?: boolean
   reducer?: boolean
@@ -23,7 +23,7 @@ export type ReduxStateActionCreator = (
   reducer?: ReduxStateReducer
 ) => Action
 
-export type ReduxStatePath = string | Array<string>
+export type ReduxStateSetWithPath = string | Array<string>
 
 export interface ReduxStateAction {
   path: string
@@ -32,3 +32,5 @@ export interface ReduxStateAction {
   type?: string
   cleanup?: boolean
 }
+
+export type ReduxStatePath = string

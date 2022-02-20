@@ -4,7 +4,7 @@ import libConfig from './config'
 import { Dispatch, ReducersMapObject, Store } from '@reduxjs/toolkit'
 import {
   ReduxStateActionCreator,
-  ReduxStatePath,
+  ReduxStateSetWithPath,
   ReduxStateReducer
 } from './types'
 
@@ -110,7 +110,7 @@ export const deleteWith = (
  */
 export const setWith = <T>(
   object: Object,
-  path: ReduxStatePath,
+  path: ReduxStateSetWithPath,
   value: T,
   index = 0
 ): T => {
