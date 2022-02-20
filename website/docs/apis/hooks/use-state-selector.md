@@ -28,10 +28,10 @@ import useReduxState from 'use-redux-states'
 const Component = () => {
   const { useStateSelector } = useReduxState({
     state: {
-      name: 'john',
+      path: 'john',
       age: 22
     },
-    name: 'users.john'
+    path: 'users.john'
   })
   const age = useStateSelector(
     (users) => users?.john?.age

@@ -7,9 +7,9 @@ This hook gives you a setState function for a given state
 
 ## Arguments
 
-### `stateName`
+### `statePath`
 
-name of the nestable state to be selected
+path of the nestable state to be selected
 
 ```js
 useSetState('todos.completed')
@@ -35,7 +35,7 @@ const Component = () => {
       state1: 'a',
       state2: 'b'
     },
-    name: 'component_state'
+    path: 'component_state'
   })
 
   const setState = useSetState('component_state')

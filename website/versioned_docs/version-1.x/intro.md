@@ -44,7 +44,7 @@ But `use-redux-states` found a way to create redux state much easier and dynamic
 ```jsx
 const Component = () => {
   const {setState, getState} = useReduxState({
-    name: 'component_state',
+    path: 'component_state',
     state: {
       state1: 'one',
       state2: 'two',

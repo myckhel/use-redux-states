@@ -37,7 +37,7 @@ const Component = () => {
     state: {
       state1: []
     },
-    name: 'todos.completed'
+    path: 'todos.completed'
   })
 
   useEffect(() => {

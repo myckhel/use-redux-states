@@ -31,7 +31,7 @@ const Component = () => {
       name: 'john',
       age: 22
     },
-    name: 'users.john'
+    path: 'users.john'
   })
   const age = useStateSelector(
     (users) => users?.john?.age

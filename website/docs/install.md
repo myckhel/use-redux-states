@@ -10,7 +10,7 @@ import TabItem from '@theme/TabItem';
 
 ## `Install`
 
-<Tabs groupId="syntax" values={[
+<Tabs defaultValue="yarn" groupId="syntax" values={[
   {label: 'Yarn', value: 'yarn'},
   {label: 'Npm', value: 'npm'},
 ]}>
@@ -33,7 +33,7 @@ import TabItem from '@theme/TabItem';
 
 ## `Install with peerDependencies`
 
-<Tabs groupId="syntax" values={[
+<Tabs defaultValue="yarn"  groupId="syntax" values={[
   {label: 'Yarn', value: 'yarn'},
   {label: 'Npm', value: 'npm'},
 ]}>

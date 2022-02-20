@@ -3,7 +3,7 @@ id: action
 title: action()
 ---
 
-Action creator for dispatching setState action for a given state name.
+Action creator for dispatching setState action for a given state path.
 
 ```ts
 action(stateName, payload, setter?: (state, payload) => newState)
@@ -15,7 +15,7 @@ setState redux action
 
 ```ts
 action(stateName, payload, setter)
-// { type: SET_REDUX_STATE, payload, name, reducer }
+// { type: SET_REDUX_STATE, payload, path, reducer }
 ```
 
 ## `Example`
@@ -29,7 +29,7 @@ const Component = () => {
       state1: 'a',
       state2: 'b'
     },
-    name: 'component_state'
+    path: 'component_state'
   })
 
   useEffect(() => {

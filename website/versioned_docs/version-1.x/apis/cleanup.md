@@ -24,7 +24,7 @@ const Component = () => {
       state1: 'a',
       state2: 'b'
     },
-    name: 'component_state'
+    path: 'component_state'
   })
 
   useEffect(() => {

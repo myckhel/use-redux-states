@@ -3,12 +3,12 @@ id: selector
 title: selector()
 ---
 
-function to select state for a given state name.
+function to select state for a given state path.
 ```js
-selector(storeRootState, stateName)
+selector(storeRootState, statePath)
 ```
 
-**Returns** Redux state for the given name
+**Returns** Redux state for the given path
 
 ## `Example`
 
@@ -22,7 +22,7 @@ const Component = () => {
       state1: 'a',
       state2: 'b',
     },
-    name: 'component_state'
+    path: 'component_state'
   })
 
   useEffect(() => {

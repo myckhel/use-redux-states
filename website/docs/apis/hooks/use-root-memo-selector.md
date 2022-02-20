@@ -25,9 +25,9 @@ receives 1 argument
 (storeState) => selectedState
 ```
 
-#### `stateName`
+#### `statePath`
 
-name of the nestable state to be selected
+path of the nestable state to be selected
 
 ### `result()`
 

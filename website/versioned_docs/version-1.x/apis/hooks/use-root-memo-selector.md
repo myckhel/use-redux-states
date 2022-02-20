@@ -27,7 +27,7 @@ receives 1 argument
 
 #### `stateName`
 
-name of the nestable state to be selected
+path of the nestable state to be selected
 
 ### `result()`
 

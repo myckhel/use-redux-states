@@ -22,7 +22,7 @@ receives 1 argument
 
 #### `stateName`
 
-name of the nestable state to be selected
+path of the nestable state to be selected
 
 ### `result()`
 
@@ -46,7 +46,7 @@ const Component = () => {
       state1: 'a',
       state2: 'b'
     },
-    name: 'component_state'
+    path: 'component_state'
   })
   const state1 = useMemoSelector(
     selector,

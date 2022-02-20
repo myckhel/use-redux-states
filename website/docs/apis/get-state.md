@@ -3,16 +3,16 @@ id: get-state
 title: getState()
 ---
 
-function to get the state for a given state name.
+function to get the state for a given state path.
 
 ## `Arguments`
 
-### **stateName**
+### **statePath**
 
-name of the nest-able state to be selected
+path of the nest-able state to be selected
 
 ```js
-getState(store, stateName, getter?: (state) => selectedState)
+getState(store, statePath, getter?: (state) => selectedState)
 ```
 
 ## `Returns`
@@ -33,7 +33,7 @@ const Component = () => {
     state: {
       state1: [],
     },
-    name: 'todos.completed'
+    path: 'todos.completed'
   })
 
   useEffect(() => {

@@ -6,14 +6,14 @@ title: useReduxState()
 This hook allows to create redux state at runtime.
 
 ```ts
-useReduxState(stateName?: string, state?: any)
+useReduxState(statePath?: string, state?: any)
 ```
 
 or
 
 ```ts
 useReduxState(config?: {
-  name?: string, // nested state name
+  path?: string, // nested state path
   state?: any, // initial state
   reducer?: (storeState, initialState) => mergedState
 })
@@ -31,14 +31,14 @@ useReduxState(config?: {
 
 ## `config`
 
-### **name''**
+### **path''**
 
 **type:** string
 **default:** Date().getTime() <br/>
-nestable key name of the redux state
+nestable key path of the redux state
 
 ```js
-useReduxState({ name: 'state.name', state: 'Mike' })
+useReduxState({ path: 'state.name', state: 'Mike' })
 // creates nested state in the store {state: {name: 'Mike'}}
 ```
 
@@ -48,23 +48,23 @@ useReduxState({ name: 'state.name', state: 'Mike' })
 initial state
 
 ```js
-useReduxState({ name: 'state.name', state: 'Mike' })
+useReduxState({ path: 'state.name', state: 'Mike' })
 // creates nested state in the store {state: {name: 'Mike'}}
 ```
 
 ### **reducer()?**
 
 **type:** function <br/>
-function that takes the current `state` for the given name, `payload` and returns computed new state.
+function that takes the current `state` for the given path, `payload` and returns computed new state.
 this function runs once during the initialization of the state
 use the function when you want to manually handle how the state should be created/updated.
 
 ```js
-useReduxState({ name: 'state.name', state: { is: 'Mike' } })
+useReduxState({ path: 'state.name', state: { is: 'Mike' } })
 // {state: {name: {is: 'Mike'}}}
 
 useReduxState({
-  name: 'state.name',
+  path: 'state.name',
   state: { and: 'Redux' },
   reducer: (currentState, payload) => ({ ...currentState, ...payload })
 })
@@ -98,9 +98,9 @@ we got:
 determines whether redux state should mount
 
 ```js
-useReduxState({ unmount: true, name: 'state.name', state: 'Mike' })
+useReduxState({ unmount: true, path: 'state.name', state: 'Mike' })
 // store undefined
-useReduxState({ unmount: false, name: 'state.name', state: 'Mike' })
+useReduxState({ unmount: false, path: 'state.name', state: 'Mike' })
 // {state: {name: 'Mike'}}
 ```
 
@@ -115,7 +115,7 @@ determines whether redux state should cleanup the state when component unmounted
 ```js
 const { getState } = useReduxState({
   cleanup: true,
-  name: 'state.name',
+  path: 'state.name',
   state: 'Mike'
 })
 
@@ -140,8 +140,8 @@ const App = () => {
     cleanup,
     setState
   } = useReduxState({
-    /* nestable state name */
-    name: 'state.name',
+    /* nestable state path */
+    path: 'state.name',
     /* initial component state */
     state: {
       count: 1,

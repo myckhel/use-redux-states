@@ -7,16 +7,16 @@ This hook gives you a getState function for a given state
 
 ## Arguments
 
-### `stateName`
+### `statePath`
 
-name of the nestable state to be selected
+path of the nestable state to be selected
 
 ## Returns
 
 ### `getState()`
 
 ```js
-getState(stateName)
+getState(statePath)
 ```
 
 ## Example
@@ -30,7 +30,7 @@ const Component = () => {
       state1: 'a',
       state2: 'b'
     },
-    name: 'component_state'
+    path: 'component_state'
   })
   const getState = useGetState('component_state')
 

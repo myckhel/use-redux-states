@@ -9,7 +9,7 @@ function to configure the `use-redux-states`.
 
 ### **cleanup.**
 
-boolean value to determine if the state should be deleted when all component that subscribed to a state name have been unmounted from react tree.
+boolean value to determine if the state should be deleted when all component that subscribed to a state path have been unmounted from react tree.
 **_this is experimental_**
 
 ### **setter()?**
