@@ -13,7 +13,12 @@ import {
   STATE_NAME
 } from './constants'
 
-import { ReduxStateProps, ReduxStateReducer, StateSelectorPath } from './types'
+import {
+  ReduxStatePath,
+  ReduxStateProps,
+  ReduxStateReducer,
+  StateSelectorPath
+} from './types'
 
 /**
  * select state from redux efficiently and memoized.
@@ -65,9 +70,9 @@ export const useRootMemoSelector = (
  * @param  {any} initState initial state
  * @return {object}      object containing various helpers
  */
-export const useReduxState = (
-  config: ReduxStateProps | string,
-  initState?: any
+export const useReduxState = <State = any>(
+  config: ReduxStateProps<State> | ReduxStatePath,
+  initState?: State
 ) => {
   const store = useStore()
   const dispatch = useDispatch()
@@ -138,7 +143,7 @@ export const useReduxState = (
 
   // memoized callback to select state for the current state
   const _selector = useCallback(
-    (state) => {
+    (state: State) => {
       const storeState = selector(state, path)
       return storeState !== undefined ? storeState : getInit()
     },
