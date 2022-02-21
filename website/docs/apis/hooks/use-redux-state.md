@@ -22,7 +22,7 @@ useReduxState(config?: {
 ### `returns{}`
 
 - [selector](../selector.md)
-- [setState](../set-state.md)
+- [setState](./use-redux-state#setstate)
 - [getState](./use-redux-state#getstate)
 - [action](../action.md)
 - [cleanup](../cleanup.md)
@@ -172,8 +172,9 @@ export default App
 ```
 
 ## Apis
+
 ### getState
-function to get the state for a given state path.
+function to get states for a given state path in the redux store.
 
 ## `Arguments`
 
@@ -215,5 +216,42 @@ const Component = () => {
     console.log(getState('todos.completed'), getState((state) => state.todos))
     // {state1: []},{state1: []}
   }, [])
+}
+```
+
+### setState
+
+function to update states in the redux store.
+
+## `Arguments`
+
+### **payload**|**setter()?**
+
+(*payload*) value to set in the state or (*setter*) function to determine how the state should be set.
+
+```js
+setState(payload: any | setter?: (state, payload) => newState)
+```
+
+## `Example`
+
+```jsx
+import { useReduxState } from 'use-redux-states'
+
+const Component = () => {
+  const { setState } = useReduxState({
+    state: {
+      state1: []
+    },
+    path: 'todos.completed'
+  })
+
+  console.log(
+    setState((state) => {
+      state.state1.push(payload)
+      return state
+    })
+  )
+  // {state1: [1]}
 }
 ```
