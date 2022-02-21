@@ -35,18 +35,17 @@ const Usage = () => {
 
   const { locale, count } = useMemoSelector(selector)
 
+  const onChange = (e) => setState({locale: e.target.value})
+
+  const onClick = () =>
+          setState((prevState) => ({ ...prevState, count: count + 1 }))
+
+
   return (
     <div>
       <h6>Current Count: {count}</h6>
-      <input
-        onChange={({ target: { value: locale } }) => setState({locale})}
-        value={locale}
-      />
-      <button
-        onClick={() =>
-          setState((prevState) => ({ ...prevState, count: count + 1 }))
-        }
-      >
+      <input onChange={onChange} value={locale} />
+      <button onClick={onClick}>
         Increment Count
       </button>
     </div>
