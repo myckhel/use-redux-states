@@ -1,70 +1,7 @@
-# use-redux-states
-
-> Create redux state at runtime.
-
-[![NPM](https://img.shields.io/npm/v/use-redux-states.svg)](https://www.npmjs.com/package/use-redux-states) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) ![test workflow](https://github.com/myckhel/use-redux-states/actions/workflows/eslint.yml/badge.svg)
-
-## Overview
-`use-redux-states` allows you to create runtime redux states for your components without explicitly creating actions and reducers.
-It was also designed to solve react's unnecessary re-render issue by using `useMemoSelector` api.
-
-It returns object which includes a setState function that uses same concept as react's class component `setState` function which accepts `callback(previous_state)` or new state value.
-
-## Install
-
-```bash
-npm install --save use-redux-states
-```
-
-## Setup
-```js
-import { createStore } from 'redux'
-import yourReducer1 from './yourReducer1'
-import yourReducer2 from './yourReducer2'
-import { setConfig, mergeReducers } from 'use-redux-states'
-
-const appReducer = mergeReducers({ yourReducer1, yourReducer2 })
-
-const store = createStore(appReducer)
-setConfig({cleanup: false})
-```
-
-## `Basic Usage`
-
-```jsx
-import React from 'react'
-
-import { useReduxState } from 'use-redux-states'
-
-const Usage = () => {
-  const { setState, useStateSelector } = useReduxState('component_state', {
-    /* initial states */
-    count: 1,
-    locale: 'en_US'
-  })
-
-  const { locale, count } = useStateSelector()
-
-  return (
-    <div>
-      <h6>Current Count: {count}</h6>
-      <input
-        onChange={({ target: { value: locale } }) => setState({locale})}
-        value={locale}
-      />
-      <button
-        onClick={() =>
-          setState((prevState) => ({ ...prevState, count: count + 1 }))
-        }
-      >
-        Increment Count
-      </button>
-    </div>
-  )
-}
-```
-
-# Usage Guides
+---
+id: using-redux-state
+title: Using redux state
+---
 
 ## **`Creating states`**
 
@@ -94,12 +31,12 @@ const App = () => {
 }
 ```
 
+
 ### Controlling how initial state should be set
 When you use the `redux-state-hook` with a default state, under the hood it sets the initial state in the store with the given path.<br/>
 `redux-state-hook` has an intelligent setter function which determines how your state will be set based on the payload **(referring the initial state as the payload)**.
 When array is passed as the payload setter assumes you will append the payload with the current state array.<br />
 Given the example below the initial todos state has `[{done: false}, {done: true}, {done: false}]` value, setter will push to the existing array state if the payload is array otherwise will replace the state.
-
 ```js
 import React from 'react'
 import useReduxState from 'use-redux-states'
@@ -142,7 +79,7 @@ const App = () => {
 ```
 
 ## **`Retrieving state`**
-Lets retrieve the new state we have created using [getState](./website/docs/apis/hooks/use-redux-state#getstate).
+Lets retrieve the new state we have created using [getState](../apis/hooks/use-redux-state#getstate).
 
 ```js
 import {useReduxState} from 'use-redux-states'
@@ -167,7 +104,7 @@ const App = () => {
 
 ### Reactively getting state
 
-We can retrieve states reactively using [useStateSelector](./website/docs/apis/hooks/use-state-selector) or [useGetState](./../apis/hooks/use-get-state) hooks.
+We can retrieve states reactively using [useStateSelector](./../apis/hooks/use-state-selector) or [useGetState](./../apis/hooks/use-get-state) hooks.
 ```js
 import {useReduxState, useGetState} from 'use-redux-states'
 
@@ -193,7 +130,7 @@ const App = () => {
 
 ### Getting already existing states
 
-In some cases we might want to get an already existsing state without using the [useReduxState](./website/docs/apis/hooks/use-redux-state.md).
+In some cases we might want to get an already existsing state without using the [useReduxState](./../apis/hooks/use-redux-state.md).
 
 ```js
 import {useGetState} from 'use-redux-states'
@@ -213,7 +150,7 @@ const App = () => {
 
 ### Reactively getting already existing states
 
-We can reactively get already existsing state without using the [useReduxState](./website/docs/apis/hooks/use-redux-state.md).
+We can reactively get already existsing state without using the [useReduxState](./../apis/hooks/use-redux-state.md).
 
 ```js
 import {useMemoSelector} from 'use-redux-states'
@@ -226,7 +163,7 @@ const App = () => {
 ```
 
 ### Retrieving computed state with callback
-We can retrieve and compute states by passing callback function to [useStateSelector](./website/docs/apis/hooks/use-state-selector) hook and or [getState](./website/docs/apis/hooks/use-redux-state#getstate).
+We can retrieve and compute states by passing callback function to [useStateSelector](./../apis/hooks/use-state-selector) hook and or [getState](../apis/hooks/use-redux-state#getstate).
 
 ```js
 import {useReduxState} from 'use-redux-states'
@@ -250,7 +187,7 @@ const App = () => {
 ```
 
 ## **`Updating states`**
-We can update states with [setState](./website/docs/apis/hooks/use-redux-state#setstate).
+We can update states with [setState](../apis/hooks/use-redux-state#setstate).
 ```js
 import {useReduxState} from 'use-redux-states'
 
@@ -276,7 +213,7 @@ const App = () => {
 ```
 
 ### Updating states with setter callback
-We can also update states by passing a custom setter to [setState](./website/docs/apis/hooks/use-redux-state/#setstate).
+We can also update states by passing a custom setter to [setState](../apis/hooks/use-redux-state/#setstate).
 ```js
 import {useReduxState} from 'use-redux-states'
 
@@ -305,7 +242,7 @@ const App = () => {
 ```
 
 ### Updating already existing states
-We can update already existing states with [useSetState](./website/docs/apis/hooks/use-set-state) hook.
+We can update already existing states with [useSetState](./../apis/hooks/use-set-state) hook.
 
 ```js
 import {useSetState, useGetState} from 'use-redux-states'
@@ -327,7 +264,7 @@ const App = () => {
 ```
 
 ### Updating already existing states
-We can update already existing states with [useSetState](./website/docs/apis/hooks/use-set-state) hook.
+We can update already existing states with [useSetState](./../apis/hooks/use-set-state) hook.
 
 ```js
 import {useSetState, useGetState} from 'use-redux-states'
@@ -350,20 +287,3 @@ const App = () => {
   // }
 }
 ```
-
-## 📚 Extensive Doc at
-[User Redux State Doc](https://myckhel.github.io/use-redux-states/)
-
-## Examples
-### 🖥️ React Web Code Sandbox Example
-[Code Sandbox Example](https://codesandbox.io/s/usereduxstate-gdl7g)
-
-### React Native Snack Example
-[Snack Example](https://snack.expo.dev/@myckhel/use-redux-state-hook)
-
-### React Native Snack GiftedChat Example
-[Snack GiftedChat Example](https://snack.expo.dev/@myckhel/react-native-gifted-chat-reply)
-
-## License
-
-MIT © [myckhel](https://github.com/myckhel)
