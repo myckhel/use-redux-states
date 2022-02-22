@@ -7,7 +7,7 @@ This hook gives you a setState function for a given state
 
 ## Arguments
 
-### `statePath`
+### `stateName`
 
 path of the nestable state to be selected
 

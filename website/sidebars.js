@@ -1,7 +1,7 @@
 module.exports = {
   someSidebar: [
     {
-      collapsed: true,
+      collapsed: false,
       type: 'category',
       label: 'Redux State',
       items: [
@@ -20,13 +20,13 @@ module.exports = {
       ]
     },
     {
-      collapsed: true,
+      collapsed: false,
       type: 'category',
       label: 'Guides',
       items: ['guides/using-redux-state', 'guides/usage-with-redux-toolkit']
     },
     {
-      collapsed: true,
+      collapsed: false,
       type: 'category',
       label: 'Api Ref',
       items: [

@@ -7,7 +7,7 @@ This hook gives you a getState function for a given state
 
 ## Arguments
 
-### `statePath`
+### `stateName`
 
 path of the nestable state to be selected
 
@@ -16,7 +16,7 @@ path of the nestable state to be selected
 ### `getState()`
 
 ```js
-getState(statePath)
+getState(stateName)
 ```
 
 ## Example

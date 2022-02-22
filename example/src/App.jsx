@@ -11,7 +11,7 @@ import { increaseCount } from './redux/state'
 
 const App = () => {
   const { selector, setState: setMount } = useReduxState({
-    name: 'mounted',
+    path: 'mounted',
     state: true
   })
 
@@ -96,7 +96,7 @@ const Setter = () => {
 const MountControl = () => {
   const [unmount, setMount] = useState(true)
   const { selector, setState } = useReduxState({
-    name: 'mount.control',
+    path: 'mount.control',
     state: { value: 'unmounted value' },
     unmount
   })
@@ -118,7 +118,7 @@ const MountControl = () => {
 }
 const NestedState = () => {
   const { selector, setState } = useReduxState({
-    name: 'nested.state',
+    path: 'nested.state',
     state: 1
   })
 
@@ -217,7 +217,7 @@ const Dependent = () => {
 // i can depend on a portion of a state
 const Dependent2 = () => {
   const { selector, setState } = useReduxState({
-    name: 'independent_state',
+    path: 'independent_state',
     state: { portion: 10 },
     reducer: (currentState, payload) =>
       currentState ? { ...currentState, ...payload } : { payload }
@@ -259,7 +259,7 @@ const Dependent2 = () => {
 // my state will be clean when i unmount
 const Cleanable = () => {
   const { selector, setState } = useReduxState({
-    name: 'cleanable.state',
+    path: 'cleanable.state',
     state: { current: 1 }, //payload
     reducer: (s, payload) => s || payload
   })
@@ -302,7 +302,7 @@ const Cleanable = () => {
 // my state will be clean when i unmount
 const UnCleanable = () => {
   const { selector, setState } = useReduxState({
-    name: 'uncleanable.state',
+    path: 'uncleanable.state',
     state: (s) => s || { current: 1 },
     cleanup: false
   })

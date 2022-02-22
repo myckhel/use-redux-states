@@ -20,7 +20,7 @@ receives 1 argument
 (storeState) => selectedState
 ```
 
-#### `statePath`
+#### `stateName`
 
 path of the nestable state to be selected
 

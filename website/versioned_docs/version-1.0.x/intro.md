@@ -7,7 +7,7 @@ slug: /
 
 ## `Overview`
 `use-redux-states` allows you to create redux states at runtime for your react components without creating static actions and reducers.
-It was also designed to stop react's components unnecessary re-render by using [useMemoSelector](./apis/hooks/use-memo-selector) api and to improve your app's performance.
+It was also designed to solve react's unnecessary re-render issue by using `useMemoSelector` api and to improve your app's performance.
 
 ## `Problems solved`
 ### **handles unnecessary selectors re-rendering**

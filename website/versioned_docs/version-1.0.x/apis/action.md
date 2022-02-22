@@ -6,7 +6,7 @@ title: action()
 Action creator for dispatching setState action for a given state path.
 
 ```ts
-action(statePath, payload, setter?: (state, payload) => newState)
+action(stateName, payload, setter?: (state, payload) => newState)
 ```
 
 ## `Returns`
@@ -14,7 +14,7 @@ action(statePath, payload, setter?: (state, payload) => newState)
 setState redux action
 
 ```ts
-action(statePath, payload, setter)
+action(stateName, payload, setter)
 // { type: SET_REDUX_STATE, payload, path, reducer }
 ```
 

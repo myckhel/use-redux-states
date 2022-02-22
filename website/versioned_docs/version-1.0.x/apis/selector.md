@@ -5,7 +5,7 @@ title: selector()
 
 function to select state for a given state path.
 ```js
-selector(storeRootState, statePath)
+selector(storeRootState, stateName)
 ```
 
 **Returns** Redux state for the given path

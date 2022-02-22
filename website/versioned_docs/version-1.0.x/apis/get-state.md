@@ -7,12 +7,12 @@ function to get the state for a given state path.
 
 ## `Arguments`
 
-### **statePath**
+### **stateName**
 
 path of the nest-able state to be selected
 
 ```js
-getState(store, statePath, getter?: (state) => selectedState)
+getState(store, stateName, getter?: (state) => selectedState)
 ```
 
 ## `Returns`
