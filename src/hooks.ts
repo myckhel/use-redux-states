@@ -14,9 +14,12 @@ import {
 } from './constants'
 
 import {
+  IsEqual,
+  ReduxSetStatePayload,
   ReduxStatePath,
   ReduxStateProps,
   ReduxStateReducer,
+  StateSelector,
   StateSelectorPath
 } from './types'
 
@@ -27,12 +30,12 @@ import {
  * @param  {function} eq equality
  * @return {any}      selected redux state
  */
-export const useMemoSelector = (
+export const useMemoSelector = <RootState = any, Selected = any>(
   selectorOrPath: StateSelectorPath,
   select = sel,
   eq = isEqual
 ) =>
-  useSelector(
+  useSelector<RootState, Selected>(
     createSelector(
       isString(selectorOrPath)
         ? (state) => selector(state, selectorOrPath)
@@ -126,8 +129,8 @@ export const useReduxState = <State = any>(
   const _getState = useCallback(
     (selectorPath: StateSelectorPath = sel) =>
       getState(
-        store,
         typeof selectorPath === 'string' ? `${path}.${selectorPath}` : path,
+        store,
         typeof selectorPath === 'function' ? selectorPath : sel
       ),
     [path]
@@ -137,6 +140,7 @@ export const useReduxState = <State = any>(
   const getInit = useCallback(() => {
     const state = isString(config) ? initState : config?.state
     if (typeof state === 'function') {
+      // @ts-ignore
       return state(_getState())
     } else {
       return state
@@ -145,8 +149,10 @@ export const useReduxState = <State = any>(
 
   // memoized callback to set state for the current state
   const _setState = useCallback(
-    <T>(payload: T, reducer: ReduxStateReducer) =>
-      setState(dispatch, _action, payload, reducer),
+    (
+      payload: ReduxSetStatePayload<State>,
+      reducer?: ReduxStateReducer<State>
+    ) => setState<State>(dispatch, _action, payload, reducer),
     [dispatch, _action]
   )
 
@@ -216,7 +222,8 @@ export const useReduxState = <State = any>(
    * @return {any}      selected redux state
    */
   const useStateSelector = useCallback(
-    (select, eq) => useMemoSelector(_selector, select, eq),
+    <S = any, Ret = State>(select?: StateSelector<S, Ret>, eq?: IsEqual): Ret =>
+      useMemoSelector<any, Ret>(_selector, select, eq),
     [_selector]
   )
 
@@ -245,7 +252,8 @@ export const useSetState = (path: string) => {
 
   // memoized setState callback
   return useCallback(
-    (payload, setter) => setState(dispatch, _action, payload, setter),
+    (payload, setter?: ReduxStateReducer) =>
+      setState(dispatch, _action, payload, setter),
     [dispatch, _action]
   )
 }
@@ -258,7 +266,7 @@ export const useSetState = (path: string) => {
 export const useGetState = (path: string) => {
   const store = useStore()
   // memoized getState callback
-  return useCallback((callable) => getState(store, path, callable), [
+  return useCallback((callable) => getState(path, store, callable), [
     path,
     store
   ])

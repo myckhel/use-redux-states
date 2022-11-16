@@ -1,11 +1,17 @@
 import { get, isArray } from 'lodash'
 import { SET_REDUX_STATE, STATE_NAME } from './constants'
 import libConfig from './config'
-import { Dispatch, ReducersMapObject, Store } from '@reduxjs/toolkit'
+import {
+  AnyAction,
+  Dispatch,
+  EnhancedStore,
+  ReducersMapObject
+} from '@reduxjs/toolkit'
 import {
   ReduxStateActionCreator,
   ReduxStateSetWithPath,
-  ReduxStateReducer
+  ReduxStateReducer,
+  ReduxStateSetter
 } from './types'
 
 /**
@@ -28,8 +34,11 @@ export const unique = () => new Date().getTime()
  * @param  {function} callback function that accepts selected state
  * @return {any}      redux state
  */
-export const getState = (store: Store, path: string, callback = sel) =>
-  callback(selector(store?.getState(), path))
+export const getState = (
+  path: string,
+  store: EnhancedStore<any, AnyAction, never[]> | undefined = libConfig.store,
+  callback = sel
+) => callback(selector(store?.getState(), path))
 
 /**
  * set state for the given state
@@ -38,10 +47,10 @@ export const getState = (store: Store, path: string, callback = sel) =>
  * @param  {any} payload value to set in the redux state
  * @param  {function} reducer function that recieve the current state and which should return new state
  */
-export const setState = <T>(
+export const setState = <S>(
   dispatch: Dispatch,
   action: ReduxStateActionCreator,
-  payload: T,
+  payload: ReduxStateSetter<S> | string | number | Object,
   reducer?: ReduxStateReducer
 ) => dispatch(action(payload, reducer))
 

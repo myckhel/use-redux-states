@@ -18,8 +18,11 @@ const { actions, reducer } = createSlice({
   name: STATE_NAME,
   initialState: INIT_STATE,
   reducers: {
-    // @ts-expect-error
-    setState: (state, { path, payload, reducer }: ReduxStateAction) => {
+    // @ts-ignore
+    setState: <S = any>(
+      state: any,
+      { path, payload, reducer }: ReduxStateAction<S>
+    ) => {
       setWith(
         state,
         path,

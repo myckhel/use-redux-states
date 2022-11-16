@@ -16,6 +16,7 @@ const store = configureStore({
     })
 })
 setConfig({
+  store,
   cleanup: true,
   setter: (existingState, payload) => {
     console.log('using custom setter for type ' + typeof state)

@@ -8,7 +8,8 @@ const config: ReduxStateConfig = {}
  * @param  {object} conf configuration onject
  * @return {array}      config keys
  */
-export const setConfig = (conf = { cleanup: true }) =>
-  Object.keys(conf).map((key) => (config[key] = conf[key]))
+export const setConfig = (
+  conf: Partial<ReduxStateConfig> = { cleanup: true }
+) => Object.keys(conf).map((key) => (config[key] = conf[key]))
 
 export default config
