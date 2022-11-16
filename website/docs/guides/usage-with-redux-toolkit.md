@@ -21,7 +21,7 @@ import {
 const appReducer = mergeReducers({ yourReducer1, yourReducer2 })
 
 const store = configureStore({
-  appReducer,
+  reducer: appReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
