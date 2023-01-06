@@ -222,8 +222,10 @@ export const useReduxState = <State = any>(
    * @return {any}      selected redux state
    */
   const useStateSelector = useCallback(
-    <S = any, Ret = State>(select?: StateSelector<S, Ret>, eq?: IsEqual): Ret =>
-      useMemoSelector<any, Ret>(_selector, select, eq),
+    <S = State, Ret = Partial<S>>(
+      select?: StateSelector<S, Ret>,
+      eq?: IsEqual
+    ): Ret => useMemoSelector<any, Ret>(_selector, select, eq),
     [_selector]
   )
 
