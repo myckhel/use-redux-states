@@ -30,7 +30,7 @@ import {
  * @param  {function} eq equality
  * @return {any}      selected redux state
  */
-export const useMemoSelector = <RootState = any, Selected = any>(
+export const useMemoSelector = <RootState = any, Selected = RootState>(
   selectorOrPath: StateSelectorPath,
   select = sel,
   eq = isEqual
