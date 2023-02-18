@@ -1,4 +1,4 @@
-import { Action, AnyAction, EnhancedStore } from '@reduxjs/toolkit'
+import { Action } from '@reduxjs/toolkit'
 import { Primitive } from 'lodash'
 
 export type ReduxStatePath = string
@@ -9,10 +9,10 @@ export type StateSelectorPath<S = any, Ret = any> =
   | ReduxStatePath
   | StateSelector<S, Ret>
 
-export interface ReduxStateConfig {
+export interface ReduxStateConfig<Store = any> {
   cleanup?: boolean
   setter?: (state: any, payload: any) => any
-  store?: EnhancedStore<any, AnyAction, never[]>
+  store?: Store
 }
 
 export type ReduxStateSetter<S = any, Ret = any> = (state: S) => Ret
