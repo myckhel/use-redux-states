@@ -268,8 +268,8 @@ export const useSetState = (path: string) => {
 export const useGetState = (path: string) => {
   const store = useStore()
   // memoized getState callback
-  return useCallback((callable) => getState(path, store, callable), [
-    path,
-    store
-  ])
+  return useCallback(
+    (selector?: (selected: any) => any) => getState(path, store, selector),
+    [path, store]
+  )
 }
