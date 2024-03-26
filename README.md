@@ -5,10 +5,16 @@
 [![NPM](https://img.shields.io/npm/v/use-redux-states.svg)](https://www.npmjs.com/package/use-redux-states) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) ![test workflow](https://github.com/myckhel/use-redux-states/actions/workflows/eslint.yml/badge.svg)
 
 ## Overview
-`use-redux-states` allows you to create runtime redux states for your components without explicitly creating actions and reducers.
+`use-redux-states`
+allows you to create runtime redux states for your components without explicitly creating actions and reducers.
 It was also designed to solve react's unnecessary re-render issue by using `useMemoSelector` api.
 
 It returns object which includes a setState function that uses same concept as react's class component `setState` function which accepts `callback(previous_state)` or new state value.
+
+### Benefits
+Simplification of Redux: The package seems to aim at simplifying the usage of Redux in React applications by providing custom hooks. This can be beneficial for developers who find Redux boilerplate cumbersome or complex.
+
+Custom Hooks: Custom hooks are a powerful feature in React that allow developers to extract and reuse logic across components. By encapsulating Redux-related logic within custom hooks, it can lead to cleaner and more maintainable code.
 
 ## Install
 
