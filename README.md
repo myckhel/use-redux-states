@@ -5,11 +5,10 @@
 [![NPM](https://img.shields.io/npm/v/use-redux-states.svg)](https://www.npmjs.com/package/use-redux-states) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) ![test workflow](https://github.com/myckhel/use-redux-states/actions/workflows/eslint.yml/badge.svg)
 
 ## Overview
-`use-redux-states`
-allows you to create runtime redux states for your components without explicitly creating actions and reducers.
-It was also designed to solve react's unnecessary re-render issue by using `useMemoSelector` api.
 
-It returns object which includes a setState function that uses same concept as react's class component `setState` function which accepts `callback(previous_state)` or new state value.
+`use-redux-states` provides a convenient solution for creating runtime Redux states in your components without the need for explicit action and reducer definitions. Additionally, it addresses React's unnecessary re-rendering issue through its `useMemoSelector` API.
+
+This package returns an object that includes a `setState` function, mirroring the functionality of React's class component `setState` method. This function accepts either a callback function with the previous state as an argument, or a new state value directly.
 
 ### Benefits
 Simplification of Redux: The package seems to aim at simplifying the usage of Redux in React applications by providing custom hooks. This can be beneficial for developers who find Redux boilerplate cumbersome or complex.
@@ -100,11 +99,15 @@ const App = () => {
 }
 ```
 
-### Controlling how initial state should be set
-When you use the `redux-state-hook` with a default state, under the hood it sets the initial state in the store with the given path.<br/>
-`redux-state-hook` has an intelligent setter function which determines how your state will be set based on the payload **(referring the initial state as the payload)**.
-When array is passed as the payload setter assumes you will append the payload with the current state array.<br />
-Given the example below the initial todos state has `[{done: false}, {done: true}, {done: false}]` value, setter will push to the existing array state if the payload is array otherwise will replace the state.
+### Customizing Initial State Setup
+
+When utilizing the `redux-state-hook` with a default state, it automatically establishes the initial state within the Redux store at the specified path.
+
+Under the hood, the `redux-state-hook` employs an intelligent setter function that dynamically determines how your state should be initialized based on the provided payload. In this context, the term "payload" refers to the initial state.
+
+If an array is passed as the payload, the setter function assumes you intend to append the payload to the existing state array. Conversely, if a non-array payload is provided, the setter function replaces the existing state entirely.
+
+For example, consider the initial `todos` state with the value `[{done: false}, {done: true}, {done: false}]`. In this scenario, if an array is passed as the payload, the setter will append the payload to the existing array state. Otherwise, it will replace the state entirely.
 
 ```js
 import React from 'react'
